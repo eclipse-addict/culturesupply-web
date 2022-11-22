@@ -1,10 +1,6 @@
 <template>
   <div id="app">
     <LayoutHeader/>
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/Sneakers">Sneakers</router-link>
-    </nav>
     <router-view/>
   <LayoutFooter/>
   </div>
@@ -20,6 +16,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
+
 
 </style>
