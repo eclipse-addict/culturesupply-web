@@ -1,22 +1,26 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-black fixed-top">
   <div class="container-fluid ">
     <img src="@/assets/logo.png" alt="" height=30 width=30 class="logo ms-2 me-1">
-    <a class="navbar-brand nav-mouse-over text-dark" @click="toHome">CultureSupply</a>
+    <a class="navbar-brand nav-mouse-over text-white" style="margin-left: 1rem;" @click="toHome">CultureSupply</a>
+    <div class='v-line'></div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav d-flex me-auto mb-0 mb-lg-0">
         <li class="nav-item mx-3 nav-mouse-over">
-          <a class="nav-link text-dark" aria-current="page" @click="toHome">Home</a>
+          <a class="nav-link text-white" aria-current="page" @click="toHome">Home</a>
         </li>
         <li class="nav-item mx-3 nav-mouse-over">
-          <a class="nav-link text-dark" @click="toSneakers">Sneakers</a>
+          <a class="nav-link text-white" @click="toSneakers">Sneakers</a>
         </li>
         <li class="nav-item mx-3 nav-mouse-over">
-          <a class="nav-link text-dark" >Raffles</a>
+          <a class="nav-link text-white" >Raffles</a>
+        </li>
+        <li class="nav-item mx-3 nav-mouse-over">
+          <a class="nav-link text-white" >Calender</a>
         </li>
         
         
@@ -30,6 +34,14 @@
           </ul>
         </li> -->
       </ul>
+
+      <ul class="d-flex mb-0 list-unstyled d-none d-sm-none d-md-block d-lg-block">
+        <img src="@/assets/images/instagram.png" alt="" height=20 width=20 class="logo ms-2 me-1 nav-mouse-over"> 
+      </ul>
+      <ul class="d-flex mb-0 list-unstyled d-none d-sm-none d-md-block d-lg-block">
+        <img src="@/assets/images/twitter.png" alt="" height=20 width=20 class="logo ms-2 me-1 nav-mouse-over">
+      </ul>
+
       <ul class="d-flex mb-0 list-unstyled ">
         <li class="nav-item mx-3" @click="toLogin" v-if="!this.$store.state.user_data.access_token"><button class="btn btn-primary" style="font-family: 'Ubuntu', sans-serif;">Get Started</button></li>
         <li class="nav-item dropdown" v-else>
@@ -100,5 +112,11 @@ export default {
   text-shadow: 0.5px 1px #bfc0c0;
   /* background-color: rgb(241, 236, 229); */
  }
+  .v-line {
 
+    border-left : thin solid #c6c8c9;
+    margin-left: 1rem;
+    height : 27px;
+
+  }
 </style>

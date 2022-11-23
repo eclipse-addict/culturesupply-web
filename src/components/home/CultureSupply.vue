@@ -4,7 +4,7 @@
     <div class="col-md-6 col-sm-12 mt-auto mb-auto main-font">
       <p class="brand-name d-none d-md-block">{{main_product.brand}}</p>
       <h1 class="d-none d-md-block d-xl-none main-header">{{main_product.name}}</h1>
-     <div class="d-none d-sm-block">
+     <div class="d-none d-sm-block d-lg-none d-md-none">
         <h5 style="color:white; font-size:30px;">{{main_product.name}}</h5>
       </div> 
       <span class="d-none d-lg-block main-desc">{{main_product.description | desc_shortener}}</span>
@@ -16,7 +16,7 @@
       <v-btn
         class="ma-2"
         outlined
-        color="indigo"
+        color="white"
         x-large
       >
       Take me to Detail

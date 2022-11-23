@@ -1,22 +1,26 @@
 <template>
   <v-app>
     <HeaderMenu/>
+    <!-- <v-app-bar app>
+    </v-app-bar> -->
     <v-main>
-      <router-view/>
+      <!-- <v-container fluid> -->
+        <router-view/>
+      <!-- </v-container> -->
     </v-main>
     <FooterMenu/>
   </v-app>
 </template>
 
 <script>
-import HeaderMenu from '@/components/layouts/LayoutHeader.vue'
-import FooterMenu from '@/components/layouts/LayoutFooter.vue'
+import HeaderMenu from "@/components/layouts/LayoutHeader.vue";
+import FooterMenu from "@/components/layouts/LayoutFooter.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HeaderMenu,
-    FooterMenu
+    FooterMenu,
   },
   data: () => ({
     //

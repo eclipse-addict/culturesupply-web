@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-main>
+    <v-main class="sneaker-main">
       <v-container>
         <SneakersCarousel/>
         <v-row>
@@ -35,3 +35,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.sneaker-main{
+  background-color: rgb(239, 239, 239);
+}
+</style>
