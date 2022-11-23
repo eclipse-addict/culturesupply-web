@@ -1,22 +1,22 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg">
+  <div class="container-fluid ">
     <img src="@/assets/logo.png" alt="" height=30 width=30 class="logo ms-2 me-1">
-    <a class="navbar-brand nav-mouse-over" @click="toHome">CultureSupply</a>
+    <a class="navbar-brand nav-mouse-over text-dark" @click="toHome">CultureSupply</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav d-flex me-auto mb-0 mb-lg-0">
         <li class="nav-item mx-3 nav-mouse-over">
-          <a class="nav-link " aria-current="page" @click="toHome">Home</a>
+          <a class="nav-link text-dark" aria-current="page" @click="toHome">Home</a>
         </li>
         <li class="nav-item mx-3 nav-mouse-over">
-          <a class="nav-link " @click="toSneakers">Sneakers</a>
+          <a class="nav-link text-dark" @click="toSneakers">Sneakers</a>
         </li>
         <li class="nav-item mx-3 nav-mouse-over">
-          <a class="nav-link" >Raffles</a>
+          <a class="nav-link text-dark" >Raffles</a>
         </li>
         
         
