@@ -1,8 +1,6 @@
 <template>
-<div class="container show-grid" style="margin-top: 6.5rem;}">
-  <div class="text-center mb-16 pb-4 border-bottom">
-  <h1 class="main-header">Hottest kicks in'</h1>
-  </div>
+<div class="container show-grid" style="margin-top: 6.5rem;
+}">
   <div class="row h-100 border-bottom pb-5" v-show="main_product">
     <div class="col-md-6 col-sm-12 mt-auto mb-auto main-font">
       <p class="brand-name d-none d-md-block">{{main_product?.brand}}</p>
@@ -24,7 +22,6 @@
         outlined
         color="black"
         x-large
-        @click="toDetail(main_product?.id)"
       >
       Take me to Detail
       </v-btn>
@@ -56,14 +53,11 @@ export default {
         url: 'http://127.0.0.1:8000/api/img/main/',
       }).then(res => {
         console.log('main_image_fatch res: ', res.data);
-        this.main_product = res.data[1]
+        this.main_product = res.data[0]
         console.log('main_product', this.main_product)
       }).catch(err => {
         console.log('main_image_fatch err: ', err);
       })
-    },
-    toDetail(id){
-      this.$router.push({name:'detail',params: {id}})
     },
   },
   computed : {

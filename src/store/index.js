@@ -13,16 +13,19 @@ export default new Vuex.Store({
     createPersistedState(),
   ],
   state: {
+    isLoading : false,
     user_data : {
       email: null,
       pk : null,
       access_token : null,
       refresh_token : null,
-    }
+    },
 
   },
   getters: {
-
+    // getLoadingState(state) {
+    //   return state.isLoading
+    // }
   },
   mutations: {
     SET_USER_TOKEN(state, payload){
@@ -43,7 +46,11 @@ export default new Vuex.Store({
       state.user_data.pk = null
 
       window.localStorage.removeItem('user');
-    }
+    },
+
+    SET_LOADING_STATE(state, payload){
+      state.isLoading = payload
+    },
   },
     
   actions: {
@@ -84,6 +91,10 @@ export default new Vuex.Store({
       }).catch(err =>{
         console.log('logout request error: ', err);
       })
+    },
+    setLoading(context){
+      console.log('callll')
+      context.commit('SET_LOADING_STATE', false);
     },
 
   },

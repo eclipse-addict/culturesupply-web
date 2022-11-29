@@ -1,9 +1,13 @@
 /* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NProgress from 'nprogress';
+
 import HomeView from '../views/HomeView.vue'
 import  store  from "@/store/index.js";
 
+import '../../node_modules/nprogress/nprogress.css'
+import '@/assets/css/progress.css';
 
 Vue.use(VueRouter)
 
@@ -17,6 +21,11 @@ const routes = [
     path: '/sneakers',
     name: 'sneakers', 
     component: () => import('../views/SneakerView.vue')
+  },
+  {
+    path: '/sneakers/:id',
+    name: 'detail', 
+    component: () => import('../views/SneakerDetailView.vue')
   },
   {
     path: '/login',
@@ -44,28 +53,27 @@ const router = new VueRouter({
   routes
 })
 
+
 router.beforeEach((to, from, next) => {
-  console.log('from',from)
-  console.log('to',to)
-  console.log('next', next)
+  if (to.name) {
+    // console.log('router.beforeEach'  )
+    // store.commit('SET_LOADING_STATE', true);
+    NProgress.start()
+    }
+    next()
+})
 
-  const authRequired = ['create',]
-
-  // if (to.path != "/login") { // 로그인을 제외한 요청이 들어왔을 때 
-  //   console.log('to.path != "/login"', to.path != "/login")
-  //   if (store.getters.authentificate) { // 로그인 된 유저라면 ? 
-  //     next(); // 요청한 페이지로 랜더링 
-  //   } else { // 로그인 되있는 사용자가 아니라면 ? 
-  //     if(to.path == "/agreement") {
-  //       next();
-  //     }else{
-  //       next("/login");
-  //     }
-  //   }
-  // } else {
-    next();
-  // }
+router.beforeResolve((to, from, next) => {
+  next()
 });
+
+router.afterEach((to, from) => {
+  console.log('router.afterEach')
+  NProgress.done()
+  store.commit('SET_LOADING_STATE', false);
+})
+
+
 // NavigationDuplicated Error Handler
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {

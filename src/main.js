@@ -7,7 +7,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-
+import '../node_modules/nprogress/nprogress.css'
+import "@/fontAwesomeIcon.js";
 
 Vue.config.productionTip = false
 

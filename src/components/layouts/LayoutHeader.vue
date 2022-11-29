@@ -1,10 +1,10 @@
 <template>
-  <div>
+  
     <nav class="navbar navbar-dark navbar-expand-lg bg-black fixed-top">
-  <div class="container-fluid ">
+  <div class="container-fluid header-font">
     <img src="@/assets/logo.png" alt="" height=30 width=30 class="logo ms-2 me-1">
-    <a class="navbar-brand nav-mouse-over text-white" style="margin-left: 1rem;" @click="toHome">CultureSupply</a>
-    <div class='v-line'></div>
+    <a class="navbar-brand nav-mouse-over text-white font-weight-bolder" style="margin-left: 1rem;" @click="toHome">KickIn</a>
+    <div class='v-line d-none d-md-block d-xl-block d-xxl-block'></div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -66,7 +66,7 @@
     </div>
   </div>
 </nav>
-  </div>
+
 </template>
 
 <script>
@@ -79,14 +79,20 @@ export default {
   },
   methods: {
     toHome(){
-      //TODO: 현재 위치한 페이지 볼드 처리 . 
-      this.$router.push({name:'home'})
+      //TODO: 현재 위치한 페이지 볼드 처리 .
+      this.$store.dispatch('setLoading').then(
+        this.$router.push({name:'home'})
+      )
     },
     toSneakers(){
-      this.$router.push({name:'sneakers'})
+      this.$store.dispatch('setLoading').then(
+        this.$router.push({name:'sneakers'})
+      )
     },
     toLogin(){
-      this.$router.push({name:'login'})
+      this.$store.dispatch('setLoading').then(
+        this.$router.push({name:'login'})
+      )
     },
     signoutRequest(){
       this.$store.dispatch("signoutRequest")
@@ -104,7 +110,7 @@ export default {
 </script>
 
 <style scoped>
-
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 .nav-mouse-over {
   cursor: pointer;
  }
@@ -113,10 +119,13 @@ export default {
   /* background-color: rgb(241, 236, 229); */
  }
   .v-line {
-
     border-left : thin solid #c6c8c9;
     margin-left: 1rem;
     height : 27px;
-
+  }
+  .header-font{
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
   }
 </style>
