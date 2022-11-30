@@ -21,7 +21,7 @@
           <a class="nav-link text-white" >Raffles</a>
         </li>
         <li class="nav-item mx-3 nav-mouse-over">
-          <a class="nav-link text-white" >Calender</a>
+          <a class="nav-link text-white" @click="toCalendar">Calender</a>
         </li>
         
         
@@ -89,6 +89,11 @@ export default {
     toSneakers(){
       this.$store.dispatch('setLoading').then(
         this.$router.push({name:'sneakers'})
+      )
+    },
+    toCalendar(){
+      this.$store.dispatch('setLoading').then(
+        this.$router.push({name:'calendar'})
       )
     },
     toLogin(){

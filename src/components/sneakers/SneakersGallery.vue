@@ -1,5 +1,8 @@
 <template>
-  <div class="mt-sm-0 container row d-flex justify-content-around mt-16" id="main">
+  <div
+    class="mt-sm-0 container row d-flex justify-content-around mt-16"
+    id="main"
+  >
     <!-- <div class="input-group mb-3 mt-16" v-show="kicks">
       <button type="button" class="btn btn-outline-secondary">Action</button>
       <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -17,36 +20,78 @@
 
     <div
       class="card mt-13"
-      style="width: 25rem;"
+      style="width: 25rem"
       v-for="k in kicks"
       :key="k.id"
       v-scroll:#main="infinityScrollHandler"
     >
-     
-    <!-- <img :src="`${k.local_imageUrl ? k.local_imageUrl : k.imageUrl}`" class="card-img-top"  -->
-      <img :src="k.local_imageUrl" class="card-img-top" alt="Not Found" style="margin-top: 1rem;"/>
-      <div class="card-body">
-        <h6 class="card-title">{{ k.brand }}</h6>
-        <h5 class="card-title">{{ k.name }}</h5>
-        <!-- <p class="card-text">{{k.description | desc_shortener}}</p> -->
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <span class="strong-text">retail : </span >
-          {{ k.retailPrice }}
-          </li>
-        <li class="list-group-item">
-          <span class="strong-text">Estimated Market Price : </span >
-          {{ k.estimatedMarketValue }}
-          </li>
-        <li class="list-group-item">{{k.releaseDate}}</li>
-      </ul>
-      <div class="card-body">
-        <v-btn class="ma-2" outlined color="black" small @click="toDetail(k?.id)">Take me to Detail</v-btn>
-      </div>
+      <v-hover v-slot="{ hover }">
+        <v-card class="mx-auto" color="grey lighten-4" max-width="600" min-height="455" min-width="370">
+          <v-img :aspect-ratio="16 / 9" :src="k.local_imageUrl">
+            <v-expand-transition>
+              <div
+                v-if="hover"
+                class="
+                  d-flex
+                  transition-fast-in-fast-out
+                  blue-grey
+                  lighten-4
+                  v-card--reveal
+                  text-h2
+                  black--text
+                "
+                style="height: 100%"
+              >
+                <div class="ma-5">
+                  <span style="font-size:30px;">retail : {{k.retailPrice}}</span>
+                </div>
+                <div class="ma-4">
+                  <span style="font-size:30px;">expected : {{k.estimatedMarketValue}}</span>
+                </div>
+              </div>
+            </v-expand-transition>
+          </v-img>
+          <v-card-text class="pt-6" style="position: relative">
+            <v-btn
+              absolute
+              color="blue-grey"
+              class="white--text"
+              fab
+              large
+              right
+              top
+              @click="toDetail(k?.id)"
+            >
+              <v-icon >read_more</v-icon>
+            </v-btn>
+            <div class="font-weight-light grey--text text-h6 mb-2">
+              {{k.brand}}
+            </div>
+            <h5 class="text-h5 font-weight-heavy black--text mb-2">
+              {{k.name}}
+            </h5>
+            <div class="font-weight-light text-h6 mb-2">
+              {{k.releaseDate}}
+            </div>
+            <v-rating
+            :value="4"
+            dense
+            color="orange"
+            background-color="orange"
+            hover
+            class="mr-2"
+          ></v-rating>
+          <span class="primary--text text-subtitle-2">64 Reviews</span>
+          </v-card-text>
+        </v-card>
+      </v-hover>
+
+      <!-- spiral waveDots -->
     </div>
-    <!-- spiral waveDots -->
-  <infinite-loading @infinite="fetch_kicks" spinner="waveDots"></infinite-loading>
+    <infinite-loading
+      @infinite="fetch_kicks"
+      spinner="waveDots"
+    ></infinite-loading>
   </div>
 </template>
 
@@ -64,26 +109,25 @@ export default {
     };
   },
   components: {
-    InfiniteLoading
+    InfiniteLoading,
   },
-  methods: {   
-    toDetail(id){
-      this.$router.push({name:'detail',params: {id}})
+  methods: {
+    toDetail(id) {
+      this.$router.push({ name: "detail", params: { id } });
     },
     fetch_kicks($state) {
-      this.page += 1
+      this.page += 1;
       axios({
         method: "GET",
         url: "http://127.0.0.1:8000/api/sneaker/",
-        params: { 'page': this.page,
-                  'limit': this.limit},
+        params: { page: this.page, limit: this.limit },
       })
         .then((res) => {
           setTimeout(() => {
-            if(res.data.length){
-              if(this.page == 1){
+            if (res.data.length) {
+              if (this.page == 1) {
                 this.kicks = res.data;
-              }else {
+              } else {
                 // const result = this.kicks.slice(-10).filter(item => {
                 //   let flag = true;
                 //   res.data.forEach(element => {
@@ -93,53 +137,59 @@ export default {
                 //   });
                 //   return flag;
                 // })
-                for(let i=0; i< res.data.length; i++){
-                  if(!JSON.stringify(this.kicks).includes(JSON.stringify(res.data[i]))){
-                    console.log(JSON.stringify(this.kicks).includes(JSON.stringify(res.data[i])))
-                    this.kicks.push(res.data[i])
-                    }
+                for (let i = 0; i < res.data.length; i++) {
+                  if (
+                    !JSON.stringify(this.kicks).includes(
+                      JSON.stringify(res.data[i])
+                    )
+                  ) {
+                    console.log(
+                      JSON.stringify(this.kicks).includes(
+                        JSON.stringify(res.data[i])
+                      )
+                    );
+                    this.kicks.push(res.data[i]);
+                  }
                 }
               }
 
               // this.kicks = new Set(this.kicks)
               $state.loaded();
-            }else{
-              $state.complete()
+            } else {
+              $state.complete();
             }
-          }, 1000)
+          }, 100);
         })
         .catch((err) => {
-          console.log(err); 
+          console.log(err);
         });
     },
 
-
-    infinityScrollHandler(e){
-      console.log(e)
+    infinityScrollHandler(e) {
+      console.log(e);
       const { scrollHeight, scrollTop, clientHeight } = e.target;
       const bottomCheck = scrollHeight === scrollTop + clientHeight;
-      if(bottomCheck){this.fetch_kicks()}
+      if (bottomCheck) {
+        this.fetch_kicks();
+      }
     },
-
   },
   created() {
     this.fetch_kicks();
   },
-  computed : {
-
-  },
-     filters:{
-    desc_shortener(desc){
-      if (desc){
-        return desc.substring(0, 100) + '...'
+  computed: {},
+  filters: {
+    desc_shortener(desc) {
+      if (desc) {
+        return desc.substring(0, 100) + "...";
       }
-    }
-   },
+    },
+  },
 };
 </script>
 
 <style scoped>
-.strong-text{
+.strong-text {
   font-weight: bolder;
 }
 </style>
