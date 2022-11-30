@@ -1,5 +1,6 @@
 <template>
-  
+  <!-- <v-app-bar> -->
+
     <nav class="navbar navbar-dark navbar-expand-lg bg-black fixed-top">
   <div class="container-fluid header-font">
     <img src="@/assets/logo.png" alt="" height=30 width=30 class="logo ms-2 me-1">
@@ -34,7 +35,7 @@
           </ul>
         </li> -->
       </ul>
-
+      <input type="text" name="keyword" id="searchBox" class="searchBox" placeholder="  Search" @keyup.enter="searchKeyword()" v-model="keyword">
       <ul class="d-flex mb-0 list-unstyled d-none d-sm-none d-md-block d-lg-block">
         <img src="@/assets/images/instagram.png" alt="" height=20 width=20 class="logo ms-2 me-1 nav-mouse-over"> 
       </ul>
@@ -67,6 +68,7 @@
   </div>
 </nav>
 
+<!-- </v-app-bar>   -->
 </template>
 
 <script>
@@ -74,7 +76,7 @@ export default {
   name: 'HeaderComponent',
   data (){
     return {
-
+      keyword: null,
     }
   },
   methods: {
@@ -100,6 +102,10 @@ export default {
       },
     toProfile(){
       // this.$router.push({name:'profile'})
+    },
+    searchKeyword(){
+      console.log('search', this.keyword )
+      this.keyword = '';
     }
 
   },
@@ -127,5 +133,11 @@ export default {
     /* font-family: 'Poppins', sans-serif; */
     font-family: 'Quicksand', sans-serif;
     font-weight: 100;
+  }
+  .searchBox{ 
+    background-color: #e2e2e2;
+    border-radius: 30px;
+    margin : 7px 0px auto 0px ;
+
   }
 </style>

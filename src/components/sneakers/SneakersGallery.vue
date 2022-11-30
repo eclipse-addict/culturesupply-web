@@ -1,5 +1,20 @@
 <template>
   <div class="mt-sm-0 container row d-flex justify-content-around mt-16" id="main">
+    <!-- <div class="input-group mb-3 mt-16" v-show="kicks">
+      <button type="button" class="btn btn-outline-secondary">Action</button>
+      <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Separated link</a></li>
+      </ul>
+      <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+    </div> -->
+
     <div
       class="card mt-13"
       style="width: 25rem;"
@@ -13,7 +28,7 @@
       <div class="card-body">
         <h6 class="card-title">{{ k.brand }}</h6>
         <h5 class="card-title">{{ k.name }}</h5>
-        <p class="card-text">{{k.description | desc_shortener}}</p>
+        <!-- <p class="card-text">{{k.description | desc_shortener}}</p> -->
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
@@ -27,8 +42,7 @@
         <li class="list-group-item">{{k.releaseDate}}</li>
       </ul>
       <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        <v-btn class="ma-2" outlined color="black" small @click="toDetail(k?.id)">Take me to Detail</v-btn>
       </div>
     </div>
     <!-- spiral waveDots -->
@@ -52,7 +66,10 @@ export default {
   components: {
     InfiniteLoading
   },
-  methods: {
+  methods: {   
+    toDetail(id){
+      this.$router.push({name:'detail',params: {id}})
+    },
     fetch_kicks($state) {
       this.page += 1
       axios({

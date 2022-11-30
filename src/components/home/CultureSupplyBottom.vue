@@ -8,7 +8,7 @@
      <div class="">
         <h5 style=" font-size:30px;">{{main_product?.name}}</h5>
         <div class="mt-4">
-        <v-btn class="ma-2" outlined color="black" small>Take me to Detail</v-btn>
+        <v-btn class="ma-2" outlined color="black" small @click="toDetail(main_product?.id)">Take me to Detail</v-btn>
         </div>
       </div> 
       <!-- <span class="d-none d-lg-block main-desc">{{main_product.description | desc_shortener}}</span> -->
@@ -22,6 +22,7 @@
         outlined
         color="black"
         x-large
+        @click="toDetail(main_product?.id)"
       >
       Take me to Detail
       </v-btn>
@@ -58,6 +59,9 @@ export default {
       }).catch(err => {
         console.log('main_image_fatch err: ', err);
       })
+    },
+    toDetail(id){
+      this.$router.push({name:'detail',params: {id}})
     },
   },
   computed : {
