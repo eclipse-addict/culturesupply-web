@@ -13,18 +13,30 @@
     </v-flex>
 
     <v-flex sm4 xs12 class="text-sm-left text-xs-center">
-      <v-btn @click="$refs.calendar.prev()">
-        <v-icon dark left> keyboard_arrow_left </v-icon>
-        Prev
+      <v-btn
+        @click="$refs.calendar.prev()"
+        class="ma-2"
+        outlined
+        small
+        fab
+        color="indigo"
+      >
+        <v-icon dark > keyboard_arrow_left </v-icon>
       </v-btn>
     </v-flex>
     <v-flex sm4 xs12 class="text-xs-center">
       <v-select v-model="type" :items="typeOptions" label="Type"></v-select>
     </v-flex>
     <v-flex sm4 xs12 class="text-sm-right text-xs-center">
-      <v-btn @click="$refs.calendar.next()">
-        Next
-        <v-icon right dark> keyboard_arrow_right </v-icon>
+      <v-btn
+        @click="$refs.calendar.next()"
+        class="ma-2"
+        outlined
+        small
+        fab
+        color="indigo"
+      >
+        <v-icon dark large> keyboard_arrow_right </v-icon>
       </v-btn>
     </v-flex>
   </v-layout>
@@ -34,15 +46,13 @@
 export default {
   data: () => ({
     type: "month",
-    start: "2019-01-01",
-    end: "2019-01-06",
+    start: "2022-12-01",
+    end: "2200-01-06",
     typeOptions: [
       { text: "Day", value: "day" },
       { text: "4 Day", value: "4day" },
       { text: "Week", value: "week" },
       { text: "Month", value: "month" },
-      { text: "Custom Daily", value: "custom-daily" },
-      { text: "Custom Weekly", value: "custom-weekly" },
     ],
   }),
 };
