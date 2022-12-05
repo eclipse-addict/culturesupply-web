@@ -47,7 +47,7 @@
         <li class="nav-item mx-3" @click="toLogin" v-if="!this.$store.state.user_data.access_token"><button class="btn btn-primary" style="font-family: 'Ubuntu', sans-serif;">Get Started</button></li>
         <li class="nav-item dropdown" v-else>
           <a class="nav-link dropdown-toggle nav-mouse-over ms-3 mt-1" @click="toProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-             {{this.$store.state.user_data.email}}
+            {{this.$store.state.user_data.email}}
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item nav-mouse-over" >Profile</a></li>
@@ -88,7 +88,12 @@ export default {
     },
     toSneakers(){
       this.$store.dispatch('setLoading').then(
-        this.$router.push({name:'sneakers'})
+        this.$router.push({name:'sneakers', 
+                          query: {
+                            keyword: '',
+                            brand: 'All',
+                            gender: 'All',
+                          }})
       )
     },
     toCalendar(){

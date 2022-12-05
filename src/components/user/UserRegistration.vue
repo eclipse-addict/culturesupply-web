@@ -272,7 +272,7 @@
                   @input="checkPassword"
                 />
                 <div class="validator" v-show="passwordCheck">
-                  비밀번호는 8글자 이상 입력되어야 합니다.
+                  영문, 숫자, 특수문자를 조합하여 입력해주세요.(8-16자)
                 </div>
               </div>
               <hr class="my-4" />
@@ -281,19 +281,19 @@
               <hr class="my-4" />
               <div class="col-12">
               <label for="gender" class="form-label">Gender <span class="text-muted"></span></label>
-              <v-select :items="['Male', 'Female']" label="Gender" id="gender"></v-select>
+              <v-select :items="['Male', 'Female']" label="Gender" id="gender" v-model="gender"></v-select>
               </div>
               <div class="col-12">
               <label for="shoeSize" class="form-label">Pick your Shoe size <span class="text-muted"></span></label>
-              <v-select :items="shoeSize" label="shoe Size" id="shoeSize"></v-select>
+              <v-select :items="shoeSize" label="shoe Size" id="shoeSize" v-model="pickedShoeSize"></v-select>
               </div>
               <div class="col-12">
               <label for="topSize" class="form-label">Pick your top size <span class="text-muted"></span></label>
-              <v-select :items="topSize" label="top Size" id="topSize"></v-select>
+              <v-select :items="topSize" label="top Size" id="topSize" v-model="pickedTopSize"></v-select>
               </div>
               <div class="col-12">
               <label for="bottomSize" class="form-label">Pick your bottom size <span class="text-muted"></span></label>
-              <v-select :items="bottomSize" label="bottom Size" id="bottomSize"></v-select>
+              <v-select :items="bottomSize" label="bottom Size" id="bottomSize" v-model="pickeBottomSize"></v-select>
               </div>
               <hr class="my-4" />
 
@@ -472,7 +472,8 @@ export default {
   name: "userRegisterForm",
   data() {
     return {
-      shoeSize : ['200','210'],
+      shoeSize : ['200','205','210','215','220','225','230','235','240','245','250',
+      '255','260','265','270','275','280','285','290','295','300','310','315','320'],
       topSize : ['XXS','XS','S','M','L','XL','XXL'],
       bottomSize : ['XXS','XS','S','M','L','XL','XXL'],
       alert: false,
@@ -512,7 +513,7 @@ export default {
   methods: {
     checkPassword() {
       const password = this.password;
-      if (password.trim().length < 8) {
+      if (!/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/.test(password)) {
         this.passwordCheck = true;
         this.password_is_valid = false;
       } else {
@@ -600,6 +601,9 @@ export default {
       })
       .then(res => {
         console.log(res.status);
+        if (res.status == 201){
+          this.$router.push({name:'login'})
+        }
       })
       // .then(() => this.$routet = {name:'home'});
     },
@@ -650,10 +654,24 @@ export default {
               const last_name = this.lastName
               const first_name = this.firstName
               const nick_name = this.nickName
+              const gender = this.gender
+              const shoeSize = this.pickedShoeSize
+              const topSize = this.pickedTopSize
+              const bottomSize = this.pickeBottomSize
+
+              const zipCode = this.postcode
+              const address = this.address + this.extraAddress
+
               const payload2 = {
                 last_name,
                 first_name,
                 nick_name,
+                gender,
+                shoeSize,
+                topSize,     
+                bottomSize,
+                zipCode,
+                address,
               }
 
               this.userInfo_create(pk, token, payload2)

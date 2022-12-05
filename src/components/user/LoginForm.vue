@@ -1,9 +1,10 @@
 <template>
-    <div class="container w-50 mt-4 ">
+<div>
+    <div class="container w-100 mt-15">
       <div v-show="isFailed" class="text-white alert w-100 text-start" style="background-color: #e91300;" role="alert">
         Invalid Login or password
       </div>
-      <p class="display-6 fw-bold text-center">CultureSupply</p>
+      <p class="display-6 fw-bold text-center">KickIn</p>
       <hr/>
       <div class="fw-bold text-center form-control border-bottom-0 rounded-top rounded-0 p-3">Sign in</div>
       <div class="border border-primary"></div>
@@ -33,7 +34,7 @@
           <button @click="signinRequest" class="btn btn-outline-success w-100" type="button">
             Sign in
           </button>
-          <button @click="toAgreement" class="btn btn-outline-success w-100 mt-1" type="button">
+          <button @click="toAgreement" class="btn btn-outline-success w-100 mt-1 mb-4" type="button">
             Sign up
           </button>
           <span class="row d-flex btn-group-vertical  justify-content-center align-content-center">
@@ -45,6 +46,7 @@
         </form>
       </div>
     </div>
+</div>
 </template>
 
 <script>

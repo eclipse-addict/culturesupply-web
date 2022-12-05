@@ -91,13 +91,14 @@
     <infinite-loading
       @infinite="fetch_kicks"
       spinner="waveDots"
+      ref="infiniteLoading"
     ></infinite-loading>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import InfiniteLoading from "vue-infinite-loading";
+import infiniteLoading from "vue-infinite-loading";
 
 export default {
   name: "sneakersGallery",
@@ -108,19 +109,42 @@ export default {
       limit: 20,
     };
   },
+  props:{
+    url : String,
+    searchCondition: {
+      keyword : '',
+      gender : '',
+      brand: '',
+    },
+  },
   components: {
-    InfiniteLoading,
+    infiniteLoading,
   },
   methods: {
     toDetail(id) {
       this.$router.push({ name: "detail", params: { id } });
     },
     fetch_kicks($state) {
+      
+      const keyword = this.$route.query.keyword;
+      const brand = this.$route.query.brand;
+      const gender = this.$route.query.gender;
+      
       this.page += 1;
+      let page = this.page
+      let limit = this.limit
+      let params = {
+        page,
+        limit,
+        keyword,
+        brand,
+        gender,
+      }
+
       axios({
         method: "GET",
         url: "http://127.0.0.1:8000/api/sneaker/",
-        params: { page: this.page, limit: this.limit },
+        params: params,
       })
         .then((res) => {
           setTimeout(() => {
@@ -128,15 +152,6 @@ export default {
               if (this.page == 1) {
                 this.kicks = res.data;
               } else {
-                // const result = this.kicks.slice(-10).filter(item => {
-                //   let flag = true;
-                //   res.data.forEach(element => {
-                //     if(item.id === element.id){
-                //       flag = false;
-                //     }
-                //   });
-                //   return flag;
-                // })
                 for (let i = 0; i < res.data.length; i++) {
                   if (
                     !JSON.stringify(this.kicks).includes(
@@ -164,6 +179,43 @@ export default {
           console.log(err);
         });
     },
+    search_kicks($state) {
+      const keyword = this.$route.query.keyword;
+      const brand = this.$route.query.brand;
+      const gender = this.$route.query.gender;
+      // console.log('status : ', infiniteLoading)
+      // infiniteLoading.data().status = 0
+      this.$refs.infiniteLoading.stateChanger.reset(); 
+      this.page = 1;
+      this.kicks = []
+      let page = this.page
+      let limit = this.limit
+      let params = {
+        page,
+        limit,
+        keyword,
+        brand,
+        gender,
+      }
+      axios({
+        method: "GET",
+        url: "http://127.0.0.1:8000/api/sneaker/",
+        params: params,
+      })
+        .then((res) => {
+          if(res.data){
+            console.log('res: ' + res.data)
+            this.kicks = res.data
+            $state.loaded();
+          }else{
+            $state.complete();
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
     infinityScrollHandler(e) {
       console.log(e);
@@ -177,7 +229,9 @@ export default {
   created() {
     this.fetch_kicks();
   },
-  computed: {},
+  computed: {
+
+  },
   filters: {
     desc_shortener(desc) {
       if (desc) {

@@ -18,19 +18,22 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/sneakers',
+    path: '/sneakers/:keyword/:brand/:gender',
     name: 'sneakers', 
-    component: () => import('../views/SneakerView.vue')
-  },
-  {
-    path: '/calendar',
-    name: 'calendar', 
-    component: () => import('../views/CalendarView.vue')
+    component: () => import('../views/SneakerView.vue'),
+    meta:{
+      reload: true
+    },
   },
   {
     path: '/sneakers/:id',
     name: 'detail', 
     component: () => import('../views/SneakerDetailView.vue')
+  },
+  {
+    path: '/calendar',
+    name: 'calendar', 
+    component: () => import('../views/CalendarView.vue')
   },
   {
     path: '/login',

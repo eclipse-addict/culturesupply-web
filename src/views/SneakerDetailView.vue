@@ -4,6 +4,7 @@
       <v-container fluid class="w-100" >
           <!-- <productDetail :kick=kick></productDetail> -->
           <productDetailBody :kick=kick></productDetailBody>
+          <productReview></productReview>
       </v-container>
     </v-main>
   </v-app>
@@ -13,11 +14,11 @@
 <script>
 import axios from 'axios'
 
-// import productDetail from '@/components/sneakers/ProductDetail.vue'
+import productReview from '@/components/sneakers/ProductReviewForm.vue'
 import productDetailBody from '@/components/sneakers/ProductDetailBody.vue'
 export default {
 components: {
-  // productDetail,
+  productReview,
   productDetailBody,
 },
 data() {
