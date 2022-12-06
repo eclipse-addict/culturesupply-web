@@ -82,19 +82,22 @@ export default {
   methods: {
     toHome(){
       //TODO: 현재 위치한 페이지 볼드 처리 .
-      this.$store.dispatch('setLoading').then(
+      // this.$store.dispatch('setLoading', true)
         this.$router.push({name:'home'})
-      )
+      
     },
     toSneakers(){
-      this.$store.dispatch('setLoading').then(
-        this.$router.push({name:'sneakers', 
-                          query: {
-                            keyword: '',
-                            brand: 'All',
-                            gender: 'All',
-                          }})
-      )
+      // this.$store.dispatch('setLoading', true)
+      this.$router.push({name:'sneakers', 
+                        query: {
+                          keyword: '',
+                          brand: 'All',
+                          gender: 'All',
+                        }})
+                        // .then(()=> {
+                        //   console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                        //   this.$store.dispatch('setLoading', false)
+                        //   })
     },
     toCalendar(){
       this.$store.dispatch('setLoading').then(

@@ -1,5 +1,6 @@
 <template>
-    <v-container class="mt-5 pt-5 shadow" style="background-color:white;">
+<v-main>
+    <v-container class="mt-5 pt-5 shadow" style="background-color:white;" v-if="this.$store.state.user_data.access_token">
       <star-rating class="ml-2" :star-size="20" active-color="#000040"  :show-rating="false" v-model="rating"></star-rating>
       <v-textarea
         append-outer-icon="mdi-comment"
@@ -13,7 +14,15 @@
         @keyup.enter="create_comment"
       ></v-textarea>
     </v-container>
-
+    <v-container v-else>
+      <div class="text-center mt-6">
+      <h5>리뷰를 작성하려면 로그인 해주세요!</h5>
+      <v-btn color="#D6E4E5" @click="toLogin">
+        로그인하러 가기
+      </v-btn>
+      </div>
+    </v-container>
+</v-main>
 </template>
 
 <script>
@@ -43,9 +52,14 @@ export default {
       console.log('aadfasdfasd', this.rating)
       this.comment = ''
       this.rating = 0
-    }
+    },
+    toLogin(){
+      console.log('pk: ',this.$props.kick.id)
+      this.$store.dispatch('setLoading').then(
+        this.$router.push({name:'login', query: {next : this.$props.kick.id}})
+      )
+    },
   }
-
 }
 </script>
 

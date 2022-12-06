@@ -85,7 +85,15 @@ export default {
       }).then(res => {
         console.log('login request', res.data);
         this.$store.dispatch('signinRequest', res.data)
-        .then(() => this.$router.push({name:'home'}))
+        .then(() => {
+          const id =this.$route.query.next
+          console.log('login id', id)
+          if(id){
+            this.$router.push({ name: "detail", params: { id } });
+          }else{
+            this.$router.push({name:'home'})}
+          }
+        )
       }).catch(err =>{
         this.isFailed = true; // 로그인 실패 메세지 출력 
         console.log('login request error', err);

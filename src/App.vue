@@ -6,8 +6,8 @@
     <v-main>
       <!-- <v-container fluid> -->
       <transition name="fade">
-      <loadingImg v-if="this.isLoading"/>
-      <router-view v-else/>
+      <loadingImg v-if="this.$store.state.isLoading"/>
+      <router-view :key="$route.fullPath" v-else/>
       </transition>
       <!-- </v-container> -->
 
@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     setLoading() {
+      console.log('App.Vue created')
       this.isLoading = true
     }
   },

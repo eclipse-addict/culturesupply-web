@@ -4,7 +4,7 @@
       <v-container fluid class="w-100" >
           <!-- <productDetail :kick=kick></productDetail> -->
           <productDetailBody :kick=kick></productDetailBody>
-          <productReview></productReview>
+          <productReview :kick=kick></productReview>
       </v-container>
     </v-main>
   </v-app>
@@ -23,7 +23,7 @@ components: {
 },
 data() {
   return {
-    kick : null, 
+    kick : null,
   }
 },
   created(){

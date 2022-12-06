@@ -1,8 +1,10 @@
 <template >
   <v-app>
     <v-main>
+      <v-container>
     <CultureSupply />
     <CultureSupplyBottom />
+      </v-container>
     </v-main>
   </v-app>
 </template>

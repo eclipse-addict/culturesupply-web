@@ -18,15 +18,12 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/sneakers/:keyword/:brand/:gender',
+    path: '/kicks/:keyword?/:brand?/:gender?',
     name: 'sneakers', 
     component: () => import('../views/SneakerView.vue'),
-    meta:{
-      reload: true
-    },
   },
   {
-    path: '/sneakers/:id',
+    path: '/product/detail/:id',
     name: 'detail', 
     component: () => import('../views/SneakerDetailView.vue')
   },
@@ -36,7 +33,7 @@ const routes = [
     component: () => import('../views/CalendarView.vue')
   },
   {
-    path: '/login',
+    path: '/login/:next?',
     name: 'login', 
     component: () => import('../views/user/LoginView.vue'),
     meta: { requiresAuth: false }
@@ -58,14 +55,22 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash,
+        behavior: 'smooth',
+      }
+    }
+  },
 })
 
 
 router.beforeEach((to, from, next) => {
   if (to.name) {
     // console.log('router.beforeEach'  )
-    // store.commit('SET_LOADING_STATE', true);
+    store.commit('SET_LOADING_STATE', true);
     NProgress.start()
     }
     next()
@@ -77,8 +82,8 @@ router.beforeResolve((to, from, next) => {
 
 router.afterEach((to, from) => {
   console.log('router.afterEach')
-  NProgress.done()
   store.commit('SET_LOADING_STATE', false);
+  NProgress.done()
 })
 
 

@@ -1,7 +1,11 @@
 <template>
   <v-app id="inspire">
     <v-main class="sneaker-main">
-      <v-container fluid ma-0 pa-0 fill-height>
+      <v-container v-if="this.$store.state.isLoading">
+      <loadingImg />
+      </v-container>
+
+      <v-container fluid ma-0 pa-0 fill-height v-else>
         <!-- <SneakersCarousel/> -->
         <sneakersGallery :url=url ref="sneakersGallery" />
         <v-btn

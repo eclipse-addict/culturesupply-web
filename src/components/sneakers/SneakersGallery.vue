@@ -76,6 +76,7 @@
             <v-rating
             :value="4"
             dense
+            readonly
             color="orange"
             background-color="orange"
             hover
@@ -125,7 +126,7 @@ export default {
       this.$router.push({ name: "detail", params: { id } });
     },
     fetch_kicks($state) {
-      
+      // this.$store.dispatch('setLoading', true)
       const keyword = this.$route.query.keyword;
       const brand = this.$route.query.brand;
       const gender = this.$route.query.gender;
@@ -147,10 +148,12 @@ export default {
         params: params,
       })
         .then((res) => {
-          setTimeout(() => {
+          // setTimeout(() => {
             if (res.data.length) {
               if (this.page == 1) {
                 this.kicks = res.data;
+                console.log('this.kicks = res.data; 바로 직후 ')
+                // this.$store.dispatch('setLoading', false)
               } else {
                 for (let i = 0; i < res.data.length; i++) {
                   if (
@@ -167,13 +170,16 @@ export default {
                   }
                 }
               }
-
               // this.kicks = new Set(this.kicks)
               $state.loaded();
+              console.log('$state.loaded();; 바로 직후 ')
             } else {
+              // this.$store.dispatch('setLoading', false)
               $state.complete();
             }
-          }, 100);
+          // }, 100);
+          console.log('setTimeout 블록 바로 밖. 아래에 바로 dispatch있음. ')
+          
         })
         .catch((err) => {
           console.log(err);
@@ -204,8 +210,10 @@ export default {
       })
         .then((res) => {
           if(res.data){
-            console.log('res: ' + res.data)
+            console.log('res: ' + JSON.parse(res.data))
             this.kicks = res.data
+            
+
             $state.loaded();
           }else{
             $state.complete();

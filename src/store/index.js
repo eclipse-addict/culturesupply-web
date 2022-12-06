@@ -13,7 +13,7 @@ export default new Vuex.Store({
     createPersistedState(),
   ],
   state: {
-    isLoading : false,
+    isLoading : true,
     user_data : {
       email: null,
       pk : null,
@@ -49,6 +49,7 @@ export default new Vuex.Store({
     },
 
     SET_LOADING_STATE(state, payload){
+      console.log('SET_LOADING_STATE CALLED, payload: ', payload)
       state.isLoading = payload
     },
   },
@@ -92,9 +93,9 @@ export default new Vuex.Store({
         console.log('logout request error: ', err);
       })
     },
-    setLoading(context){
-      console.log('callll')
-      context.commit('SET_LOADING_STATE', false);
+    setLoading(context, payload){
+      console.log('setLoading Called')
+      context.commit('SET_LOADING_STATE', payload);
     },
 
   },
