@@ -64,7 +64,7 @@ export default {
   },
   methods : {
     toAgreement () {
-      this.$router.push({path: '/login/agreement'})
+      this.$router.push({path: '/agreement'})
     },
     signinRequest () {
       const email = this.email

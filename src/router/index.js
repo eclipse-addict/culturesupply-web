@@ -39,13 +39,13 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/login/agreement',
+    path: '/agreement',
     name: 'agreement', 
     component: () => import('../views/user/UserAgreementView.vue'),
     meta: { requiresAuth: false }
   },
   {
-    path: '/login/regist',
+    path: '/registration',
     name: 'regist', 
     component: () => import('@/components/user/UserRegistration'),
     meta: { requiresAuth: false }

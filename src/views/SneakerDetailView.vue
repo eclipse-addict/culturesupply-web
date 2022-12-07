@@ -4,7 +4,7 @@
       <v-container fluid class="w-100" >
           <!-- <productDetail :kick=kick></productDetail> -->
           <productDetailBody :kick=kick></productDetailBody>
-          <productReview :kick=kick></productReview>
+          <productReviewForm :kick=kick></productReviewForm>
       </v-container>
     </v-main>
   </v-app>
@@ -14,11 +14,11 @@
 <script>
 import axios from 'axios'
 
-import productReview from '@/components/sneakers/ProductReviewForm.vue'
-import productDetailBody from '@/components/sneakers/ProductDetailBody.vue'
+import productReviewForm from '@/components/sneakers/detailpage/ProductReviewForm.vue'
+import productDetailBody from '@/components/sneakers/detailpage/ProductDetailBody.vue'
 export default {
 components: {
-  productReview,
+  productReviewForm,
   productDetailBody,
 },
 data() {
@@ -37,7 +37,10 @@ data() {
     }).catch(err => {
       console.log('detail err :', err)
     })
-  }
+  },
+computed: {
+
+}
 }
 </script>
 <style scoped>

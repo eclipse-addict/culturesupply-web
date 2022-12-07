@@ -89,8 +89,13 @@ export default new Vuex.Store({
         console.log('logout request response: ', res);
         context.commit('DELETE_USER_TOKEN');
 
-      }).catch(err =>{
-        console.log('logout request error: ', err);
+      }).catch(error =>{
+        console.log('access_token expired', error.response.status);
+        //TODO: access_token 이 만료된 경우 로그아웃 처리 불가(401) => 응답 결과에 따른 강제 로그아웃 처리 필요. 
+        if(error.response.status == 401){
+          context.commit('DELETE_USER_TOKEN');
+        }
+        
       })
     },
     setLoading(context, payload){

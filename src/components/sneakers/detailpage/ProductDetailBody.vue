@@ -11,7 +11,7 @@
           <star-rating :star-size="20" active-color="#000040" :read-only="true" :show-rating="false" v-model="rating"></star-rating>
           <!-- TODO: disscusion  -->
         <p>
-          <span class="" style="margin-top: 13px;">5 discussions</span> 
+          <span class="" style="margin-top: 13px;">{{ get_review_cnt }} discussions</span> 
         </p>
         <p class="font-monospace ">{{kick?.description}}</p>
         <p>
@@ -41,15 +41,40 @@ export default {
   },
   data(){
     return {
-      rating: 4.0,
+      rating: 0,
     }
   },
-    computed : {
+  methods: {
+    get_avg_rating(){
+      let avg_rating = 0
+      if(this.$props.kick){
+        if(this.kick.reviews.length > 0){
+          for(const r of this.kick.reviews) {
+            avg_rating += r.rating
+          }
+          this.rating = avg_rating / this.kick.reviews.length
+        }
+      }else{
+        this.rating = 0
+      }
+    }
+  },
+  computed : {
     img_url () {
       return this.kick?.local_imageUrl
-    }
+    },
+    get_review_cnt() {
+      if(this.$props.kick){
+        return this.kick.reviews.length
+      }
+      return 0;
+    },
   },
-
+  watch: {
+    kick(){
+      this.get_avg_rating();
+    }
+  }
 }
 </script>
 

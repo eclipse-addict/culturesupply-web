@@ -26,7 +26,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 import StarRating from 'vue-star-rating'
+import swal from 'sweetalert';
+
 export default {
   name: 'productDetail',
     components: {
@@ -36,6 +39,7 @@ export default {
     return {
       rating: null,
       comment: '',
+      review_check: false,
       rules: {
         maxLength: len => v => (v || '').length <= len || `${len}자 이상 작성할 수 없습니다!`,
         minLength: len => v => (v || '').length >= len || `${len}자 이상 작성해주세요!`,
@@ -48,8 +52,34 @@ export default {
   },
   methods: {
     create_comment(){
-      console.log('aadfasdfasd', this.comment)
-      console.log('aadfasdfasd', this.rating)
+      if(this.reviewer_check()){
+        swal({
+          title: "이미 작성한 리뷰가 존재합니다.",
+          text: "제품당 하나의 리뷰만 작성 가능합니다.",
+          icon: "warning",
+          button: '닫기'
+        });
+        return 
+      }
+      const content = this.comment
+      const rating = this.rating
+      const user_id = this.$store.state.user_data.pk
+      const product_id = this.$props.kick.id
+      const url = `http://127.0.0.1:8000/review/new/${product_id}/${user_id}/`
+
+      axios({
+        method: 'POST',
+        url: url,
+        headers: {'Authorization':'Bearer '+this.$store.state.user_data.access_token},
+        data: {
+          content,
+          rating
+        },
+      }).then(res => {
+        console.log('create_comment : ', res.data)
+      }).catch(err => {
+        console.log('create_comment err: ', err)
+      })
       this.comment = ''
       this.rating = 0
     },
@@ -59,6 +89,29 @@ export default {
         this.$router.push({name:'login', query: {next : this.$props.kick.id}})
       )
     },
+    reviewer_check(){
+      const user = this.$store.state.user_data.pk
+      if(this.kick){
+        for (const i of this.kick.reviews) {
+          if(user == i.user){
+            console.log('reviewer_check', user, i.user)
+            return true;
+          }
+        }
+      }else{
+        return false
+      }
+      
+    }
+  },
+  computed: {
+  already_reviewed(){
+
+    return true
+  }
+  },
+  watch:{
+
   }
 }
 </script>
