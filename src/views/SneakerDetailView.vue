@@ -4,8 +4,7 @@
       <v-container fluid class="w-100" >
           <!-- <productDetail :kick=kick></productDetail> -->
           <productDetailBody :kick=kick></productDetailBody>
-          <productReviewForm :kick=kick></productReviewForm>
-          <reviewList :kick=kick></reviewList>
+          <reviewList :product_id=product_id></reviewList>
       </v-container>
     </v-main>
   </v-app>
@@ -15,18 +14,21 @@
 <script>
 import axios from 'axios'
 
-import productReviewForm from '@/components/sneakers/detailpage/ProductReviewForm.vue'
 import productDetailBody from '@/components/sneakers/detailpage/ProductDetailBody.vue'
 import reviewList from '@/components/sneakers/detailpage/ReviewList.vue'
 export default {
 components: {
-  productReviewForm,
   productDetailBody,
   reviewList,
 },
 data() {
   return {
     kick : null,
+    reviews : null,
+    product_id: null,
+    total_pg_cnt : 0,
+    current_page: 1,
+    current_page_content : null
   }
 },
   created(){
@@ -37,9 +39,15 @@ data() {
     }).then(res=> {
       console.log('detail res: ', res)
       this.kick = res.data
+      this.product_id = res.data.id
+
     }).catch(err => {
       console.log('detail err :', err)
     })
+  },
+  methods: {
+    
+
   },
 computed: {
 

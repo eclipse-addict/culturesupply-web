@@ -6,7 +6,7 @@
         append-outer-icon="mdi-comment"
         class="mx-2"
         label="한줄평을 작성해주세요!"
-        :rules="[rules.required, rules.maxLength(150), rules.minLength(30)]"
+        :rules="[rules.required, rules.maxLength(150), rules.minLength(15)]"
         counter
         rows="1"
         v-model="comment"
@@ -31,7 +31,7 @@ import StarRating from 'vue-star-rating'
 import swal from 'sweetalert';
 
 export default {
-  name: 'productDetail',
+  name: 'productDetailForm',
     components: {
     StarRating,
   },
@@ -48,23 +48,19 @@ export default {
     }
   },
   props: {
-    kick : null,
+    product_id : null,
+    reviews : null,
   },
   methods: {
     create_comment(){
-      if(this.reviewer_check()){
-        swal({
-          title: "이미 작성한 리뷰가 존재합니다.",
-          text: "제품당 하나의 리뷰만 작성 가능합니다.",
-          icon: "warning",
-          button: '닫기'
-        });
-        return 
-      }
+      // if(this.reviewer_check()){
+
+        
+      // }
       const content = this.comment
       const rating = this.rating
       const user_id = this.$store.state.user_data.pk
-      const product_id = this.$props.kick.id
+      const product_id = this.$props.product_id
       const url = `http://127.0.0.1:8000/review/new/${product_id}/${user_id}/`
 
       axios({
@@ -77,31 +73,26 @@ export default {
         },
       }).then(res => {
         console.log('create_comment : ', res.data)
+        this.$emit('newReviewEvent', res.data)
       }).catch(err => {
         console.log('create_comment err: ', err)
+        if(err.response.status == 409){this.reviewer_check()}
       })
-      this.comment = ''
+      // this.comment = ''
       this.rating = 0
     },
     toLogin(){
-      console.log('pk: ',this.$props.kick.id)
       this.$store.dispatch('setLoading').then(
-        this.$router.push({name:'login', query: {next : this.$props.kick.id}})
+        this.$router.push({name:'login', query: {next : this.$props.product_id}})
       )
     },
     reviewer_check(){
-      const user = this.$store.state.user_data.pk
-      if(this.kick){
-        for (const i of this.kick.reviews) {
-          if(user == i.user){
-            console.log('reviewer_check', user, i.user)
-            return true;
-          }
-        }
-      }else{
-        return false
-      }
-      
+        swal({
+          title: "이미 작성한 리뷰가 존재합니다.",
+          text: "제품당 하나의 리뷰만 작성 가능합니다.",
+          icon: "warning",
+          button: '닫기'
+        });
     }
   },
   computed: {
