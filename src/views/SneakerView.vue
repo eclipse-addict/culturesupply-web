@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire">
-    <v-main class="sneaker-main">
+    <v-main class="sneaker-main" >
       <v-container v-if="this.$store.state.isLoading">
       <loadingImg />
       </v-container>
 
-      <v-container fluid ma-0 pa-0 fill-height v-else>
+      <v-container id="top" fluid ma-0 pa-0 fill-height v-else>
         <!-- <SneakersCarousel/> -->
         <sneakersGallery :url=url ref="sneakersGallery" />
         <v-btn
@@ -72,6 +72,19 @@
             </p>
           </div>
         </div>
+        <v-btn
+          v-show="scroll>0"
+            fab
+            fixed
+            dark
+            bottom
+            left
+            x-small
+            v-scroll:#top="onScroll"
+            @click="goTop"
+        >
+          <v-icon>mdi-menu-up</v-icon>
+        </v-btn>
       </v-container>
     </v-main>
   </v-app>
@@ -86,13 +99,15 @@ export default {};
 
 <script>
 // @ is an alias to /src
-import SneakerPage from "@/components/sneakers/SneakerPage.vue";
 import sneakersGallery from "@/components/sneakers/SneakersGallery.vue";
 const StockXData = require("stockx-data");
 export default {
   name: "HomeView",
   data() {
     return {
+      scroll: 0,
+      scrollTarget: null,
+
       isLoading: false, // it chages every time user types into the input field
       keyword: '',
       brandGroup: ['All', 'Nike', 'Jordan', 'Adidas', 'Puma', 'New Balance', 'Vans'],
@@ -103,8 +118,16 @@ export default {
 
     };
   },
+  mounted() {
+	// goTop을 위해 mount 시 element 설정
+  console.log('mount')
+	// this.scrollTarget = document.getElementById('top');
+  document.addEventListener('scroll', this.onScroll);
+},
+unmounted() {
+  document.removeEventListener('scroll', this.onScroll);
+},
   components: {
-    SneakerPage,
     sneakersGallery,
   },
   methods: {
@@ -121,6 +144,15 @@ export default {
       // console.log(document.getElementById('offcanvasRight'));
       // document.getElementById('offcanvasRight').style.transform = '';
     },
+    onScroll(e) {
+      // 스크롤 움직일 때 마다 호출됨
+      this.scroll = 1;
+    },
+	goTop() {
+      window.scrollTo(0,0);
+		if (this.scrollTarget) {
+		}
+    }
   },
   watch: {
     keyword() {

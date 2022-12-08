@@ -5,6 +5,7 @@
           <!-- <productDetail :kick=kick></productDetail> -->
           <productDetailBody :kick=kick></productDetailBody>
           <productReviewForm :kick=kick></productReviewForm>
+          <reviewList :kick=kick></reviewList>
       </v-container>
     </v-main>
   </v-app>
@@ -16,10 +17,12 @@ import axios from 'axios'
 
 import productReviewForm from '@/components/sneakers/detailpage/ProductReviewForm.vue'
 import productDetailBody from '@/components/sneakers/detailpage/ProductDetailBody.vue'
+import reviewList from '@/components/sneakers/detailpage/ReviewList.vue'
 export default {
 components: {
   productReviewForm,
   productDetailBody,
+  reviewList,
 },
 data() {
   return {
