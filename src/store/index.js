@@ -13,12 +13,15 @@ export default new Vuex.Store({
     createPersistedState(),
   ],
   state: {
+    dev_url : "http://localhost:8000/",
     isLoading : true,
     user_data : {
       email: null,
       pk : null,
       access_token : null,
       refresh_token : null,
+      nick_name: null,
+      profile_img: null,
     },
 
   },
@@ -37,6 +40,13 @@ export default new Vuex.Store({
 
       const user = JSON.stringify(state.user_data);
 
+      window.localStorage.setItem('user', user);
+    },
+    SET_USER_INFO(state, payload){
+      state.user_data.nick_name = payload.nick_name
+      state.user_data.profile_img = state.dev_url + payload.profile_img
+
+      const user = JSON.stringify(state.user_data);
       window.localStorage.setItem('user', user);
     },
     DELETE_USER_TOKEN(state){
@@ -60,6 +70,10 @@ export default new Vuex.Store({
       //결과에 따라서 세션 저장하러 vuex action 호출
       // 로그인 실패까지도 vuex 에서 모두 처리할 필요 없다고 판단. 
       context.commit('SET_USER_TOKEN', payload);
+    },
+    setUserInfo(context, payload){
+      context.commit('SET_USER_INFO', payload);
+
     },
     signupRequest (context, payload){
       

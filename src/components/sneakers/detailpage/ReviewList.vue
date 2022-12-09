@@ -1,10 +1,13 @@
 <template>
 <div>
   <productReviewForm :reviews=reviews :product_id=product_id @newReviewEvent="newReviewEvent"></productReviewForm>
+  <v-col>
+  <ReviewItem :review=review></ReviewItem>
+  </v-col>
   <v-col v-for="(review, i) in page_content" :key="i" cols="12">
   <ReviewItem :review=review></ReviewItem>
   </v-col>
-  <div class="text-center">
+  <div class="text-center" v-if="page_length">
     <v-pagination
       :length="page_length"
       v-model="page"
@@ -54,14 +57,14 @@ export default {
         }
       }
       return result
-    }
+    },
   },
   methods:{
     reveiw_fetch(){
-      // console.log('reveiw_fetch()')
+      console.log('reveiw_fetch()')
       axios({
         method: 'GET',
-        url: `http://localhost:8000/review/list/${this.product_id}/`,
+        url: `http://localhost:8000/review/list/${this.$route.params.id}/`,
       }).then(res => {
         console.log('reveiw_fetch res : ', res)
         this.get_page_cnt(res.data.length)
@@ -77,6 +80,7 @@ export default {
           this.page_content = this.reviews[this.page - 1]
         }
       },500)
+      window.scrollTo({ left: 0, top: 600, behavior: "smooth" });
       
     },
     review_slice(payload){
@@ -116,9 +120,7 @@ export default {
     this.page_req()
   },
   created(){
-    setTimeout(() => {
       this.reveiw_fetch()
-    }, 300);
   }
 };
 </script>

@@ -43,6 +43,7 @@ data() {
 
     }).catch(err => {
       console.log('detail err :', err)
+      this.$router.push('/404')
     })
   },
   methods: {

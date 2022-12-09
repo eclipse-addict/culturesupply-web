@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-main class="sneaker-main" >
+    <v-main class="sneaker-main" style="padding-left:0px; padding-top:0px" >
       <v-container v-if="this.$store.state.isLoading">
       <loadingImg />
       </v-container>
@@ -73,13 +73,14 @@
           </div>
         </div>
         <v-btn
+          style="margin-right: 8px;margin-bottom: 75px;"
           v-show="scroll>0"
             fab
             fixed
             dark
             bottom
-            left
-            x-small
+            right
+            small
             v-scroll:#top="onScroll"
             @click="goTop"
         >

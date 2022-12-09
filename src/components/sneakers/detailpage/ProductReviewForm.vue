@@ -1,7 +1,15 @@
 <template>
 <v-main>
     <v-container class="mt-5 pt-5 shadow" style="background-color:white;" v-if="this.$store.state.user_data.access_token">
-      <star-rating class="ml-2" :star-size="20" active-color="#000040"  :show-rating="false" v-model="rating"></star-rating>
+      <!-- <star-rating class="ml-2" :star-size="20" active-color="#000040"  :show-rating="false" v-model="rating"></star-rating> -->
+      <v-rating
+            :value="this.rating"
+            dense          
+            color="orange"
+            hover
+            background-color="orange"
+            class="mr-2"
+          ></v-rating>
       <v-textarea
         append-outer-icon="mdi-comment"
         class="mx-2"
@@ -27,13 +35,13 @@
 
 <script>
 import axios from 'axios'
-import StarRating from 'vue-star-rating'
+// import StarRating from 'vue-star-rating'
 import swal from 'sweetalert';
 
 export default {
   name: 'productDetailForm',
     components: {
-    StarRating,
+    // StarRating,
   },
   data(){
     return {
@@ -53,10 +61,6 @@ export default {
   },
   methods: {
     create_comment(){
-      // if(this.reviewer_check()){
-
-        
-      // }
       const content = this.comment
       const rating = this.rating
       const user_id = this.$store.state.user_data.pk
