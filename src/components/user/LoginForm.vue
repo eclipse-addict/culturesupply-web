@@ -1,10 +1,10 @@
 <template>
 <div>
-    <div class="container w-100 mt-15">
+    <div class="container w-50 p-0" style="box-shadow: #24212163 10px 2px 5px;margin-top: 115px">
       <div v-show="isFailed" class="text-white alert w-100 text-start" style="background-color: #e91300;" role="alert">
         Invalid Login or password
       </div>
-      <p class="display-6 fw-bold text-center">KickIn</p>
+      <p class="display-6 fw-bold text-center text-black">KickIn</p>
       <hr/>
       <div class="fw-bold text-center form-control border-bottom-0 rounded-top rounded-0 p-3">Sign in</div>
       <div class="border border-primary"></div>
@@ -20,16 +20,18 @@
             <label for="inputPassword" class="fw-bold form-label">Password</label>
             <input type="password" v-model="password" class="form-control" id="inputPassword" placeholder="password"/>
           </div>
-          <div class="d-flex justify-content-between mb-3 form-check">
+          <div class="d-flex row justify-content-between mb-3 form-check">
             <div class="">
               <input type="checkbox" class="form-check-input" id="check"/>
               <label class="form-check-label" for="check">
                 Remember me
               </label>
             </div>
+            <div>
             <a href="#" class="text-decoration-none">
               Forgot your password?
             </a>
+            </div>
           </div>
           <button @click="signinRequest" class="btn btn-outline-success w-100" type="button">
             Sign in
