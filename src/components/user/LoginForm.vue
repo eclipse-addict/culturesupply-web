@@ -62,6 +62,7 @@ export default {
       isFailed : false,
       email : null,
       password : null,
+
     }
   },
   methods : {
@@ -86,6 +87,7 @@ export default {
         }
       }).then(res => {
         console.log('login request', res.data);
+        this.userInfo_req(res.data.access_token, res.data.user.pk)
         this.$store.dispatch('signinRequest', res.data)
         .then(() => {
           const id =this.$route.query.next
@@ -102,6 +104,22 @@ export default {
       })
 
     },
+    userInfo_req(token, user_id){
+
+      axios({
+        method: "GET",
+        url: this.$store.state.dev_url+"user/userinfo/"+user_id+'/',
+        headers: {
+          'Authorization':'Bearer '+token,
+          },
+      }).then(res => {
+        console.log(res.data)
+        this.$store.dispatch('setUserInfo', res.data)
+      }).catch(err => {
+        console.log('err; ', err)
+      })
+      
+    }
   },
   watch:{
     // 로그인 실패 메시지 가리기 

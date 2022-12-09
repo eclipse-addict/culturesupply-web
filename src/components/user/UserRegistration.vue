@@ -280,6 +280,19 @@
 
               <hr class="my-4" />
               <div class="col-12">
+                <label class="form-label">Avatar<span class="text-muted"></span></label>
+                <v-file-input
+                  v-model="avatar"
+                  show-size
+                  :rules="rules"
+                  accept="image/png, image/jpeg, image/bmp"
+                  placeholder="Pick an avatar"
+                  prepend-icon="mdi-camera"
+                  label="Avatar"
+                  
+                ></v-file-input>
+              </div>
+              <div class="col-12">
               <label for="gender" class="form-label">Gender <span class="text-muted"></span></label>
               <v-select :items="['Male', 'Female']" label="Gender" id="gender" v-model="gender"></v-select>
               </div>
@@ -467,7 +480,7 @@
 
   <script>
 import axios from "axios";
-const dev_url = "http://localhost:8000/";
+// const dev_url = "http://localhost:8000/";
 export default {
   name: "userRegisterForm",
   data() {
@@ -486,6 +499,7 @@ export default {
 
       
       // 회원가입 추가 필드
+      avatar: null,
       postcode: "",
       address: "",
       extraAddress: "",
@@ -508,6 +522,9 @@ export default {
       email_is_valid: false,
       email_msg: "",
       emailFinalCheck: false,
+      rules: [
+        value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+      ],
     };
   },
   methods: {
@@ -595,8 +612,11 @@ export default {
       axios({
         method: "POST",
         ContentType: 'application/json',
-        url: dev_url + "user/userinfo/"+pk+'/',
-        headers: {'Authorization':'Bearer '+token},
+        url: this.$store.state.dev_url + "user/userinfo/"+pk+'/',
+        headers: {
+          'Authorization':'Bearer '+token,
+          'Content-Type': 'multipart/form-data'
+          },
         data: data,
       })
       .then(res => {
@@ -638,7 +658,7 @@ export default {
         // this.$store.dispatch('signupRequest', payload)
         axios({
           method: "POST",
-          url: dev_url + "user/dj-rest-auth/registration/",
+          url: this.$store.state.dev_url + "user/dj-rest-auth/registration/",
           data: {
             email: payload.email,
             password1: payload.password,
@@ -654,6 +674,7 @@ export default {
               const last_name = this.lastName
               const first_name = this.firstName
               const nick_name = this.nickName
+              const profile_img = this.avatar
               const gender = this.gender
               const shoeSize = this.pickedShoeSize
               const topSize = this.pickedTopSize
@@ -666,6 +687,7 @@ export default {
                 last_name,
                 first_name,
                 nick_name,
+                profile_img,
                 gender,
                 shoeSize,
                 topSize,     

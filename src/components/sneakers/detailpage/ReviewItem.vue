@@ -2,7 +2,19 @@
   <v-main>
     <v-container class="mt-5 pt-5 shadow" style="background-color:white;">
       <v-card class="mx-auto">
-          <star-rating class="ml-2" :star-size="20" active-color="#000040" :read-only="true" v-model="rating"  :show-rating="false"></star-rating>
+        <!-- <v-card-actions class="pa-4"> -->
+          <v-rating
+            :value="this.rating"
+            dense
+            readonly
+            half-icon
+            color="orange"
+            background-color="orange"
+            half-increments
+            class="mr-2"
+          ></v-rating>
+          <!-- <span class="grey--text text-caption ">({{ review.rating }})</span> -->
+        <!-- </v-card-actions>           -->
           <v-card-subtitle class="">
             {{review.user_info.nick_name}}
             </v-card-subtitle>
@@ -23,12 +35,10 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
 
 export default {
   name: 'reviewItem',
   components: {
-    StarRating,
   },
   props: {
     review: null,
