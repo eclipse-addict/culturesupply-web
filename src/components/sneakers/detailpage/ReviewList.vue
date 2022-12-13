@@ -70,6 +70,7 @@ export default {
         this.get_page_cnt(res.data.length)
         this.total_cnt = res.data.length
         this.reviews = this.review_slice(res.data)
+        this.page_content = this.reviews[0]
       }).catch(err =>{
         console.log('reveiw_fetch err : ', err)
       })
@@ -80,7 +81,8 @@ export default {
           this.page_content = this.reviews[this.page - 1]
         }
       },500)
-      window.scrollTo({ left: 0, top: 600, behavior: "smooth" });
+        window.scrollTo({ left: 0, top: 600, behavior: "smooth" });
+
       
     },
     review_slice(payload){
@@ -117,7 +119,7 @@ export default {
     },
   },
   mounted(){
-    this.page_req()
+    // this.page_req()
   },
   created(){
       this.reveiw_fetch()

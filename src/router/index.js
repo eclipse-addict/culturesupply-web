@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import NProgress from 'nprogress';
 
 import HomeView from '../views/HomeView.vue'
-import NotFound404 from '../views/NotFound404.vue'
+import NotFound404 from '../views/error/NotFound404.vue'
 import  store  from "@/store/index.js";
 
 import '../../node_modules/nprogress/nprogress.css'

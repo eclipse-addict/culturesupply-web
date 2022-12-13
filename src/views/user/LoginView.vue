@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main class="back">
-      <v-container>
+      <v-container fluid>
       <LoginForm/>
       </v-container>
     </v-main>

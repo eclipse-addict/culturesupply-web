@@ -5,7 +5,7 @@
       <loadingImg />
       </v-container>
 
-      <v-container id="top" fluid ma-0 pa-0 fill-height v-else>
+      <v-container id="top" fluid ma-0 pa-0 fill-height v-else >
         <!-- <SneakersCarousel/> -->
         <sneakersGallery :url=url ref="sneakersGallery" />
         <v-btn
@@ -144,6 +144,7 @@ unmounted() {
       this.keyword = "";
       // console.log(document.getElementById('offcanvasRight'));
       // document.getElementById('offcanvasRight').style.transform = '';
+      this.goTop()
     },
     onScroll(e) {
       // 스크롤 움직일 때 마다 호출됨

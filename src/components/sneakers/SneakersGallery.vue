@@ -1,14 +1,17 @@
 <template>
-  <div class="mt-sm-0 container row d-flex justify-content-around mt-16" id="main">
-    <div
+  <v-row class="mt-sm-0 container row d-flex justify-content-around" id="main">
+    <v-col
       class="card mt-13"
+      cols="12"
+      sm="6"
+      md="4"
       style="width: 25rem"
       v-for="k in kicks"
       :key="k.id"
       v-scroll:#main="infinityScrollHandler"
     >
       <v-hover v-slot="{ hover }">
-        <v-card class="mx-auto" color="grey lighten-4" max-width="600" min-height="455" min-width="370">
+        <v-card class="" color="grey lighten-4" max-width="600" min-height="455" min-width="200">
           <v-img :aspect-ratio="16 / 9" :src="k.local_imageUrl">
             <v-expand-transition>
               <div
@@ -20,17 +23,25 @@
                   lighten-4
                   v-card--reveal
                   text-h2
-                  black--text
+                  black--text  
                 "
-                style="height: 100%"
+                style="height: 100%;  opacity: 0.9;"
               >
-                <div class="ma-5">
-                  <span style="font-size:30px;">retail : {{k.retailPrice}}</span>
+                <div class='mt-5'>
+                  <v-btn small absolute fab right>
+                    <span class="material-symbols-outlined">favorite</span>
+                  </v-btn>
+                  <v-btn small absolute fab left>
+                    <span class="material-symbols-outlined">ios_share</span>
+                  </v-btn>
                 </div>
-                <div class="ma-4">
-                  <span style="font-size:30px;">expected : {{k.estimatedMarketValue}}</span>
+                  <div class="text-center mt-15 w-100">
+                    <v-btn rounded color="primary" dark v-if="k.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'"> 
+                    사진 등록하기 <br/>
+                    [+ 100 points 적립]
+                    </v-btn>
+                  </div>
                 </div>
-              </div>
             </v-expand-transition>
           </v-img>
           <v-card-text class="pt-6" style="position: relative">
@@ -47,7 +58,7 @@
               <v-icon >read_more</v-icon>
             </v-btn>
             <div class="font-weight-light grey--text text-h6 mb-2">
-              {{k.brand}}
+              {{k.brand.includes('%20')? k.brand.replace('%20', ' ').toUpperCase() :k.brand.toUpperCase()}}
             </div>
             <h5 class="text-h5 font-weight-heavy black--text mb-2">
               {{k.name}}
@@ -71,13 +82,13 @@
       </v-hover>
 
       <!-- spiral waveDots -->
-    </div>
+    </v-col>
     <infinite-loading
       @infinite="fetch_kicks"
       spinner="waveDots"
       ref="infiniteLoading"
     ></infinite-loading>
-  </div>
+  </v-row>
 </template>
 
 <script>
@@ -221,7 +232,19 @@ export default {
     this.fetch_kicks();
   },
   computed: {
+    brand_formatter(){
+      if(this.kick.brand){
+        const brand = this.kick.brand
+        if(brand == 'Air$%20Jordan' || brand == 'Jordan'){
+          return  'AIR JORDAN'
+        }else{
+          return brand.toUpperCase()
+        } 
+      }else{
+        return ' '
+      }
 
+    },
   },
   filters: {
     desc_shortener(desc) {

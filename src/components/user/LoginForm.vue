@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="container w-50 p-0" style="box-shadow: #24212163 10px 2px 5px;margin-top: 115px">
+    <div class="container w-80 p-0" style="box-shadow: #24212163 3px 1px 5px;margin-top: 115px">
       <div v-show="isFailed" class="text-white alert w-100 text-start" style="background-color: #e91300;" role="alert">
         Invalid Login or password
       </div>

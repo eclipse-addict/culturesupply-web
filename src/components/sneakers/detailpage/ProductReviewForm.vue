@@ -23,9 +23,9 @@
       ></v-textarea>
     </v-container>
     <v-container v-else>
-      <div class="text-center mt-6">
-      <h5>리뷰를 작성하려면 로그인 해주세요!</h5>
-      <v-btn color="#D6E4E5" @click="toLogin">
+      <div class="text-center mt-8">
+      <h5 >로그인 후 작성가능합니다.</h5>
+      <v-btn color="#D6E4E5" @click="toLogin" class="mt-3">
         로그인하러 가기
       </v-btn>
       </div>

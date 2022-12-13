@@ -5,7 +5,7 @@
         <img :src="img_url" alt="main_img"  class="mx-lg-5" style="margin-top: 4rem; width:60%;">
       </div>
       <div class="col-md-6 col-sm-12 text-start mt-16">
-        <p class="fw-normal">{{kick?.brand}}</p>
+        <p class="fw-normal">{{brand_formatter}}</p>
         <h4 class="fw-bold">{{kick?.name}}</h4>
         <div class='v-line'></div>
             <v-rating
@@ -38,7 +38,7 @@
         </p>
         <p>
         <span class="fw-bold">발매금액 : </span>  
-        <span> USD: ${{kick?.retailPrice}} / KRW: 약{{get_krw}}원</span>
+        <span> USD: ${{get_dollor}} / KRW: 약 {{get_krw.toLocaleString()}}원</span>
         </p>
       </div>  
   </div>
@@ -89,10 +89,33 @@ export default {
     },
     get_krw(){
       const rate = 1302.58
-      if(this.$props.kick){
-        return this.kick.retailPrice * rate
+      if(this.$props.kick.retailPrice){
+        const krw_price = ((this.kick.retailPrice)* 0.01 * rate)
+        return Math.ceil(krw_price)
       }
       return 0
+    },
+    get_dollor(){
+      if(this.kick.retailPrice){
+        const price = this.kick.retailPrice *0.01
+        var dollarUSLocale = Intl.NumberFormat('en-US');
+        return dollarUSLocale.format(price)
+      }else{
+        return 0
+      }
+    },
+    brand_formatter(){
+      if(this.kick.brand){
+        const brand = this.kick.brand
+        if(brand == 'Air$%20Jordan' || brand == 'Jordan'){
+          return  'AIR JORDAN'
+        }else{
+          return brand.toUpperCase()
+        } 
+      }else{
+        return ' '
+      }
+
     },
   },
   watch: {
