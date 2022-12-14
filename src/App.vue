@@ -24,6 +24,10 @@
     >
       <v-list nav dense>
         <v-list-item-group v-model="group" active-class="text--accent-4">
+          <v-list-item-title class="text-center">
+            <h3>Kickin</h3>
+          </v-list-item-title>
+          <!-- <v-divider></v-divider> -->
           <v-list-item v-if="this.$store.state.user_data.access_token" @click="toProfile">
           <v-list-item-avatar>
             <v-img :src="this.$store.state.user_data.profile_img"></v-img>
@@ -66,7 +70,7 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-          <v-btn v-if="this.$store.state.user_data.access_token" icon style="margin-top:36rem;" @click="signoutRequest">
+          <v-btn v-if="this.$store.state.user_data.access_token" icon style="margin-top:33.3rem;" @click="signoutRequest">
             <span class="material-symbols-outlined">logout</span>
           </v-btn>
     </v-navigation-drawer>

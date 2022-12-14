@@ -6,8 +6,8 @@
       sm="6"
       md="4"
       style="width: 25rem"
-      v-for="k in kicks"
-      :key="k.id"
+      v-for="(k, index) in kicks"
+      :key="index"
       v-scroll:#main="infinityScrollHandler"
     >
       <v-hover v-slot="{ hover }">
@@ -28,18 +28,24 @@
                 style="height: 100%;  opacity: 0.9;"
               >
                 <div class='mt-5'>
-                  <v-btn small absolute fab right>
-                    <span class="material-symbols-outlined">favorite</span>
+                  <v-btn small absolute fab right @click="like_btn(k?.id, index)" v-if="check_like_user(k.like_users)">
+                    <font-awesome-icon icon="fa-solid fa-heart" />
+                  </v-btn>
+                  <v-btn small absolute fab right @click="like_btn(k?.id, index)" v-else>
+                    <font-awesome-icon icon="fa-regular fa-heart" />                 
                   </v-btn>
                   <v-btn small absolute fab left>
                     <span class="material-symbols-outlined">ios_share</span>
                   </v-btn>
                 </div>
-                  <div class="text-center mt-15 w-100">
-                    <v-btn rounded color="primary" dark v-if="k.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'"> 
+                  <div class="text-center mt-15 w-100 pt-5">
+                    <v-btn rounded color="primary" dark v-if="k.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'" > 
                     사진 등록하기 <br/>
                     [+ 100 points 적립]
                     </v-btn>
+                    <div v-else>
+                      <h6>something</h6>
+                    </div>
                   </div>
                 </div>
             </v-expand-transition>
@@ -60,9 +66,9 @@
             <div class="font-weight-light grey--text text-h6 mb-2">
               {{k.brand.includes('%20')? k.brand.replace('%20', ' ').toUpperCase() :k.brand.toUpperCase()}}
             </div>
-            <h5 class="text-h5 font-weight-heavy black--text mb-2">
+            <h6 class="text-h6 font-weight-heavy black--text mb-2">
               {{k.name}}
-            </h5>
+            </h6>
             <div class="font-weight-light text-h6 mb-2">
               {{k.releaseDate}}
             </div>
@@ -94,7 +100,7 @@
 <script>
 import axios from "axios";
 import infiniteLoading from "vue-infinite-loading";
-
+import swal from 'sweetalert';
 export default {
   name: "sneakersGallery",
   data() {
@@ -102,6 +108,7 @@ export default {
       kicks: [],
       page: 0,
       limit: 20,
+      like_check: false,
     };
   },
   props:{
@@ -135,7 +142,6 @@ export default {
         brand,
         gender,
       }
-
       axios({
         method: "GET",
         url: "http://127.0.0.1:8000/api/sneaker/",
@@ -218,13 +224,70 @@ export default {
           console.log(err);
         });
     },
-
     infinityScrollHandler(e) {
       console.log(e);
       const { scrollHeight, scrollTop, clientHeight } = e.target;
       const bottomCheck = scrollHeight === scrollTop + clientHeight;
       if (bottomCheck) {
         this.fetch_kicks();
+      }
+    },
+    like_btn(product_id, index){
+      console.log('index Check :', index)
+      if(!this.$store.state.user_data.access_token){
+        swal("계속하려면 로그인해주세요.", {
+          buttons: {
+            cancel: "취소",
+            catch: {
+              text: "로그인하러 가기",
+              value: "login",
+            },
+            회원가입: true,
+          },
+        })
+        .then((value) => {
+          switch (value) {
+        
+            case "회원가입":
+              this.$router.push({path: '/agreement'})
+              break;
+        
+            case "login":
+              this.$router.push({name:'login'});
+              break;
+        
+            default:
+              break;
+              
+          }
+        });
+      }
+      else{
+        const user_id = this.$store.state.user_data.pk
+        axios({
+          method: 'POST',
+          url: this.$store.state.dev_url+`api/sneaker/like/${product_id}/${user_id}/`,
+          headers: {'Authorization':'Bearer '+this.$store.state.user_data.access_token},
+        }).then(res =>{
+          console.log('like req: ',res);
+          if(res.data.message =='added'){
+            this.kicks[index].like_users.push(user_id);
+          }else if(res.data.message =='removed'){
+            this.kicks[index].like_users.splice(this.kicks.indexOf(user_id), 1);
+          }
+        }).catch(err=>{
+          console.log('err: ',err);
+        })
+      }
+    },
+    check_like_user(like_users){
+      for(let user of like_users){
+        if (user == this.$store.state.user_data.pk){
+          return true;
+        }
+        else {
+          return false;
+        } 
       }
     },
   },
@@ -243,8 +306,8 @@ export default {
       }else{
         return ' '
       }
-
     },
+
   },
   filters: {
     desc_shortener(desc) {
