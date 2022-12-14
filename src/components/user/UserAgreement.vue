@@ -1,25 +1,289 @@
 <template>
-  <div class="px-5">
-    <h1 class="policyTitle pt-4 ">Welcome to Culture Supply</h1>
-  <h3 class="policyTitle">terms and conditions</h3>
-   <div class="justify-content-between">
-    <img src="" alt="" class="img-fluid center-block" >
+  <v-container>
+    <div>
+    <v-stepper alt-labels>
+      <v-stepper-header>
+        <v-stepper-step step="1">
+          개인정보처리방침
+        </v-stepper-step>
+
+        <v-divider></v-divider>
+
+        <v-stepper-step step="2">
+          회원정보 입력
+        </v-stepper-step>
+
+        <v-divider></v-divider>
+
+        <v-stepper-step step="3">
+          완료
+        </v-stepper-step>
+      </v-stepper-header>
+    </v-stepper>
   </div>
-  <div >
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat aperiam aut quod. Optio sint doloremque similique accusantium culpa dolor nihil inventore saepe iure itaque fuga facere minus maxime dolore voluptatem, voluptas, debitis, dignissimos voluptatibus nisi fugiat voluptate ex laboriosam natus? Nulla cum natus quisquam dolore odio voluptatibus nisi pariatur tempore voluptas voluptatem nobis provident, tenetur ipsa, quae cumque et, sapiente doloremque tempora recusandae eaque iste minus at quis sequi! Qui explicabo commodi facere dolore reiciendis reprehenderit! Nesciunt est fugit minus! Quis vel ea fugiat praesentium quisquam cupiditate, officiis eius quibusdam deserunt voluptates beatae sapiente, distinctio ex voluptate corrupti reiciendis dolores est iusto! Doloribus possimus laborum voluptate a porro? Ducimus qui maiores laborum recusandae? Natus in expedita, inventore corporis amet recusandae omnis sapiente laborum et non earum? Maiores corporis molestiae molestias quibusdam? In architecto similique nostrum repudiandae facere, odio iure! Aut iste saepe, earum placeat architecto atque eaque pariatur tempore porro inventore neque repudiandae sit velit eligendi assumenda ipsam ipsa vel nam iusto odio cumque quae cupiditate iure? Consequuntur nesciunt eaque eius facilis ad, sit quae iure! Sequi tenetur quia voluptates modi vitae quae, iusto sapiente amet unde similique ullam aperiam cupiditate alias odit quasi voluptatum cum, impedit soluta aut voluptate voluptas aliquam ratione fuga praesentium. Nostrum, debitis reiciendis iure eligendi quia quisquam? Autem maiores modi, odio repellendus esse aperiam vero sed tenetur quibusdam, quos ratione ad facere incidunt aliquam! Incidunt, illum ratione fugit blanditiis sapiente rem distinctio itaque porro suscipit a obcaecati laboriosam mollitia eaque asperiores et. Quis sint dicta omnis ab ipsum vero odio unde quia possimus sequi illo ducimus eum repellat architecto magnam culpa ratione, delectus eius expedita quos repudiandae est repellendus nostrum? Tempore necessitatibus quibusdam deleniti nihil facere porro suscipit ullam totam quos eveniet est unde fugit iure soluta iste, placeat quasi modi autem ad. Asperiores excepturi distinctio in delectus ducimus veniam, obcaecati alias tempore sequi quis at ea? Placeat delectus corporis voluptatem odit sed reiciendis possimus, perspiciatis culpa doloremque asperiores inventore quas ea qui fugit quos aspernatur alias sapiente! Incidunt atque temporibus iure eum quas cum nobis aut exercitationem doloremque! Corrupti obcaecati soluta ducimus ex, eligendi necessitatibus commodi totam, ipsa est voluptatem omnis, veritatis porro quae voluptates repellendus cumque sunt assumenda corporis sed. Dolor, pariatur. Repudiandae illum deleniti dicta magni magnam, voluptate officia dolore corporis reiciendis voluptates tenetur velit maxime consequatur adipisci hic reprehenderit facere! Quis minus autem, sunt commodi magnam nulla voluptatem exercitationem deleniti odio placeat repudiandae esse odit, quam dolore totam distinctio. Qui, labore illum. Aspernatur quaerat ullam id, quos aliquam temporibus pariatur repudiandae sint! Ducimus deleniti soluta vero libero excepturi repudiandae dolores veniam similique omnis quibusdam et obcaecati est, expedita reiciendis in harum ab, blanditiis commodi fugiat? Ipsam et ullam quidem? Perferendis optio, corrupti, quod minus quisquam sequi ipsum consequuntur qui dolorem vitae similique animi? Cupiditate dolorem ex quasi a odit expedita distinctio sed aspernatur quam tempora facere omnis sint, minima sunt quaerat voluptate nisi esse quos. Ad recusandae sed nam nobis nesciunt incidunt inventore odit officia nulla voluptas excepturi, ullam hic provident!
+  <div class="px-5 text-center">
+    <h1 class="policyTitle pt-4 font-weight-bolder">JOIN</h1>
+    <h5 class="policyTitle">개인정보처리방침 동의</h5>
+    <hr>
+    <div class="justify-content-between">
+      <img src="" alt="" class="img-fluid center-block" >
+    </div>
   </div>
+    <div>
+      <p>
+        ㈜킥인(http://www.kickin.co.kr/ 이하 "회사"이라 함)는 귀하의 개인정보를 중요시하며, 
+        『정보통신망 이용촉진 및 정보보호 등에 관한 법률』, 『개인정보 보호법』, 『통신비밀보호법』, 『전기통신사업법』 
+        등 정보통신 서비스 제공자가 준수하여야 할 관련 법령상의 개인정보보호 규정을 준수하고 있습니다. 
+        회사는 본 개인정보취급방침을 통하여 귀하가 회사에 제공하는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 
+        회사가 개인정보보호를 위해 어떠한 조치룰 취하고 있는지 알려드립니다.
+      </p>
+      <p>
+        회사의 개인정보취급방침은 정부정책, 관련 법령 및 회사 내부 방침 변경 등 사회적 필요와 변화에 따라 수시로 변경될 수 있고, 
+        회사는 이에 따른 개인정보취급방침의 지속적인 개선을 위하여 필요한 절차를 정하고 있습니다. 
+        개인정보취급방침을 개정하는 경우 회사는 그 개정사항을 홈페이지에 게시하여 귀하가 개정된 사항을 쉽게 확인할 수 있도록 하고 있습니다.
+      </p>
+      <br><br>
+      <h6>1. 수집하는 개인정보 항목 및 수집방법</h6>
+      <p>
+        (1)수집하는 개인정보의 항목, 이용목적 및 보유기간
+        가. 홈페이지 회원 가입시 필수 항목
+      </p>
+      <table class="table text-center">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">수집목적</th>
+            <th scope="col">수집항목</th>
+            <th scope="col">보유기간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>홈페이지 회원가입,<br> 이용자 식별 및 본인 여부 확인</td>
+            <td>아이디 (이메일), 비밀번호, 닉네임, 휴대전화 번호</td>
+            <td>회원탈퇴 후 즉시 파기</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        *보유기간 참조사항: 다만, 관계법령에 의해 보존할 경우 볍령에서 정한 일정 기간동안 별도 보관됩니다 (아래 제3항 참조)
+      </p>
+      <br>
+      <p>
+        나. 홈페이지 회원 가입시 선택 항목
+      </p>
+      <table class="table text-center">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">수집목적</th>
+            <th scope="col">수집항목</th>
+            <th scope="col">보유기간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              이벤트 안내, <br/>이벤트 참여시 경품배송
+            </td>
+            <td>
+              - 이메일, 휴대전화 번호 <br>
+              - 경품 당첨시, 당첨자의 이름, 주소 및 연락처, <br>
+                제세공과금 납부 관련 정보
+            </td>
+            <td>
+              회원 탈퇴 후 5일 까지 <br>
+              (경품 당첨관련 정보는 서비스 처리 후 5일 까지)
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        *보유기간 참조사항: 다만, 관계법령에 의해 보존할 경우 볍령에서 정한 일정 기간동안 별도 보관 됩니다 (아래 제3항 참조)
+      </p>
+      <p>
+        다. 그 밖에 고객님의 서비스 이용 과정이나 요청 사항 처리 과정에서 아래와 같은 정보들이 자동으로 수집 및 저장될 수 있습니다.
+      </p>
+      <br>
+            <table class="table text-center horizon">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">수집목적</th>
+            <th scope="col">수집항목</th>
+            <th scope="col">보유기간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              회원의 홈페이지 이용, <br>
+              회원 관리 (불량회원 이용방지등),<br>
+              문의 민원등 고객 고충 처리
+            </td>
+            <td>
+              IP주소, 접속로그, 및 환경정보,<br>
+              서비스 이용기록, 쿠키
+            </td>
+            <td>
+              회원탈퇴 후 5일 까지
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        *보유기간 참조사항: 다만, 관계법령에 의해 보존할 경우 볍령에서 정한 일정 기간동안 별도 보관됩니다 (아래 3항 참조) 또한, 
+        쿠키는 보관되지 않습니다 <br>(쿠기관련 자세한 내용은 아래 7조 참조).
+      </p>
+      <br>
+      <p>
+        (2) 개인정보 수집방법 <br>
+        회사는 아래와 같은 방법으로 개인정보를 수집합니다<br>
+        <ul>
+          <li>홈페이지 회원가입, 고객 문의/고충 처리시 전화 또는 인터넷을 통한 상담, 이벤트 참여, 경품행사 응모</li>
+        </ul>
+        
+      </p>
+        <h6>2. 수집한 개인정보의 공유 및 제공</h6>
+      <p>
+        회사는 명시적으로 달리 규정된 경우를 제외하고는 귀하의 개인정보를 본 개인정보취급방침의 개인정보의 수집 및 이용목적에서 정한 범위 내에서만 이용하며, 귀하의 사전 동의 없이 귀하의 개인정보를 다른 목적으로 이용하거나 제 3자에게 제공하지 않습니다. 
+        다만, 귀하가 사전에 동의한 경우 및 합법적인 절차 및 방법에 따라 정당한 권한이 있는 국가기관, 수사기관 등의 요구가 있는 경우 등 법령에 따른 근거가 있는 경우에는 예외로 합니다.
+      </p>
+      <br>
+      <br>
+      <h6>3. 개인정보의 보유 및 이용기간</h6>
+      <p>
+        회사는 귀하의 개인정보를 회사가 수집 시점에 고지한 범위(회원 가입 시에는 [개인정보 수집 및 이용 동의]에서 고지한 범위) 내에서 이용하며, 귀하의 사전 동의 없이는 동 범위를 초과하여 이용하지 않습니다. 
+        귀하가 회사에서 제공하는 서비스를 이용하는 동안 회사는 귀하의 개인정보를 계속적으로 보유하며 서비스 제공 등을 위해 이용합니다. 
+        다만, 귀하가 직접 일부 정보를 삭제하거나 수정한 경우 및 탈퇴를 요청한 경우에는 재생할 수 없는 방법을 활용하여 해당 정보를 디스크에서 완전히 삭제하며, 추후 열람이나 이용이 불가능한 상태로 변경됩니다.
+      </p>
+      <p>
+        회사는 귀하의 개인정보를 개인정보 수집 시에 동의 받은 개인정보 보유기간 동안 보유합니다(제1조 제(1)항 참조). 
+        귀하의 개인정보는 개인정보의 수집목적 또는 제공받은 목적이 달성되면 파기하는 것을 원칙으로 합니다. 
+        또한, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 제29조 및 동 시행령 제16조에 따라 1년 이상 장기 미사용 홈페이지 회원의 개인정보는 파기합니다. 
+        이에 대한 안내메일이 발송되고 파기처리를 원하시지 않는 경우 안내서에 기재된 기간까지 홈페이지에 방문해서 1회 이상 로그인을 하면 파기 처리 대상에서 제외 됩니다.
+      </p>
+      <p>
+        다만, 관련 법령의 규정에 의하여 개인정보를 보존할 필요가 있는 경우 이를 다음과 같이 관련 법령에서 정한 일정한 기간 동안 보관할 수 있습니다. 
+        이 경우 회사는 보관하는 정보를 특유한 해당 목적으로만 보관합니다.
+      </p>
+      <p>
+        <ul>
+          <li>계약 또는 청약철회 등에 관한 기록: 5년 (전자상거래 등에서의 소비자보호에 관한 법률)</li>
+          <li>대금결제 및 재화 등의 공급에 관한 기록: 5년 (전자상거래 등에서의 소비자보호에 관한 법률)</li>
+          <li>소비자의 불만 또는 분쟁처리에 관한 기록: 3년 (전자상거래 등에서의 소비자보호에 관한 법률)</li>
+          <li>방문(전기통신역무 이용사실)에 관한 기록: 3개월 (통신비밀보호법)</li>
+        </ul>
+      </p>
+      <h6>4. 개인정보의 파기 절차 및 방법</h6>
+      <p>
+        회사는 귀하의 개인정보를 법령에 따라 안전하게 처리하며, 회원가입 등을 위해 입력하신 정보는 그 처리목적이 달성된 후 내부 방침 및 기타 관련 법령에 따라 일정기간 저장된 후 파기됩니다. 
+        회사는 개인정보의 유출 방지를 위하여 다음과 같은 방법을 통하여 개인정보를 파기합니다.
+        <ul>
+          <li>종이에 출력된 개인정보는 분쇄기로 분쇄하여 파기합니다.</li>
+          <li>전자적 파일 형태로 저장된 개인정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 삭제합니다.</li>
+        </ul>
+        게시물의 경우 귀하가 본인의 게시물을 삭제하지 않는 한 해당 게시물에 담겨있는 개인정보는 계속적으로 보유됩니다. 
+        그러나 귀하는 본인의 게시물을 언제든 삭제할 수 있으며 귀하의 게시물 삭제 이후에는 게시물 및 이에 담겨있는 개인정보는 추후 열람이 불가능한 상태로 처리됩니다.
+      </p>
+      <h6>5. 고객 및 법정대리인의 권리, 의무 및 그 행사방법</h6>
+      <p>
+        귀하는 언제든지 회사가 운영하는 홈페이지를 이용하여 아래와 같이 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 가입 해지를 요청할 수도 있습니다.
+        <br>
+        귀하는 최초 아이디(이메일) 생성을 위해서는 회사가 지정한 인증절차를 거쳐야 하며, 구체적인 인증방법은 회사가 선정한 방법에 따릅니다.
+        <br>
+        귀하는 아이디(이메일)와 비밀번호를 사용하여 해당 홈페이지 내의 회원관리 메뉴에 로그인(LOG-IN) 후 개인정보를 조회할 수 있고, 아이디(이메일)을 제외한 모든 입력사항을 수정할 수 있습니다. 
+        또한, 비밀번호를 잊어버린 경우에는 회원 로그인 메뉴 하단에 있는 "비밀번호 찾기"를 클릭하여 안내사항에 따라 본인 확인에 필요한 사항을 입력하면, 본인여부 확인 후 이메일(email)을 통하여 임시 비밀번호를 알려드립니다.
+        <br>
+        <br>
+        가입 해지는 로그인 상태에서 홈페이지에 있는 "회원탈퇴" 버튼을 클릭하신 후, 안내사항에 따라 항목 선택 및 질문사항을 입력하고 "탈퇴"를 선택하시면, 입력하신 사항을 기초로 이용자 본인여부를 확인한 후 처리합니다. 
+        단 회원 탈퇴로 인하여 개인정보가 파기되는 경우에는 해당 회원이 서비스를 이용하면서 회사에 생성, 축적된 관련 정보가 함께 파기될 수 있습니다. 가입 해지 시 모든 서비스를 이용할 수 없게 되는 것은 아니며, 단지 로그인이 요구되는 일부 회원제 서비스에 대해서만 그 기능을 이용할 수 없게 됩니다.
+        <br>
+        귀하가 개인정보의 오류에 대한 정정을 요청하신 경우에는 회사는 그 정정을 완료하기 전까지 당해 개인정보를 이용 또는 제공하지 않습니다. 
+        또한 회사가 잘못된 개인정보를 제3자에게 이미 제공한 경우에는 정정 처리결과를 제3자에게 지체 없이 통지하여 정상적으로 정정절차를 진행합니다.
+        <br>
+        <br>
+        회사는 귀하의 대리인이 방문하여 열람 또는 정정요구를 하는 등 귀하를 대리하여 귀하의 권리를 행사하는 경우, 그 대리인이 고객님의 진정한 대리인인지 여부를 확인하며, 이 경우 회사는 대리관계를 나타내는 증표를 제시하도록 요구할 수 있습니다.
+        <br>
+        <br>
+        회사는 귀하 또는 법정대리인의 요청에 의해 해지 또는 삭제된 개인정보는 본 개인정보취급방침의 [개인정보의 보유 및 이용기간] (3조) 및 [개인정보의 파기절차 및 방법] (4조)에 명시된 바에 따라 처리하고 그 외의 용도로 열람 또는 이용할 수 없도록 처리하고 있습니다.
+      </p>
+      <h6>쿠키 자동수집 장치의 설치/운영 및 그 거부에 관한 사항</h6>
+      <p>
+        회사는 귀하의 정보를 수시로 저장하고 찾아내는 ‘쿠키(cookie)’ 등을 운용합니다. 
+        쿠키란 http://www.super-race.com의 웹사이트를 운영하는데 이용되는 서버가 귀하의 브라우저에 보내는 아주 작은 텍스트 파일로서 귀하의 컴퓨터 하드디스크에 저장됩니다. 회사는 다음과 같은 목적을 위해 쿠키를 사용합니다.
+        <ul>
+          <li>쿠키 등 사용 목적</li>
+        </ul>
+        귀하의 홈페이지 이용시, 이벤트 참여시, 홈페이지를 통한 게임이용 문의, 민원 제출시 쿠키가 자동 수집될 수 있습니다. 자동 수집되는 쿠키는 귀하가 홈페이지에서 로그아웃 하거나 브라우저 창을 닫을 때 소멸되며 마케팅 목적으로 이용되지 않습니다. 귀하는 쿠키 설치에 대한 선택권을 가지고 있습니다. 따라서, 귀하는 웹브라우저에서 옵션을 설정함으로써 모든 쿠키를 허용하거나, 쿠키가 저장될 때마다 확인을 거치거나, 아니면 모든 쿠키의 저장을 거부할 수도 있습니다. 단, 귀하께서 쿠키 설치를 거부하였을 경우 일부 서비스는 이용에 어려움이 있을 수 있습니다.
+        <ul>
+          <li>쿠키 설정 거부 방법</li>
+        </ul>
+        예: 쿠키 설정을 거부하는 방법으로는 귀하가 사용하시는 웹 브라우저의 옵션을 선택함으로써 모든 쿠키를 허용하거나 쿠키를 저장할 때마다 확인을 거치거나, 모든 쿠키의 저장을 거부할 수 있습니다.
+        <ul>
+          <li>설정방법 예(인터넷 익스플로어의 경우) : 웹 브라우저 상단의 도구 > 인터넷 옵션 > 개인정보 탭 > 개인정보 취급 수준</li>
+        </ul>
+      </p>
+      <h6>7. 기술적인 사항</h6>
+      <br>
+      <p>
+        회사는 귀하의 개인정보를 취급함에 있어 개인정보가 분실, 도난, 누출, 변조 또는 훼손되지 않도록 안전성 확보를 위하여 다음과 같은 기술적/관리적 대책을 강구하고 있습니다.
+      <br>
+      <br>
+        <ul>
+          <li>밀번호 암호화: 회원들의 아이디(이메일)의 비밀번호는 암호화되어 저장 및 관리되고 있어 회원 본인만이 알고 있으며, 개인정보의 확인 및 변경도 비밀번호를 알고 있는 회원 본인에 의해서만 가능합니다.</li>
+          <li>해킹 등에 대비한 대책: 회사는 해킹이나 컴퓨터 바이러스 등에 의해 귀하의 개인정보가 유출되거나 훼손되는 것을 막기 위해 최선을 다하고 있습니다. 개인정보의 훼손에 대비해서 자료를 수시로 백업하고, 최신 백신프로그램을 이용하여 고객님들의 개인정보나 자료가 누출되거나 손상되지 않도록 방지하고 있으며, 암호화 등을 통하여 네트워크상에서 개인정보를 안전하게 전송할 수 있도록 대비하고 있습니다. 그리고 침입차단시스템을 이용하여 외부로부터의 무단 접근을 통제하고 있으며, 기타 시스템상 보안성을 확보하기 위한 가능한 모든 기술적 장치 구비를 위해 최선을 다하고 있습니다</li>
+          <li>취급 직원의 최소화 및 교육: 회사의 개인정보관련 취급 직원은 개인정보 취급이 필요한 최소한의 업무 담당자에 한정시키고 있고 이를 위한 별도의 비밀번호를 부여하여 정기적으로 갱신하고 있으며, 담당자에 대한 수시 교육을 통하여 개인정보취급방침의 준수를 항시 강조하고 있습니다.</li>
+          <li>개인정보보호전담기구의 운영: 사내 개인정보보호전담기구 등을 통하여 개인정보취급방침의 이행 여부를 확인하여 문제가 발견될 경우 즉시 수정하고 바로 잡을 수 있도록 노력하고 있습니다. 단, 고객님 본인의 부주의나 인터넷상의 문제 등 회사의 고의 또는 과실 없이 ID, 비밀번호 등 개인정보가 유출되어 발생한 문제에 대해 회사는 일체의 책임을 지지 않습니다.</li>
+        </ul>
+      </p>
+      <h6>8. 개인정보에 관한 민원서비스</h6>
+      <p>
+        개인정보와 관련한 아이디(이메일)의 비밀번호에 대한 보안유지책임은 해당 고객님 자신에게 있습니다. 회사는 비밀번호에 대해 어떠한 방법으로도 고객 여러분께 직접적으로 요청하는 경우는 없으므로 타인에게 비밀번호가 유출되지 않도록 각별히 주의하시기 바랍니다.
+      </p>
+      <br>
+      <p>
+        회사는 귀하의 개인정보를 보호하고 개인정보와 관련한 불만을 처리하기 위하여 아래와 같이 관련 부서 및 개인정보 관리담당자를 지정하고 있습니다.
+        <ul>
+          <li>
+            개인정보 관리담당자
+            <ul>
+              <li>이름: 신기욱</li>
+              <li>E-mail: kickin.google.com </li>
+              <li>연락처: 02-2238-7179</li>
+            </ul>
+          </li>
+        </ul>
+        귀하께서는 회사의 서비스를 이용하시며 발생하는 모든 개인정보보호 관련 민원을 개인정보관리책임자 혹은 담당부서로 신고하실 수 있습니다. 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변을 드릴 것입니다.
+        <br>
+        기타 개인정보침해에 대한 신고나 상담이 필요하신 경우에는 아래 기관에 문의하시기 바랍니다.
+        <ul>
+          <li>개인분쟁조정위원회 (www.1336.or.kr/1336)</li>
+          <li>대검찰청 인터넷범죄수사센터 (http://icic.sppo.go.kr/02-3480-3600)</li>
+          <li>경찰청 사이버테러대응센터 (www.ctrc.go.kr/02-392-0330)</li>
+        </ul>
+      </p>
+      <h6>[타 사이트에 대한 링크에 대한 안내]</h6>
+      <p>
+        회사는 귀하께 다른 회사의 웹사이트 또는 자료에 대한 링크를 제공할 수 있습니다. 
+        이 경우 회사는 외부사이트 및 자료에 대한 통제권이 없으므로 그로부터 제공받는 서비스나 자료의 유용성, 진실성, 적법성에 대해 책임질 수 없으며 보증할 수 없습니다. 회사가 포함하고 있는 링크를 통해 타 사이트(site)의 페이지로 방문하시게 될 경우 해당 사이트의 개인정보취급방침은 회사와 무관하므로 새로 방문한 사이트의 정책을 확인하시기 바랍니다.
+        <br>
+        또한 현 개인정보취급방침 내용 추가, 삭제 및 수정이 있을 시에는 7일 이내 홈페이지의 "공지사항"을 통해 고지할 것입니다.
+      </p>
+    </div>
   <br>
-  <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="flexSwitchCheckReverse" v-model="agreed">
-    <label class="form-check-label" for="flexSwitchCheckReverse">I have read the terms of  Agreement and Accept the terms and conditions</label>
+  <div class="">
+    <div class="form-check form-switch">
+      <label class="form-check-label" for="flexSwitchCheckReverse">
+        개인정보 수집 및 이용, 제공에 대해 확인하였으며 이에 동의합니다. 이용자는 위 사항에 거부할 권리가 있으며, 거부 시 등록이 제한됩니다.
+      </label>
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckReverse" v-model="agreed">
+    </div>
+    <br>
+    <div class="d-flex justify-content-center text-center">
+      <button class="btn btn-primary" id="registerBtn" :disabled=isAgreed @click="goRegist" style="margin-bottom: 100px;">
+        동의합니다.
+      </button>
+    </div> 
   </div>
-  <br>
-  <div class="d-flex justify-content-center">
-    <button class="btn btn-primary" id="registerBtn" :disabled=isAgreed @click="goRegist" style="margin-bottom: 100px;">
-      Register
-    </button>
-  </div> 
-  </div>
+  </v-container>
 </template>
 
 <script>

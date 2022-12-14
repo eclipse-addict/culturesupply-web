@@ -1,16 +1,35 @@
   <template>
   <div class="container">
     <main>
-      <div class="py-5 text-center mt-16 border-bottom mb-5">
-        <img
-          class="d-block mx-auto mb-4"
-          src="@/assets/logo.png"
-          alt=""
-          width="75"
-          height="75"
-        />
-        <h2>회원 가입</h2>
-      </div>
+      <div>
+      <v-stepper alt-labels>
+        <v-stepper-header>
+          <v-stepper-step  complete>
+            개인정보처리방침
+          </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step step='2' editable complete>
+            회원정보 입력
+          </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step step="3">
+            완료
+          </v-stepper-step>
+        </v-stepper-header>
+      </v-stepper>
+  </div>
+  <div class="px-5 text-center">
+    <h1 class="policyTitle pt-4 font-weight-bolder">JOIN</h1>
+    <h5 class="policyTitle">회원정보 입력</h5>
+    <hr>
+    <div class="justify-content-between">
+      <img src="" alt="" class="img-fluid center-block" >
+    </div>
+  </div>
 
       <div class="row d-flex">
         <!-- this section could be used to register add later -->
