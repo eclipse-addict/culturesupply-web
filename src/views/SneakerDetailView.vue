@@ -35,7 +35,7 @@ data() {
     const product_id = this.$route.params.id;
     axios({
       method: 'GET',
-      url: 'http://127.0.0.1:8000/api/sneaker/' + product_id,
+      url: 'http://127.0.0.1:8000/kicks/sneaker/' + product_id,
     }).then(res=> {
       console.log('detail res: ', res)
       this.kick = res.data

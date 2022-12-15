@@ -115,7 +115,7 @@ export default {
       genderGroup: ['All', 'Youth', 'Men', 'Women', 'Infant', 'Toddler', 'Child', 'Unisex', 'Preschool'],
       brand: 'All',
       gender: 'All',
-      url : 'http://127.0.0.1:8000/api/sneaker/',
+      url : 'http://127.0.0.1:8000/kicks/sneaker/',
 
     };
   },

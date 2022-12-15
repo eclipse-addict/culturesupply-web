@@ -1,7 +1,7 @@
 <template>
-<div class="container show-grid" style="margin-top: 6.5rem;}">
-  <div class="text-center mb-16 pb-4 border-bottom">
-  <h1 class="main-header">Hottest kicks in'</h1>
+<div class="container show-grid">
+  <div class="text-center border-bottom">
+  <!-- <h1 class="main-header">Kickin</h1> -->
   </div>
   <div class="row h-100 border-bottom pb-5" v-show="main_product">
     <div class="col-md-6 col-sm-12 mt-auto mb-auto main-font">
@@ -53,7 +53,7 @@ export default {
       console.log('main_image_fatch()')
       axios({
         method: 'GET',
-        url: 'http://127.0.0.1:8000/api/img/main/',
+        url: 'http://127.0.0.1:8000/kicks/img/main/',
       }).then(res => {
         console.log('main_image_fatch res: ', res.data);
         this.main_product = res.data[1]

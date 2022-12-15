@@ -1,9 +1,6 @@
 <template>
 <div>
   <productReviewForm :reviews=reviews :product_id=product_id @newReviewEvent="newReviewEvent"></productReviewForm>
-  <v-col>
-  <ReviewItem :review=review></ReviewItem>
-  </v-col>
   <v-col v-for="(review, i) in page_content" :key="i" cols="12">
   <ReviewItem :review=review></ReviewItem>
   </v-col>

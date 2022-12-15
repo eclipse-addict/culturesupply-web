@@ -57,6 +57,14 @@ export default new Vuex.Store({
 
       window.localStorage.removeItem('user');
     },
+    SET_REFRESH_TOKEN(state, payload){
+      state.user_data.access_token = payload.access
+      
+      window.localStorage.removeItem('user');
+
+      const user = JSON.stringify(state.user_data);
+      window.localStorage.setItem('user', user);
+    },
 
     SET_LOADING_STATE(state, payload){
       console.log('SET_LOADING_STATE CALLED, payload: ', payload)
@@ -111,6 +119,26 @@ export default new Vuex.Store({
         }
         
       })
+    },
+    refresh_token_request(context, dispatch){
+      axios({
+        method: 'POST',
+        url: url + 'api/token/refresh/',
+        headers:{"Content-Type": "application/json"},
+        data: {
+          'refresh': this.state.user_data.refresh_token
+        },
+      })
+      .then(res=>{
+          console.log('refresh_token');
+          context.commit('SET_REFRESH_TOKEN', res.data);
+        })
+        .catch(err=>{
+          // console.log('refresh_token_err', err);
+          dispatch("signoutRequest").then(()=>{
+            this.$router.push({name:'login'})
+          })
+        })
     },
     setLoading(context, payload){
       console.log('setLoading Called')

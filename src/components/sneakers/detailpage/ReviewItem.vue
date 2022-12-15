@@ -1,6 +1,5 @@
 <template>
-  <v-main>
-    <v-container class="mt-5 pt-5 shadow" style="background-color:white;">
+    <v-container class=" shadow" style="background-color:white;">
       <v-card class="mx-auto">
         <!-- <v-card-actions class="pa-4"> -->
           <v-rating
@@ -29,9 +28,8 @@
             </v-btn>
           </v-card-actions>
       </v-card>
-
     </v-container>
-</v-main>
+
 </template>
 
 <script>

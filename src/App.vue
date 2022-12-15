@@ -8,12 +8,23 @@
       app
       color="#2B3A55"
       dark
+      shaped
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-
-      <v-toolbar-title class="m-auto nav-mouse-over" @click="toHome">
-        <img src="@/assets/logo.png" alt="" width="50" height="50">
+      
+      <v-toolbar-title class="m-auto nav-mouse-over mt-2" @click="toHome">
+        <img src="@/assets/logo.png" alt="" width="60" height="60">
       </v-toolbar-title>
+      <template v-slot:extension >
+        <v-tabs class="d-none d-sm-flex" align-with-title v-model="group" active-class="text--accent-4">
+          <v-tab @click="toHome">Home</v-tab>
+          <v-tab @click="toSneakers">Sneakers</v-tab>
+          <v-tab>Raffle</v-tab>
+          <v-tab @click="toCalendar">Calendar</v-tab>
+          <v-tab>Tab 4</v-tab>
+          <v-tab >Tab 5</v-tab>
+        </v-tabs>
+      </template>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -23,12 +34,8 @@
       mobile-breakpoint
     >
       <v-list nav dense>
-        <v-list-item-group v-model="group" active-class="text--accent-4">
-          <v-list-item-title class="text-center">
-            <h3>Kickin</h3>
-          </v-list-item-title>
-          <!-- <v-divider></v-divider> -->
-          <v-list-item v-if="this.$store.state.user_data.access_token" @click="toProfile">
+        <v-list-item-group>
+        <v-list-item v-if="this.$store.state.user_data.access_token" @click="toProfile">
           <v-list-item-avatar>
             <v-img :src="this.$store.state.user_data.profile_img"></v-img>
           </v-list-item-avatar>
@@ -40,6 +47,13 @@
             </v-list-item-icon>
             <v-list-item-title>로그인을 해주세요.</v-list-item-title>
           </v-list-item>
+        </v-list-item-group>
+        <v-list-item-group v-model="group" active-class="text--accent-4">
+          <v-list-item-title class="text-center">
+            <!-- <h3>Kickin</h3> -->
+          </v-list-item-title>
+          <!-- <v-divider></v-divider> -->
+
           <v-divider></v-divider>
           <v-list-item @click="toHome">
             <v-list-item-icon>
@@ -67,6 +81,12 @@
               <span class="material-symbols-outlined">calendar_month</span>
             </v-list-item-icon>
             <v-list-item-title>Calendar</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-itme->Tab 4</v-list-itme->
+          </v-list-item>
+          <v-list-item>
+            <v-list-itme->Tab 5</v-list-itme->
           </v-list-item>
         </v-list-item-group>
       </v-list>

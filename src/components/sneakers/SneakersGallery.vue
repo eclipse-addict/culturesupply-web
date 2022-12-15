@@ -63,8 +63,8 @@
             >
               <v-icon >read_more</v-icon>
             </v-btn>
-            <div class="font-weight-light grey--text text-h6 mb-2">
-              {{k.brand.includes('%20')? k.brand.replace('%20', ' ').toUpperCase() :k.brand.toUpperCase()}}
+            <div class="grey--text text-h6 mb-2">
+              {{k.brand.includes('%20')? k.brand.replaceAll('%20', ' ').toUpperCase() :k.brand.toUpperCase()}}
             </div>
             <h6 class="text-h6 font-weight-heavy black--text mb-2">
               {{k.name}}
@@ -144,7 +144,7 @@ export default {
       }
       axios({
         method: "GET",
-        url: "http://127.0.0.1:8000/api/sneaker/",
+        url: "http://127.0.0.1:8000/kicks/sneaker/",
         params: params,
       })
         .then((res) => {
@@ -205,12 +205,12 @@ export default {
       }
       axios({
         method: "GET",
-        url: "http://127.0.0.1:8000/api/sneaker/",
+        url: "http://127.0.0.1:8000/kicks/sneaker/",
         params: params,
       })
         .then((res) => {
           if(res.data){
-            console.log('res: ' + JSON.parse(res.data))
+            // console.log('res: ' + JSON.parse(res.data))
             this.kicks = res.data
             
 
@@ -233,7 +233,7 @@ export default {
       }
     },
     like_btn(product_id, index){
-      console.log('index Check :', index)
+      // console.log('index Check :', index)
       if(!this.$store.state.user_data.access_token){
         swal("계속하려면 로그인해주세요.", {
           buttons: {
@@ -266,17 +266,23 @@ export default {
         const user_id = this.$store.state.user_data.pk
         axios({
           method: 'POST',
-          url: this.$store.state.dev_url+`api/sneaker/like/${product_id}/${user_id}/`,
+          url: this.$store.state.dev_url+`kicks/sneaker/like/${product_id}/${user_id}/`,
           headers: {'Authorization':'Bearer '+this.$store.state.user_data.access_token},
         }).then(res =>{
-          console.log('like req: ',res);
+          // console.log('like req: ',res);
           if(res.data.message =='added'){
             this.kicks[index].like_users.push(user_id);
           }else if(res.data.message =='removed'){
             this.kicks[index].like_users.splice(this.kicks.indexOf(user_id), 1);
           }
         }).catch(err=>{
-          console.log('err: ',err);
+          // console.log('err: ',err);
+          if(err.response.status == 401){
+            this.$store.dispatch('refresh_token_request')
+            .then(()=>{
+              this.like_btn(product_id, index)
+            })
+          }
         })
       }
     },

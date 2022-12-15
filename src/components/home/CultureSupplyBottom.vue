@@ -1,11 +1,10 @@
 <template>
-<div class="container show-grid" style="margin-top: 6.5rem;
-}">
+<div class="container show-grid">
   <div class="row h-100 border-bottom pb-5" v-show="main_product">
     <div class="col-md-6 col-sm-12 mt-auto mb-auto main-font">
       <p class="brand-name d-none d-md-block">{{main_product?.brand}}</p>
       <h1 class="d-none d-md-block d-xl-block d-xxl-block main-header">{{main_product?.name}}</h1>
-     <div class="">
+    <div class="">
         <h5 style=" font-size:30px;">{{main_product?.name}}</h5>
         <div class="mt-4">
         <v-btn class="ma-2" outlined color="black" small @click="toDetail(main_product?.id)">Take me to Detail</v-btn>
@@ -51,7 +50,7 @@ export default {
       console.log('main_image_fatch()')
       axios({
         method: 'GET',
-        url: 'http://127.0.0.1:8000/api/img/main/',
+        url: 'http://127.0.0.1:8000/kicks/img/main/',
       }).then(res => {
         console.log('main_image_fatch res: ', res.data);
         this.main_product = res.data[0]
