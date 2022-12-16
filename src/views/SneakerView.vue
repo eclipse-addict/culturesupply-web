@@ -68,8 +68,8 @@
                 :value="n"
               ></v-radio>
             </v-radio-group>
-              
             </p>
+            <v-btn top absolute color="#D6E4E5" right fixed  elevation="5" @click="option_reset" >조건 초기화</v-btn>
           </div>
         </div>
         <v-btn
@@ -111,7 +111,7 @@ export default {
 
       isLoading: false, // it chages every time user types into the input field
       keyword: '',
-      brandGroup: ['All', 'Nike', 'Jordan', 'Adidas', 'Puma', 'New Balance', 'Vans'],
+      brandGroup:['All','Nike','adidas','New Balance','Vans','Air Jordan','Supreme','Puma','Converse','Reebok','ASICS','Palace','Kith','off white','Stussy','Under Armour','Gucci','BAPE','Balenciaga','Billionaire Boys Club','Saucony','Palm Angels','Amiri','Fear Of God Essentials','Pleasures','Stone Island','Versace','Icecream','MCQ','Saint Laurent','Rhude','Brain Dead','Diadora','Bottega Veneta','Givenchy','Carhartt WIP','Heron Preston','Loewe','comme des garcons play','Air Jordan','Vetements','Anti Social Social Club','Burberry','Casablanca','Dior','Undercover','OFF-WHITE','Under Armour','Jacquemus','Rick Owens','Raf Simons','cactus jack by travis scott','Honor The Gift','Marni','Moncler','Chinatown Market','MM6 Maison Margiela','Market','Neighborhood','Maison Margiela','acne studios','1017 alyx 9sm','GANNI','Alexander McQueen','Moncler Genius','Ambush','Kapital','Marine Serre','Ami','Ksubi','Needles','Aries','Fear Of God','Balmain','a cold wall','Karhu','Vlone','','Dime','Human Made','Fendi','Thisisneverthat','Visvim','Saint Laurent','Lemaire','Helmut Lang','Martine Rose','Saint Michael','Common Projects','Cav Empt','Polo Ralph Lauren','Jil Sander','y 3','032c','KidSuper','The North Face','Crocs','Ader Error','Wacko Maria','Prada','courreges','Sacai','Nahmias','apc','Who Decides War','comme des garcons shirt','Cactus Plant Flea Market','Paco Rabanne','Mizuno','Louis Vuitton','Liberaiders','Yohji Yamamoto Pour Homme','Rick Owens DRKSHDW','Awake NY','Reese Cooper','Engineered Garments','Junya Watanabe','Les Tien','Yeezy Gap','comme des garcons','Valentino','Advisory Board Crystals','New Balance','Fila','JW Anderson','Music','Saintwoods','Just Don','Khaite','comme des garcons wallet','Real Bad Man','Lanvin','We11done','museum of peace quiet','C2H4','Timberland','Born X Raised','GOLF WANG','Hatton Labs','Curry Brand','Yeezy','Gentle Monster','Mykita','Acronym','Bode','Clarks','Martine Ali','Kanye West','Chanel','yproject','CELINE','Parra','comme des garcons homme plus','Mastermind World','Mastermind','Nanamica','li ning','Alexander McQueen','Stone Island Shadow Project','CLOT','ERL','Fred Perry','redone','bricks wood','Ewing','Wales Bonner','READYMADE','Dries Van Noten','Flight Club','paris saint germain','Eckhaus Latta','Sp5der','Kiko Kostadinov','Simone Rocha','girls dont cry','Louis Vuitton','OAMC','Afield Out','And Wander','Skim Milk','Song For The Mute','Agolde','MISBHV','WHOLE','Hoka One One','Hood By Air','Noah','KangaROOS','Kenzo','Online Ceramics','Pleats Please Issey Miyake','Polo By Ralph Lauren','Iise','Li-Ning','Other','Yeezy Gap Engineered By Balenciaga','SUPER By RetroSuperFuture','Yohji Yamamoto','mr saturday','BLUEMARBLE','Flatlist','VTMNTS','dr martens','424','levis','John Geiger','Salomon','Midnight Studios','ON','Students','Bao Bao Issey Miyake','Norse Projects','Patta','2 moncler','Brooks','Champion','Moncler Grenoble','Junya Watanabe MAN','K Swiss','Chemist Creations','Craig Green','Dutch Tulip Financial','Issey Miyake','Big Baller Brand','Children Of The Discordance','Ian Charms','Rassvet','SLVRLAKE','Entire Studios','Psychworld','Hyein Seo','Maison Mihara Yasuhiro','Total Luxury Spa','Camp High','Onitsuka Tiger','Yamborghini','bianca chandon','3paradis','Harley Davidson','Little Africa','VEERT','Anta','CLOTTEE','Drew House','Kids Of Immigrants','Le Coq Sportif','New Era','One Of These Days','CDG','Chrome Hearts','Miu Miu','RetroSuperFuture','Vintage','ernest w baker','porter yoshida co','tao comme des garcons','AI Studios','Casey Casey','Denim Tears','Keiser Clark','Sandal Boyz','Veneda Carter','Birkenstock','Ottolinger','Sandy Liang','Andersson Bell','Dc','Filling Pieces','Mister Green','Supra','dolce gabbana','Etudes','Jack Eller','Sky High Farm','Soulland','comme des garcons homme','number nine','5 moncler','Golden Goose','I Know Nigo','IDEA','MSCHF','Movies','Suicoke','Anonymous Club','Books','Cecilie Bahnsen','Dior Homme','Edward Cuming','Greg Lauren','Jean Paul Gaultier','Know Wave','Mowalola','Polite Worldwide','T By Alexander Wang','Ubiq','ADYAR','Christian Louboutin','Eric Emanuel','Hidden NY','MediCom Toy','Tommy Hilfiger','Travis Scott','tricot comme des garcons','AND1','Borsalino','Buscemi','DC Comics','Haider Ackermann','Hender Scheme','Marc Jacobs','Marcelo Burlon','Merrell','Mugler','Paperboy','Sinclair','Umbro','mercedes benz','361 degrees','66 north','90s anxiety','AREA','Alexander Wang','Angel Chen','Ari','Art','Baracuta','Boris Bidjan Saberi','Brandon Maxwell','Calvin Klein','Cartier','Charles Jeffrey Loverboy','Coperni','Ellesse','Etonic','Ferrari','GR10K','Hummel Hive','Hussein Chalayan','KARA','KAWS','Lotto','Molly Goddard','Nowhere','OVO','PF Flyers','Peter Do','Pierre Hardy','Poche','Quiet Golf','Siberia Hills','Sies Marjan','Sony','Sophie Bille Brahe','Stand Studio','Sulvam','Taiga Takahashi','The Hundreds','The Source','Tier','Tom Sachs','Used Future','Vivienne Westwood','mitchell ness','pam','ys'],
       genderGroup: ['All', 'Youth', 'Men', 'Women', 'Infant', 'Toddler', 'Child', 'Unisex', 'Preschool'],
       brand: 'All',
       gender: 'All',
@@ -150,10 +150,15 @@ unmounted() {
       // 스크롤 움직일 때 마다 호출됨
       this.scroll = 1;
     },
-	goTop() {
-      window.scrollTo(0,0);
-		if (this.scrollTarget) {
-		}
+    goTop() {
+        window.scrollTo(0,0);
+      if (this.scrollTarget) {
+      }
+    },
+    option_reset(){
+      this.keyword = "";
+      this.brand = "All";
+      this.gender = "All";
     }
   },
   watch: {

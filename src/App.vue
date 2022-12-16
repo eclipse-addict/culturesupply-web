@@ -12,8 +12,8 @@
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       
-      <v-toolbar-title class="m-auto nav-mouse-over mt-2" @click="toHome">
-        <img src="@/assets/logo.png" alt="" width="60" height="60">
+      <v-toolbar-title class="m-auto nav-mouse-over mt-1" @click="toHome">
+        <img src="@/assets/logo.png" alt="" width="58" height="58">
       </v-toolbar-title>
       <template v-slot:extension >
         <v-tabs class="d-none d-sm-flex" align-with-title v-model="group" active-class="text--accent-4">
