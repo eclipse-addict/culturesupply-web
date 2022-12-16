@@ -18,7 +18,7 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/kicks/:keyword?/:brand?/:gender?',
+    path: '/kicks/:keyword?/:brand?',
     name: 'sneakers', 
     component: () => import('../views/SneakerView.vue'),
   },

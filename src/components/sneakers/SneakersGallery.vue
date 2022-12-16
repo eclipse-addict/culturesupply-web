@@ -115,8 +115,8 @@ export default {
     url : String,
     searchCondition: {
       keyword : '',
-      gender : '',
       brand: '',
+      release: '',
     },
   },
   components: {
@@ -127,21 +127,24 @@ export default {
       this.$router.push({ name: "detail", params: { id } });
     },
     fetch_kicks($state) {
+      console.log("fetch_kicksfetch_kicksfetch_kicks")
       // this.$store.dispatch('setLoading', true)
       const keyword = this.$route.query.keyword;
       const brand = this.$route.query.brand;
-      const gender = this.$route.query.gender;
-      
+      // const release = this.$route.query.release;
+      // console.log('release', release)
       this.page += 1;
       let page = this.page
       let limit = this.limit
+
       let params = {
         page,
         limit,
         keyword,
-        brand,
-        gender,
+        brand
+        // release,
       }
+      console.log("axios 바로 위 ..")
       axios({
         method: "GET",
         url: "http://127.0.0.1:8000/kicks/sneaker/",
@@ -188,7 +191,8 @@ export default {
     search_kicks($state) {
       const keyword = this.$route.query.keyword;
       const brand = this.$route.query.brand;
-      const gender = this.$route.query.gender;
+      // const release = this.$route.query.release;
+      console.log('brand check: ', brand) // 배열 
       // console.log('status : ', infiniteLoading)
       // infiniteLoading.data().status = 0
       this.$refs.infiniteLoading.stateChanger.reset(); 
@@ -200,8 +204,8 @@ export default {
         page,
         limit,
         keyword,
+        // release,
         brand,
-        gender,
       }
       axios({
         method: "GET",
@@ -299,6 +303,7 @@ export default {
   },
   created() {
     this.fetch_kicks();
+    console.log('created')
   },
   computed: {
     brand_formatter(){

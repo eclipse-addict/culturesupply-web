@@ -142,11 +142,17 @@ export default {
     },
     toSneakers(){
       // this.$store.dispatch('setLoading', true)
+      let today = new Date()
+      let year = today.getFullYear();
+      let month = ('0' + (today.getMonth() + 1)).slice(-2);
+      let day = ('0' + today.getDate()).slice(-2);
+      const release = year + month + day;
+      console.log('toSneakers toSneakers', release)
       this.$router.push({name:'sneakers', 
                         query: {
                           keyword: '',
                           brand: 'All',
-                          gender: 'All',
+                          // release: release,
                         }})
     },
     toCalendar(){
