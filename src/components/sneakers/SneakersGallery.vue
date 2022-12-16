@@ -131,8 +131,8 @@ export default {
       // this.$store.dispatch('setLoading', true)
       const keyword = this.$route.query.keyword;
       const brand = this.$route.query.brand;
-      // const release = this.$route.query.release;
-      // console.log('release', release)
+      const release = this.$route.query.release;
+      console.log('release', release)
       this.page += 1;
       let page = this.page
       let limit = this.limit
@@ -141,6 +141,7 @@ export default {
         page,
         limit,
         keyword,
+        release,
         brand
         // release,
       }
@@ -191,10 +192,9 @@ export default {
     search_kicks($state) {
       const keyword = this.$route.query.keyword;
       const brand = this.$route.query.brand;
-      // const release = this.$route.query.release;
+      const release = this.$route.query.release;
       console.log('brand check: ', brand) // 배열 
-      // console.log('status : ', infiniteLoading)
-      // infiniteLoading.data().status = 0
+
       this.$refs.infiniteLoading.stateChanger.reset(); 
       this.page = 1;
       this.kicks = []
@@ -204,7 +204,7 @@ export default {
         page,
         limit,
         keyword,
-        // release,
+        release,
         brand,
       }
       axios({

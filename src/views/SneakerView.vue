@@ -141,7 +141,7 @@ export default {
                 query: {
                   keyword: this.keyword,
                   brand: this.brand.join(),
-                  // release: this.dates.join().replaceAll('-',''),
+                  release: this.dates.join(),
                 }})
       this.$refs.sneakersGallery.search_kicks()
       // console.log('this.$refs',this.$refs.sneakersGallery)

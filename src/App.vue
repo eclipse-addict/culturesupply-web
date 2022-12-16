@@ -152,7 +152,7 @@ export default {
                         query: {
                           keyword: '',
                           brand: 'All',
-                          // release: release,
+                          release: 'default',
                         }})
     },
     toCalendar(){
