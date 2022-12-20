@@ -18,9 +18,15 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/kicks/:keyword?/:brand?/:release?',
+    path: '/kicks/:search?/:brand?/:release?',
     name: 'sneakers', 
-    component: () => import('../views/SneakerView.vue'),
+    component: () => import('../views/sneakers/SneakerView.vue'),
+  },
+  {
+    path: '/kicks/updateInfo/:id?',
+    name: 'updateInfo',
+    component: () => import('../views/sneakers/UpdateInfoView.vue'),
+
   },
   {
     path: '/product/detail/:id',
@@ -48,6 +54,18 @@ const routes = [
     path: '/registration',
     name: 'regist', 
     component: () => import('@/components/user/UserRegistration'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/culture',
+    name: 'culture', 
+    component: () => import('../views/CultureView.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/auction',
+    name: 'auction', 
+    component: () => import('../views/AuctionView.vue'),
     meta: { requiresAuth: false }
   },
   {

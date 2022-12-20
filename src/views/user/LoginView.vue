@@ -21,7 +21,7 @@ export default {
 <style scoped>
 
 .back {
-  background-image: url(https://images.complex.com/complex/images/c_fill,dpr_auto,f_auto,q_auto,w_1400/fl_lossy,pg_1/morzu5viyb40byaohjiu/off-white-x-nike-the-ten-collection?fimg-ssr-default);
+  background-image: url('http://localhost:8000/media/images/Air-Jordan-3-Seoul-3-808x455.jpg');
           height: 100vh;
         width: 100vw;
               background-repeat : no-repeat;

@@ -19,10 +19,10 @@
         <v-tabs class="d-none d-sm-flex" align-with-title v-model="group" active-class="text--accent-4">
           <v-tab @click="toHome">Home</v-tab>
           <v-tab @click="toSneakers">Sneakers</v-tab>
+          <v-tab @click="toCulture">Culture</v-tab>
           <v-tab>Raffle</v-tab>
           <v-tab @click="toCalendar">Calendar</v-tab>
-          <v-tab>Tab 4</v-tab>
-          <v-tab >Tab 5</v-tab>
+          <v-tab @click="toAuction">Auction</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
@@ -68,7 +68,12 @@
             </v-list-item-icon>
             <v-list-item-title>Sneakers</v-list-item-title>
           </v-list-item>
-
+          <v-list-item @click="toCulture">
+            <v-list-item-icon>
+              <font-awesome-icon icon="fa-solid fa-fire" />
+            </v-list-item-icon>
+            <v-list-item-title>Culture</v-list-item-title>
+          </v-list-item>
           <v-list-item>
             <v-list-item-icon>
               <span class="material-symbols-outlined">casino</span>
@@ -82,15 +87,18 @@
             </v-list-item-icon>
             <v-list-item-title>Calendar</v-list-item-title>
           </v-list-item>
-          <v-list-item>
-            <v-list-itme->Tab 4</v-list-itme->
+          <v-list-item @click="toAuction">
+            <v-list-item-icon>
+              <span class="material-symbols-outlined">gavel</span>
+            </v-list-item-icon>
+            <v-list-item-title>Auction</v-list-item-title>
           </v-list-item>
-          <v-list-item>
-            <v-list-itme->Tab 5</v-list-itme->
-          </v-list-item>
+
+
+
         </v-list-item-group>
       </v-list>
-          <v-btn v-if="this.$store.state.user_data.access_token" icon style="margin-top:33.3rem;" @click="signoutRequest">
+          <v-btn v-if="this.$store.state.user_data.access_token" icon style="margin-top:30.3rem;" @click="signoutRequest">
             <span class="material-symbols-outlined">logout</span>
           </v-btn>
     </v-navigation-drawer>
@@ -150,9 +158,9 @@ export default {
       console.log('toSneakers toSneakers', release)
       this.$router.push({name:'sneakers', 
                         query: {
-                          keyword: '',
-                          brand: 'All',
-                          release: 'default',
+                          search: '',
+                          brand: '',
+                          release: '',
                         }})
     },
     toCalendar(){
@@ -169,6 +177,12 @@ export default {
       this.$store.dispatch("signoutRequest")
       .then(() => this.$router.push({name:'login'}))
       },
+    toCulture(){
+      this.$router.push({name:'culture'})
+    },
+    toAuction(){
+      this.$router.push({name:'auction'})
+    },
     toProfile(){
       // this.$router.push({name:'profile'})
     },

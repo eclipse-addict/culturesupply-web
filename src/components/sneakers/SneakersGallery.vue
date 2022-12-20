@@ -38,9 +38,15 @@
                     <span class="material-symbols-outlined">ios_share</span>
                   </v-btn>
                 </div>
-                  <div class="text-center mt-15 w-100 pt-5">
-                    <v-btn rounded color="primary" dark v-if="k.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'" > 
-                    사진 등록하기 <br/>
+                  <div class="text-center mt-15 w-100 ">
+                    <v-btn 
+                      rounded color="primary" 
+                      dark 
+                      v-if="k.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'" 
+                      @click="add_info(k?.id)"
+                    > 
+
+                    사진 및 정보 등록하기 <br/>
                     [+ 100 points 적립]
                     </v-btn>
                     <div v-else>
@@ -63,8 +69,11 @@
             >
               <v-icon >read_more</v-icon>
             </v-btn>
-            <div class="grey--text text-h6 mb-2">
+            <div class="grey--text text-h6 mb-2" v-if="k.brand">
               {{k.brand.includes('%20')? k.brand.replaceAll('%20', ' ').toUpperCase() :k.brand.toUpperCase()}}
+            </div>
+            <div class="grey--text text-h6 mb-2" v-else>
+              Brand
             </div>
             <h6 class="text-h6 font-weight-heavy black--text mb-2">
               {{k.name}}
@@ -90,7 +99,7 @@
       <!-- spiral waveDots -->
     </v-col>
     <infinite-loading
-      @infinite="fetch_kicks"
+      @infinite="get_next_page"
       spinner="waveDots"
       ref="infiniteLoading"
     ></infinite-loading>
@@ -109,6 +118,8 @@ export default {
       page: 0,
       limit: 20,
       like_check: false,
+      overlay: false,
+      next_page : '',
     };
   },
   props:{
@@ -127,74 +138,58 @@ export default {
       this.$router.push({ name: "detail", params: { id } });
     },
     fetch_kicks($state) {
-      console.log("fetch_kicksfetch_kicksfetch_kicks")
-      // this.$store.dispatch('setLoading', true)
-      const keyword = this.$route.query.keyword;
-      const brand = this.$route.query.brand;
-      const release = this.$route.query.release;
-      console.log('release', release)
-      this.page += 1;
-      let page = this.page
-      let limit = this.limit
+      console.log(" fetch_kicksfetch_kicksfetch_kickscall")
 
-      let params = {
-        page,
-        limit,
-        keyword,
-        release,
-        brand
-        // release,
-      }
-      console.log("axios 바로 위 ..")
       axios({
         method: "GET",
-        url: "http://127.0.0.1:8000/kicks/sneaker/",
-        params: params,
+        url: "http://127.0.0.1:8000/kicks/sneaker/list/",
       })
         .then((res) => {
-          // setTimeout(() => {
-            if (res.data.length) {
-              if (this.page == 1) {
-                this.kicks = res.data;
-                console.log('this.kicks = res.data; 바로 직후 ')
-                // this.$store.dispatch('setLoading', false)
-              } else {
-                for (let i = 0; i < res.data.length; i++) {
-                  if (
-                    !JSON.stringify(this.kicks).includes(
-                      JSON.stringify(res.data[i])
-                    )
-                  ) {
-                    console.log(
-                      JSON.stringify(this.kicks).includes(
-                        JSON.stringify(res.data[i])
-                      )
-                    );
-                    this.kicks.push(res.data[i]);
-                  }
-                }
-              }
-              // this.kicks = new Set(this.kicks)
-              $state.loaded();
-              console.log('$state.loaded();; 바로 직후 ')
-            } else {
-              // this.$store.dispatch('setLoading', false)
-              $state.complete();
-            }
-          // }, 100);
-          console.log('setTimeout 블록 바로 밖. 아래에 바로 dispatch있음. ')
-          
+          console.log(res)
+          if(res){
+            this.kicks = this.kicks.concat(res.data.results)
+            this.next_page = res.data.next
+            $state.loaded();
+          }else{
+            $state.complete();
+          }
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    get_next_page($state){
+      console.log("fetch Next Page")
+      if(this.next_page !=''){
+        console.log("fetch Next Page22")
+        axios({
+          method: "GET",
+          url: this.next_page,
+        })
+        .then((res) => {
+          console.log(res)
+          if(res){
+            this.kicks = this.kicks.concat(res.data.results)
+            this.next_page = res.data.next
+            $state.loaded();
+          }else{
+            $state.complete();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
+    },
     search_kicks($state) {
       const keyword = this.$route.query.keyword;
       const brand = this.$route.query.brand;
-      const release = this.$route.query.release;
+      let release = this.$route.query.release;
       console.log('brand check: ', brand) // 배열 
-
+      if(release == ''){
+        console.log('release check: ', release == '')
+        release = 'default'
+      }
       this.$refs.infiniteLoading.stateChanger.reset(); 
       this.page = 1;
       this.kicks = []
@@ -233,7 +228,7 @@ export default {
       const { scrollHeight, scrollTop, clientHeight } = e.target;
       const bottomCheck = scrollHeight === scrollTop + clientHeight;
       if (bottomCheck) {
-        this.fetch_kicks();
+        this.get_next_page()
       }
     },
     like_btn(product_id, index){
@@ -300,10 +295,12 @@ export default {
         } 
       }
     },
+    add_info(id){
+      this.$router.push({ name: "updateInfo", params: { id } });
+    },
   },
   created() {
     this.fetch_kicks();
-    console.log('created')
   },
   computed: {
     brand_formatter(){
@@ -320,6 +317,13 @@ export default {
     },
 
   },
+  watch: {
+      overlay (val) {
+        val && setTimeout(() => {
+          this.overlay = false
+        }, 2000)
+      },
+    },
   filters: {
     desc_shortener(desc) {
       if (desc) {
