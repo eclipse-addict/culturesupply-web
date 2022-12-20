@@ -11,7 +11,7 @@
       v-scroll:#main="infinityScrollHandler"
     >
       <v-hover v-slot="{ hover }">
-        <v-card class="" color="grey lighten-4" max-width="600" min-height="455" min-width="200">
+        <v-card class="" style="box-shadow: none;" color="grey lighten-4" max-width="600" min-height="455" min-width="200">
           <v-img :aspect-ratio="16 / 9" :src="k.local_imageUrl">
             <v-expand-transition>
               <div
@@ -138,16 +138,27 @@ export default {
       this.$router.push({ name: "detail", params: { id } });
     },
     fetch_kicks($state) {
+      const search = this.$route.query.search;
+      let brand = this.$route.query.brand;
+      const releaseDate = this.$route.query.release;
+      if(brand == 'All'){
+        brand = ''
+      }
       console.log(" fetch_kicksfetch_kicksfetch_kickscall")
-
+      let params = {
+              search,
+              releaseDate,
+              brand,
+            }
       axios({
         method: "GET",
         url: "http://127.0.0.1:8000/kicks/sneaker/list/",
+        params: params,
       })
         .then((res) => {
           console.log(res)
           if(res){
-            this.kicks = this.kicks.concat(res.data.results)
+            this.kicks = res.data.results
             this.next_page = res.data.next
             $state.loaded();
           }else{
@@ -159,9 +170,7 @@ export default {
         });
     },
     get_next_page($state){
-      console.log("fetch Next Page")
-      if(this.next_page !=''){
-        console.log("fetch Next Page22")
+      if(this.next_page != null){
         axios({
           method: "GET",
           url: this.next_page,
@@ -179,49 +188,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      }else{
+        $state.complete();
       }
-    },
-    search_kicks($state) {
-      const keyword = this.$route.query.keyword;
-      const brand = this.$route.query.brand;
-      let release = this.$route.query.release;
-      console.log('brand check: ', brand) // 배열 
-      if(release == ''){
-        console.log('release check: ', release == '')
-        release = 'default'
-      }
-      this.$refs.infiniteLoading.stateChanger.reset(); 
-      this.page = 1;
-      this.kicks = []
-      let page = this.page
-      let limit = this.limit
-      let params = {
-        page,
-        limit,
-        keyword,
-        release,
-        brand,
-      }
-      axios({
-        method: "GET",
-        url: "http://127.0.0.1:8000/kicks/sneaker/",
-        params: params,
-      })
-        .then((res) => {
-          if(res.data){
-            // console.log('res: ' + JSON.parse(res.data))
-            this.kicks = res.data
-            
-
-            $state.loaded();
-          }else{
-            $state.complete();
-
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     infinityScrollHandler(e) {
       console.log(e);

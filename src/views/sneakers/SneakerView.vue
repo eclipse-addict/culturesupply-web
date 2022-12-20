@@ -139,15 +139,11 @@ export default {
     search() {
       this.$router.push({name:'sneakers', 
                 query: {
-                  keyword: this.keyword,
+                  search: this.keyword,
                   brand: this.brand.join(),
                   release: this.dates.join(),
                 }})
-      this.$refs.sneakersGallery.search_kicks()
-      // console.log('this.$refs',this.$refs.sneakersGallery)
       this.keyword = "";
-      // console.log(document.getElementById('offcanvasRight'));
-      // document.getElementById('offcanvasRight').style.transform = '';
       this.goTop()
     },
     onScroll(e) {
@@ -173,6 +169,8 @@ export default {
     brand(){
       if(this.brand.length > 1 && this.brand.indexOf('All') == 0) {
         this.brand.shift();
+      }else if(this.brand.length == 0){
+        this.brand = ['All',];
       }
     },
     dates(){
