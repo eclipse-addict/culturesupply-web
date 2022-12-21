@@ -88,6 +88,21 @@
         >
           <v-icon>mdi-menu-up</v-icon>
         </v-btn>
+        <v-btn
+          style="margin-right: 450px; margin-top: 135px;"
+          v-show="scroll>0"            
+            fixed
+            top
+            icon
+            fab
+            right elevation="9"
+            color="black" 
+            small 
+            v-scroll:#top="onScroll"
+            @click="reset_sneakers"
+        >
+          <span class="material-symbols-outlined">refresh</span>
+        </v-btn>
       </v-container>
     </v-main>
   </v-app>
@@ -145,6 +160,17 @@ export default {
                 }})
       this.keyword = "";
       this.goTop()
+    },
+    reset_sneakers() {
+      // this.$router.push({name:'sneakers', 
+      //           query: {
+      //             search: '',
+      //             brand: '',
+      //             release: '',
+      //           }})
+      location.reload();
+      this.goTop()
+
     },
     onScroll(e) {
       // 스크롤 움직일 때 마다 호출됨
