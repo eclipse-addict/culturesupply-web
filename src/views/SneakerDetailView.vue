@@ -5,6 +5,15 @@
           <!-- <productDetail :kick=kick></productDetail> -->
           <productDetailBody :kick=kick></productDetailBody>
           <reviewList :product_id=product_id></reviewList>
+          <v-btn style="margin-top:140px"
+            fixed
+            top
+            left
+            elevation="10"
+            @click="$router.go(-1)"
+          >
+          뒤로가기
+          </v-btn>
       </v-container>
     </v-main>
   </v-app>

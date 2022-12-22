@@ -22,13 +22,18 @@
         </v-list>
       </v-menu>
     </div>
-      <v-row justify="center">
-        <v-img :src="img_url" contain lazy-src="" alt="main_img"  class="mt-15" max-width="500" max-height="300">
+      <v-row justify="center" class="">
+        
+        <v-img :src="img_url" contain lazy-src="" alt="main_img"  class="mt-15 img-row" max-width="500" max-height="300" >
         <v-btn style="margin-top: 7rem;"  rounded  color="primary" dark v-if="kick?.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'"  > 
-                    사진 등록하기 <br/>
-                    [+ 100 points 적립]
-                    </v-btn>
-                    <template v-slot:placeholder>
+          사진 등록하기 <br/>
+          [+ 100 points 적립]
+        </v-btn>
+
+        <v-btn class="original_btn" elevation="10" rounded shaped style="margin-top: 7rem;" @click="original_size_img(kick?.local_imageUrl, k?.name)">크게보기</v-btn>
+
+
+        <template v-slot:placeholder>
         <v-row
           class="fill-height ma-0"
           align="center"
@@ -43,7 +48,8 @@
         </v-img>
 
       <div class="col-md-6 col-sm-12 text-start mt-16 ml-16">
-        <p class="fw-normal">{{kick?.brand.includes('%20')? kick.brand.replaceAll('%20', ' ').toUpperCase() :kick.brand.toUpperCase()}}</p>
+        <p class="fw-normal" v-if="kick.brand">{{kick?.brand.includes('%20')? kick.brand.replaceAll('%20', ' ').toUpperCase() :kick.brand.toUpperCase()}}</p>
+        <p class="fw-normal" v-else>Brand</p>
         <h4 class="fw-bold">{{kick?.name}}</h4>
         <div class='v-line'></div>
             <v-rating
@@ -61,7 +67,7 @@
         <p>
           <span class="" style="margin-top: 13px;">{{ get_review_cnt }} discussions</span> 
         </p>
-        <p class="font-monospace ">{{kick?.description}}</p>
+        
         <p>
         <span class="fw-bold">발매일 : </span>  
         <span> {{kick?.releaseDate}}</span>
@@ -186,7 +192,11 @@ export default {
         this.like_users = this.$props.kick.like_users
       }
     },
-  },
+    original_size_img(url, name){
+      const options = 'width=850, height=850, menubar=no, toolbar=no'
+      window.open(url, name,options);
+    }
+  }, // end of methods 
   computed : {
     img_url () {
       return this.kick?.local_imageUrl
@@ -246,5 +256,17 @@ export default {
     height : 1px;
     width: 634px;
     margin-bottom: 3.5px;
+  }
+
+  .img-row{
+    cursor: pointer;
+  }
+
+  .original_btn{
+    display: none;
+  }
+
+  .img-row:hover .original_btn {
+    display: inline;
   }
 </style>

@@ -89,10 +89,10 @@
           <v-icon>mdi-menu-up</v-icon>
         </v-btn>
         <v-btn
-          style="margin-right: 450px; margin-top: 135px;"
+          style="margin-right: 8px; margin-bottom: 135px;"
           v-show="scroll>0"            
             fixed
-            top
+            bottom
             icon
             fab
             right elevation="9"
@@ -160,14 +160,10 @@ export default {
                 }})
       this.keyword = "";
       this.goTop()
+      location.reload();
     },
     reset_sneakers() {
-      // this.$router.push({name:'sneakers', 
-      //           query: {
-      //             search: '',
-      //             brand: '',
-      //             release: '',
-      //           }})
+
       location.reload();
       this.goTop()
 
