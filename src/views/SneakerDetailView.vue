@@ -2,11 +2,8 @@
 <v-app id="inspire">
     <v-main class="sneaker-main h-100">
       <v-container fluid class="w-100" >
-          <!-- <productDetail :kick=kick></productDetail> -->
-          <productDetailBody :kick=kick></productDetailBody>
-          <reviewList :product_id=product_id></reviewList>
-          <v-btn style="margin-top:140px"
-            fixed
+          <v-btn 
+            style="margin-top: -55px;"
             top
             left
             elevation="10"
@@ -14,6 +11,9 @@
           >
           뒤로가기
           </v-btn>
+          <!-- <productDetail :kick=kick></productDetail> -->
+          <productDetailBody :kick=kick></productDetailBody>
+          <reviewList :product_id=product_id></reviewList>
       </v-container>
     </v-main>
   </v-app>

@@ -84,11 +84,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   scrollBehavior (to, from, savedPosition) {
-    if (to.hash) {
-      return {
-        selector: to.hash,
-        behavior: 'smooth',
-      }
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
     }
   },
 })
@@ -96,7 +95,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name) {
-    // console.log('router.beforeEach'  )
+    // console.log('  router.beforeEach'  )
     store.commit('SET_LOADING_STATE', true);
     NProgress.start()
     }

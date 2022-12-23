@@ -35,26 +35,13 @@
                         flat
                       >
                         <v-card-text>
-                          <div class="text-center" v-if="item == '안내사항'">
-                            <h5 class="border-bottom mb-6">- 제품 이미지 예시 -</h5> 
-                              <div style="float: left; width: 50%;">
-                              <h6 class="">안좋은 이미지 예시 1</h6>
-                                  <v-img class="mr-1" :src="`http://localhost:8000/media/images/defaultImg.png`" max-width="350" max-height="300"></v-img>
-                              </div>
-                              <div style="float: left; width: 50%;">
-                              <h6 class="">안좋은 이미지 예시 2</h6>
-                                  <v-img class="ml-1" :src="`http://localhost:8000/media/images/defaultImg.png`" max-width="350" max-height="300"></v-img>
-                              </div>
-                              <div style="float: left; width: 50%;" class="mt-8">
-                              <h6 class="">좋은 이미지 예시 1</h6>
-                                  <v-img class="mr-1" :src="`http://localhost:8000/media/images/defaultImg.png`" max-width="350" max-height="300"></v-img>
-                              </div>
-                              <div style="float: left; width: 50%;" class="mt-8">
-                              <h6 class="">좋은 이미지 예시 2</h6>
-                                  <v-img class="ml-1" :src="`http://localhost:8000/media/images/defaultImg.png`" max-width="350" max-height="300"></v-img>
-                              </div>
-                              
+                          <div v-if="item == '주의사항'">
+                            <InfoRegistWarning></InfoRegistWarning>
                           </div>
+                          <div class="text-center" v-else-if="item == '안내사항'">
+                            <InfoExample></InfoExample>
+                          </div>
+
                           <div class="text-center" v-else>
                           <h5>- 제품 정보 등록 -</h5>
                           <v-col>
@@ -87,18 +74,25 @@
 </template>
 
 <script>
+  import InfoRegistWarning from "@/components/sneakers/infoUpdator/InfoRegistWarning"
+  import InfoExample from "@/components/sneakers/infoUpdator/InfoExample"
   export default {
     data () {
       return {
         tab: null,
         items: [
-          '안내사항', '정보등록', 
+          '주의사항', '안내사항', '정보등록', 
         ],
         rules: [
         value => !value || value.size < 10000000 || '파일 크기는 10 MB를 초과할 수 없습니다!',
       ],
       }
     },
+    components: {
+      InfoRegistWarning,
+      InfoExample
+    },
+
   }
 </script>
 
