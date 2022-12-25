@@ -1,27 +1,14 @@
   <template>
   <div class="container">
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+    <v-btn absolute top left icon style="margin-top:7rem;" @click="toAgreement" v-bind="attrs" v-on="on">
+    <span class="material-symbols-outlined">arrow_back_ios_new</span>
+    </v-btn>
+    </template>
+    <span>개인정보동의 페이지로 가기</span>
+    </v-tooltip>
     <main>
-      <div>
-      <v-stepper alt-labels>
-        <v-stepper-header>
-          <v-stepper-step  complete>
-            개인정보처리방침
-          </v-stepper-step>
-
-          <v-divider></v-divider>
-
-          <v-stepper-step step='2' editable complete>
-            회원정보 입력
-          </v-stepper-step>
-
-          <v-divider></v-divider>
-
-          <v-stepper-step step="3">
-            완료
-          </v-stepper-step>
-        </v-stepper-header>
-      </v-stepper>
-  </div>
   <div class="px-5 text-center">
     <h1 class="policyTitle pt-4 font-weight-bolder">JOIN</h1>
     <h5 class="policyTitle">회원정보 입력</h5>
@@ -499,6 +486,8 @@
 
   <script>
 import axios from "axios";
+import swal from 'sweetalert';
+
 // const dev_url = "http://localhost:8000/";
 export default {
   name: "userRegisterForm",
@@ -641,7 +630,7 @@ export default {
       .then(res => {
         console.log(res.status);
         if (res.status == 201){
-          this.$router.push({name:'login'})
+          this.$emit('toFinalStep')
         }
       })
       // .then(() => this.$routet = {name:'home'});
@@ -768,7 +757,34 @@ export default {
         },
       }).open();
     },
-  },
+    toAgreement(){
+      swal("입력하신 정보가 모두 사라집니다.", {
+          title: "주의!",
+          buttons: {
+            catch: {
+              text: "확인",
+              value: "뒤로가기",
+            },
+            취소: true,
+          },
+        })
+        .then((value) => {
+          switch (value) {
+        
+            case "뒤로가기":
+              this.$emit('toAgreement')
+              break;
+        
+            case "취소":
+              break;
+        
+            default:
+              break;
+              
+          }
+        });
+    },
+  }, //end of methods
   computed: {
     requiredChecks() {
       if (

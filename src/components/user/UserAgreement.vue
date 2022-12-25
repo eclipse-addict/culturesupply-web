@@ -1,26 +1,6 @@
 <template>
   <v-container>
-    <div>
-    <v-stepper alt-labels>
-      <v-stepper-header>
-        <v-stepper-step step="1">
-          개인정보처리방침
-        </v-stepper-step>
 
-        <v-divider></v-divider>
-
-        <v-stepper-step step="2">
-          회원정보 입력
-        </v-stepper-step>
-
-        <v-divider></v-divider>
-
-        <v-stepper-step step="3">
-          완료
-        </v-stepper-step>
-      </v-stepper-header>
-    </v-stepper>
-  </div>
   <div class="px-5 text-center">
     <h1 class="policyTitle pt-4 font-weight-bolder">JOIN</h1>
     <h5 class="policyTitle">개인정보처리방침 동의</h5>
@@ -295,9 +275,9 @@ data () {
   }
 },
 methods: {
- goRegist(){
-  this.$router.push({'name': 'regist'})
- },
+  goRegist(){
+    this.$emit('userAgreed')
+  },
 },
 computed : {
   isAgreed () {
