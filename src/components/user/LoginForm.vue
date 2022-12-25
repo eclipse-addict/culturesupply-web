@@ -108,7 +108,7 @@ export default {
 
       axios({
         method: "GET",
-        url: this.$store.state.dev_url+"user/userinfo/"+user_id+'/',
+        url: this.$store.state.dev_url+"user/userinfo/get/"+user_id+'/',
         headers: {
           'Authorization':'Bearer '+token,
           },
