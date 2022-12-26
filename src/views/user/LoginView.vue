@@ -21,7 +21,7 @@ export default {
 <style scoped>
 
 .back {
-  background-image: url('http://localhost:8000/media/images/Air-Jordan-3-Seoul-3-808x455.jpg');
+  background-image: url('http://localhost:8000/media/images/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg.webp');
           height: 100vh;
         width: 100vw;
               background-repeat : no-repeat;

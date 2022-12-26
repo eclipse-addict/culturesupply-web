@@ -31,9 +31,9 @@ export default {
 
 <style scoped>
 #main-body {
-  background-image: url('https://cdn.pocket-lint.com/r/s/1201x/assets/images/162179-tv-news-feature-rick-and-morty-season-6-release-date-trailer-and-how-to-watch-image1-kbmgzwpsy5.jpg');
+  background-image: url('http://localhost:8000/media/images/confirmpagebackground.jpg');
   background-repeat : no-repeat;
-  background-size : cover;
+  background-size : contain;
 }
 .material-symbols-outlined {
   
