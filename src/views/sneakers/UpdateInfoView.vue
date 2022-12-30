@@ -43,22 +43,7 @@
                           </div>
 
                           <div class="text-center" v-else>
-                          <h5>- 제품 정보 등록 -</h5>
-                          <v-col>
-                            <v-row>
-                            <v-text-field
-                              label="브랜드"
-                              hide-details="auto"
-                            ></v-text-field>
-                              <v-file-input
-                                :rules="rules"
-                                accept="image/png, image/jpeg, image/bmp"
-                                placeholder=""
-                                prepend-icon="mdi-camera"
-                                label="제품 이미지"
-                              ></v-file-input>
-                            </v-row>
-                          </v-col>
+                            <InfoUpdateForm></InfoUpdateForm>
                           </div>
                           
                         </v-card-text>
@@ -76,10 +61,13 @@
 <script>
   import InfoRegistWarning from "@/components/sneakers/infoUpdator/InfoRegistWarning"
   import InfoExample from "@/components/sneakers/infoUpdator/InfoExample"
+  import InfoUpdateForm from "@/components/sneakers/infoUpdator/InfoRegistForm"
   export default {
+    name: 'UpdateInfoView',
     data () {
       return {
         tab: null,
+
         items: [
           '주의사항', '안내사항', '정보등록', 
         ],
@@ -90,8 +78,10 @@
     },
     components: {
       InfoRegistWarning,
-      InfoExample
+      InfoExample,
+      InfoUpdateForm,
     },
+
 
   }
 </script>

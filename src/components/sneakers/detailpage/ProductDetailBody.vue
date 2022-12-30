@@ -25,7 +25,7 @@
       <v-row justify="center" class="">
         
         <v-img :src="img_url" contain lazy-src="" alt="main_img"  class="mt-15 img-row" max-width="500" max-height="300" >
-        <v-btn style="margin-top: 7rem;"  rounded  color="primary" dark v-if="kick?.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'"  > 
+        <v-btn style="margin-top: 7rem;"  rounded  color="primary" dark v-if="kick?.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'" > 
           사진 등록하기 <br/>
           [+ 100 points 적립]
         </v-btn>

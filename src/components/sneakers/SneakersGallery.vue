@@ -21,7 +21,7 @@
                   transition-fast-in-fast-out
                   blue-grey
                   lighten-4
-                  v-card--reveal
+                  v-card--reveal 
                   text-h2
                   black--text  
                 "
