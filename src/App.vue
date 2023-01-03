@@ -18,7 +18,7 @@
       <template v-slot:extension >
         <v-tabs class="d-none d-sm-flex" align-with-title v-model="group" active-class="text--accent-4">
           <v-tab @click="toHome">Home</v-tab>
-          <v-tab @click="toSneakers">Sneakers</v-tab>
+          <v-tab @click="toSneakers">Items</v-tab>
           <v-tab @click="toCulture">Culture</v-tab>
           <v-tab>Raffle</v-tab>
           <v-tab @click="toCalendar">Calendar</v-tab>
@@ -66,7 +66,7 @@
             <v-list-item-icon>
               <span class="material-symbols-outlined">foot_bones</span>
             </v-list-item-icon>
-            <v-list-item-title>Sneakers</v-list-item-title>
+            <v-list-item-title>Items</v-list-item-title>
           </v-list-item>
           <v-list-item @click="toCulture">
             <v-list-item-icon>

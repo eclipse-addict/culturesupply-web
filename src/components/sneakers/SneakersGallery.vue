@@ -42,12 +42,19 @@
                     <v-btn 
                       rounded color="primary" 
                       dark 
-                      v-if="k.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'" 
+                      v-if="k.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png' || 
+                            k.brand == null || 
+                            k.colorway == null ||
+                            k.releaseDate == '1900-01-01'||
+                            k.releaseDate == null ||
+                            k.retailPrice == null ||
+                            k.category == ''
+                            " 
                       @click="add_info(k?.id)"
                     > 
 
                     사진 및 정보 등록하기 <br/>
-                    [+ 100 points 적립]
+                    [최대 +1000 points 적립]
                     </v-btn>
                     <div v-else>
                       <h6>something</h6>
@@ -282,6 +289,13 @@ export default {
         } 
       }else{
         return ' '
+      }
+    },
+    needed_tobe_updated(){
+      if(this.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'){
+        return true
+      }else{
+        return false
       }
     },
 
