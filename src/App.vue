@@ -8,7 +8,7 @@
       app
       color="#2B3A55"
       dark
-      shaped
+      shaped extended elevation="10"
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       
