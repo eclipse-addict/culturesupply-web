@@ -1,5 +1,5 @@
 <template>
-  <v-row align="center" align-content="space-around" no-gutters>
+  <v-row align="center" align-content="space-around">
     <div class="text-center">
       <v-btn 
         rounded color="#D6E4E5" 
@@ -39,7 +39,7 @@
       </v-list>
     </v-menu>
     </div>
-    <v-col sm="12" md="6" xl="6" class=" d-xl-none d-lg-none">
+    <v-col sm="12" md="6" xl="6">
       <v-carousel
       cycle
       height="600"
@@ -89,14 +89,42 @@
         </v-carousel-item>
       </v-carousel>
     </v-col>
-    <v-col sm="12" md="6" xl="6" class="d-none d-lg-flex  d-xl-flex">
-    <v-card v-for="(img, i) in kick.productImg" :key="i">
-      <v-img :src="img.img_url"></v-img>
-    </v-card>
-    </v-col>
-    <v-col class="mt-10" dense sm="12" md="6" xl="6">
-      <v-card>
-
+    <v-col class="" dense sm="12" md="6" xl="6">
+      <v-card height="600">
+        <v-img class="ma-auto" :src="brand_logo" height="100" width="100"></v-img>
+        <v-card-title class="mt-0">
+          <h4 class="mb-0">{{kick?.name}}</h4>
+        </v-card-title>
+        <!-- <v-divider class="mx-4 text--black" light></v-divider> -->
+        <v-card-text>
+        <v-row
+        >
+          <v-rating
+            :value="this.rating"
+            dense
+            readonly
+            half-icon
+            color="orange"
+            background-color="orange"
+            half-increments
+            class="ml-0"
+          ></v-rating>
+          <span class="ml-2" style="">{{ get_review_cnt }} discussions</span> 
+        </v-row>
+      </v-card-text>
+      <v-divider class="mx-4 text--black" light></v-divider>
+      <v-card-text>
+        <span class="fw-bold">발매일 : </span>  
+        <span class="mr-5"> {{kick?.releaseDate}}</span>
+        <span class="fw-bold ml-5">발매금액 : </span>  
+        <span> USD: ${{get_dollor}} / KRW: 약 {{get_krw.toLocaleString()}}원</span>
+      </v-card-text>
+      <v-card-text class="pt-0">
+        <span class="fw-bold">SKU : </span>  
+        <span class="mr-5"> {{kick?.sku}}</span>
+        <span class="fw-bold ml-7">ColorWay : </span>  
+        <span> {{kick?.colorway}}</span>
+      </v-card-text>
       </v-card>
     </v-col>
   </v-row>
@@ -259,8 +287,35 @@ export default {
       }else{
         return ' '
       }
-
     },
+    brand_logo(){
+      if(this.kick.brand){
+        const brand = this.kick.brand
+        if(brand == 'Air Jordan' || brand == 'Jordan'){
+          return  'http://localhost:8000/media/images/logos/air-jordan.png'
+        }else if(brand == 'Nike'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Nike_Just_Do_It_logo.svg/1200px-Nike_Just_Do_It_logo.svg.png'
+        }else if(brand == 'Adidas'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Adidas_Logo.svg/1200px-Adidas_Logo.svg.png'
+        }else if(brand == 'Yeezy'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Adidas_Logo.svg/1200px-Adidas_Logo.svg.png'
+        }else if(brand == 'New%20Balance'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/New_Balance_logo.svg/1200px-New_Balance_logo.svg.png'
+        }else if(brand == 'Vans'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Vans_logo.svg/1200px-Vans_logo.svg.png'
+        }else if(brand == 'Converse'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Converse_logo.svg/1200px-Converse_logo.svg.png'
+        }else if(brand == 'Puma'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Converse_logo.svg/1200px-Converse_logo.svg.png'
+        }else if(brand == 'Reebok'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Converse_logo.svg/1200px-Converse_logo.svg.png'
+        }else if(brand == 'Diadora'){
+          return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Converse_logo.svg/1200px-Converse_logo.svg.png'
+        }
+    }
+      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Converse_logo.svg/1200px-Converse_logo.svg.png'
+    }
+
 
   },
   watch: {
@@ -309,7 +364,7 @@ export default {
 
   #img_caraousel{
     box-shadow:10px 20px 25px #c6c8c9;
-    border-radius: 21px;
+    border-radius: 4px;
   }
 
 

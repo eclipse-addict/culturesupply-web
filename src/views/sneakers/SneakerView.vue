@@ -70,7 +70,7 @@
                 show-current
               ></v-date-picker>
             </p>
-            <v-btn top absolute color="#D6E4E5" right fixed  elevation="5" @click="option_reset" >조건 초기화</v-btn>
+            <v-btn top absolute color="#D6E4E5" left fixed  elevation="5" @click="option_reset" >조건 초기화</v-btn>
             <v-btn block bottom width="100" elevation="1" dark color="#497174" @click="search">검색</v-btn>
           </div>
         </div>
