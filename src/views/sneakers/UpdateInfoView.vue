@@ -1,9 +1,18 @@
 <template>
   <v-app id="inspire">
       <v-container>
+            <v-btn 
+              top
+              left
+              elevation="5"
+              max-width="68"
+              @click="$router.go(-1)"
+            >
+              뒤로가기
+            </v-btn>
         <v-row>
           <v-col>
-            <v-sheet min-height="100vh" rounded="lg">
+            <v-sheet min-height="100vh" rounded="lg" class="mt-3">
               <v-card color="basil">
                 <v-card-title class="text-center justify-center py-6">
                   <h3 class="font-weight-bold text-h4 basil--text">

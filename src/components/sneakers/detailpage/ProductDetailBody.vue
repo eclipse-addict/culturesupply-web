@@ -27,19 +27,33 @@
       <v-btn small absolute fab right style="margin-right:12px; margin-top:3px;" @click="like_btn(kick?.id, index)" v-else>
         <font-awesome-icon icon="fa-regular fa-heart" />                 
       </v-btn>
-    <v-menu offset-y>
+    <v-menu offset-y rounded="3">
       <template v-slot:activator="{ on, attrs }">
         <v-btn v-bind="attrs" v-on="on" icon x-large style="float: left;">
           <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
         </v-btn>
       </template>
-      <v-list>
-        <v-list-item>공유하기</v-list-item>
-        <v-list-item>수정제안</v-list-item>
+      <v-list dense rounded>
+        <v-list-item-group
+          v-model="selectedItem"
+          color="primary"
+        >
+          <v-list-item>
+            <v-list-item-content>  
+              <v-list-item-title>공유하기</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>  
+              <v-list-item-title>수정제안</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+        </v-list-item-group>
+
       </v-list>
     </v-menu>
     </div>
-    <v-col sm="12" md="6" xl="6">
+    <v-col sm="12" md="8" xl="8">
       <v-carousel
       cycle
       height="600"
@@ -89,11 +103,11 @@
         </v-carousel-item>
       </v-carousel>
     </v-col>
-    <v-col class="" dense sm="12" md="6" xl="6">
+    <v-col class="" dense sm="12" md="4" xl="4">
       <v-card height="600">
         <v-img class="ma-auto" :src="brand_logo" height="100" width="100"></v-img>
         <v-card-title class="mt-0">
-          <h4 class="mb-0">{{kick?.name}}</h4>
+          <h5 class="mb-0">{{kick?.name}}</h5>
         </v-card-title>
         <!-- <v-divider class="mx-4 text--black" light></v-divider> -->
         <v-card-text>
@@ -247,7 +261,10 @@ export default {
           break;
       }
     return result
-    }
+    },
+    add_info(id){
+      this.$router.push({ name: "updateInfo", params: { id } });
+    },
   }, // end of methods 
   computed : {
     img_url () {
@@ -363,7 +380,7 @@ export default {
   }
 
   #img_caraousel{
-    box-shadow:10px 20px 25px #c6c8c9;
+    box-shadow:1px 5px 5px #c6c8c9;
     border-radius: 4px;
   }
 
