@@ -116,7 +116,7 @@
           placeholder=""
           prepend-icon="mdi-camera"
           label="측면 이미지1"
-          disabled='right_img_exist' 
+          :disabled='right_img_exist' 
         ></v-file-input>        
         <v-img :src="right_url  "></v-img>
       </v-col>
@@ -129,6 +129,7 @@
           placeholder=""
           prepend-icon="mdi-camera"
           label="측면 이미지2"
+          :disabled='left_img_exist'
         ></v-file-input>
         <v-img :src="left_url"></v-img>
       </v-col>
@@ -141,6 +142,7 @@
           placeholder=""
           prepend-icon="mdi-camera"
           label="상단 이미지"
+          :disabled='top_img_exist'
         ></v-file-input>
         <v-img :src="top_url"></v-img>
       </v-col>
@@ -153,6 +155,7 @@
           placeholder=""
           prepend-icon="mdi-camera"
           label="후면 이미지"
+          :disabled='back_img_exist'
         ></v-file-input>
         <v-img :src="back_url"></v-img>
       </v-col>
@@ -165,6 +168,7 @@
           placeholder=""
           prepend-icon="mdi-camera"
           label="추가 이미지(추가 구성품 및 박스)"
+          :disabled='add_img_exist'
         ></v-file-input>
         <v-img :src="add_url"></v-img>
       </v-col>
@@ -278,7 +282,7 @@
         if(res.data.category!=null) {
           this.category_select=res.data.category
         }
-      }
+      },
     },
     created(){
       const product_id = this.$route.params.id;
@@ -335,12 +339,49 @@
         }
       },
       right_img_exist(){
+        if(this.right_url != 'http://localhost:8000/media/images/defaultImg.png'){
+          console.log('right_url: ', this.right_url)
+          return true
+        }else{
+          return false
+        }
+      },
+      left_img_exist(){
         if(this.left_url != 'http://localhost:8000/media/images/defaultImg.png'){
           return true
         }else{
           return false
         }
-      },      
+      },
+      top_img_exist(){
+        if(this.top_url != 'http://localhost:8000/media/images/defaultImg.png'){
+          return true
+        }else{
+          return false
+        }
+      },
+      bottom_img_exist(){
+        if(this.back_url != 'http://localhost:8000/media/images/defaultImg.png'){
+          return true
+        }else{
+          return false
+        }
+      },
+      back_img_exist(){
+        if(this.back_url != 'http://localhost:8000/media/images/defaultImg.png'){
+          return true
+        }else{
+          return false
+        }
+      },
+      add_img_exist(){
+        if(this.add_url != 'http://localhost:8000/media/images/defaultImg.png'){
+          return true
+        }else{
+          return false
+        }
+      },
+            
     },
   }
 </script>
