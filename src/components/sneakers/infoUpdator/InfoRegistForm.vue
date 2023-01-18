@@ -109,27 +109,28 @@
       <hr>
       <v-col cols="12" md="6">
         <v-file-input
-          @change="Preview_image('left')"
-          v-model="left_img"
-          :rules="rules"
-          accept="image/png, image/jpeg, image/bmp"
-          placeholder=""
-          prepend-icon="mdi-camera"
-          label="좌측 이미지"
-        ></v-file-input>        
-        <v-img :src="left_url"></v-img>
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-file-input
           @change="Preview_image('right')"
           v-model="right_img"
           :rules="rules"
           accept="image/png, image/jpeg, image/bmp"
           placeholder=""
           prepend-icon="mdi-camera"
-          label="우측 이미지"
+          label="측면 이미지1"
+          disabled='right_img_exist' 
+        ></v-file-input>        
+        <v-img :src="right_url  "></v-img>
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-file-input
+          @change="Preview_image('left')"
+          v-model="left_img"
+          :rules="rules"
+          accept="image/png, image/jpeg, image/bmp"
+          placeholder=""
+          prepend-icon="mdi-camera"
+          label="측면 이미지2"
         ></v-file-input>
-        <v-img :src="right_url"></v-img>
+        <v-img :src="left_url"></v-img>
       </v-col>
       <v-col cols="12" md="6">
         <v-file-input
@@ -236,7 +237,48 @@
             break;
         }
       // this.url= URL.createObjectURL(this.image)
-    }
+    },
+      check_existing_datas(res) {
+
+        let img_arr = res.data.productImg
+
+        if(img_arr.length>0) {
+          console.log('img_arr: ', img_arr)
+          for(let i=0; i<img_arr.length; i++) {
+            if(img_arr[i].type=='left') {
+              this.left_url=img_arr[i].img_url
+              console.log('left_url: ', this.left_url)
+            }
+            if(img_arr[i].type=='right') {
+              this.right_url=img_arr[i].img_url
+            }
+            if(img_arr[i].type=='top') {
+              this.top_url=img_arr[i].img_url
+            }
+            if(img_arr[i].type=='back') {
+              this.back_url=img_arr[i].img_url
+            }
+            if(img_arr[i].type=='additional') {
+              this.add_url=img_arr[i].img_url
+            }
+          }
+        }
+        if(res.data.brand!=null) {
+          this.brand_select=res.data.brand
+        }
+        if(res.data.colorway!=null) {
+          this.color_select=res.data.colorway.split('/')
+        }
+        if(res.data.releaseDate!=null) {
+          this.date=res.data.releaseDate
+        }
+        if(res.data.retailPrice!=null) {
+          this.retail=res.data.retailPrice
+        }
+        if(res.data.category!=null) {
+          this.category_select=res.data.category
+        }
+      }
     },
     created(){
       const product_id = this.$route.params.id;
@@ -247,21 +289,9 @@
         console.log('updator res: ', res)
         this.kick = res.data
         this.product_id = res.data.id
-        if(res.data.brand != null){
-          this.brand_select = res.data.brand
-        }
-        if(res.data.colorway != null){
-          this.color_select = res.data.colorway.split('/')
-        }
-        if(res.data.releaseDate != null){
-          this.date = res.data.releaseDate
-        }
-        if(res.data.retailPrice != null){
-          this.retail = res.data.retailPrice
-        }
-        if(res.data.category != null){
-          this.category_select = res.data.category
-        }
+        
+        // 이미 존재하는 데이터가 있으면 불러와서 data에 넣어줌. 
+        this.check_existing_datas(res) 
 
       }).catch(err => {
         console.log('updator err :', err)
@@ -303,11 +333,20 @@
         }else{
           return false
         }
-      },    
+      },
+      right_img_exist(){
+        if(this.left_url != 'http://localhost:8000/media/images/defaultImg.png'){
+          return true
+        }else{
+          return false
+        }
+      },      
     },
   }
 </script>
 
 <style>
+
+
 
 </style>

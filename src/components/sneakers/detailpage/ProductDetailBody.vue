@@ -136,7 +136,7 @@
       <v-card-text class="pt-0">
         <span class="fw-bold">SKU : </span>  
         <span class="mr-5"> {{kick?.sku}}</span>
-        <span class="fw-bold ml-7">ColorWay : </span>  
+        <span class="fw-bold ml-7">ColorWay : </span> 
         <span> {{kick?.colorway}}</span>
       </v-card-text>
       </v-card>
