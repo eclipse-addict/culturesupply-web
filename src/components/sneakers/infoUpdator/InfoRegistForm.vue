@@ -84,6 +84,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-text-field
+          @change="price_formatter"
           v-model="retail"
         label="발매가" 
         :rules="[v => !!v || 'Item is required']"
@@ -173,6 +174,9 @@
         <v-img :src="add_url"></v-img>
       </v-col>
     </v-row>
+    <v-btn elevation="4" class="mt-3">
+      등록
+    </v-btn>
 </div>
 </template>
 
@@ -283,7 +287,12 @@
           this.category_select=res.data.category
         }
       },
-    },
+      price_formatter(){
+        if(this.retail != null){
+          this.retail = this.retail.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+      },
+    }, // methods end
     created(){
       const product_id = this.$route.params.id;
       axios({
@@ -325,7 +334,7 @@
         }
       },
       retialPrice_exist(){
-        if(this.kick.retailPrice != null){
+        if(this.kick.retailPrice != null && this.kick.retailPrice != 0){
           return true
         }else{
           return false
