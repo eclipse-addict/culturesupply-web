@@ -85,6 +85,7 @@
       <v-col cols="12" md="6">
         <v-text-field
           @change="price_formatter"
+          @click="price_reset"
           v-model="retail"
         label="발매가" 
         :rules="[v => !!v || 'Item is required']"
@@ -174,7 +175,7 @@
         <v-img :src="add_url"></v-img>
       </v-col>
     </v-row>
-    <v-btn elevation="4" class="mt-3">
+    <v-btn elevation="4" class="mt-3" @click="regist_infos">
       등록
     </v-btn>
 </div>
@@ -288,9 +289,18 @@
         }
       },
       price_formatter(){
-        if(this.retail != null){
+        if(this.retail != null && this.retail != 0){
           this.retail = this.retail.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         }
+      },
+      price_reset(){
+        if(this.retail == 0){
+          this.retail = null  
+        }
+      },
+      regist_infos(){
+        let retail_p = this.retail
+        alert('등록완료' + retail_p)
       },
     }, // methods end
     created(){
