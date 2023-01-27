@@ -5,6 +5,7 @@
     <v-row justify="space-between">
       <v-col cols="12" md="6">
         <v-select
+          @change="info_added('brand', brand_select);"
           v-model="brand_select"
           :items="brandGroup"
           :rules="[v => !!v || 'Item is required']"
@@ -30,6 +31,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-combobox
+            @change="info_added('date',date);"
             :disabled="releaseData_exist"
             v-model="date"
             chips
@@ -44,6 +46,7 @@
           ></v-combobox>
         </template>
         <v-date-picker
+          @change="info_added('date',date);"
           :disabled="releaseData_exist"
           v-model="date"
           multiple
@@ -70,6 +73,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-combobox
+          @change="info_added('colorway', color_select);"
           v-model="color_select"
           :rules="[v => !!v || 'Item is required']"
           label="컬러웨이"
@@ -84,7 +88,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-text-field
-          @change="price_formatter"
+          @change="price_formatter(); info_added('retailPrice', retail);"
           @click="price_reset"
           v-model="retail"
         label="발매가" 
@@ -94,6 +98,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-select
+          @change="info_added('category', category_select);"
           v-model="category_select"
           :items="categories"
           :rules="[v => !!v || 'Item is required']"
@@ -111,7 +116,7 @@
       <hr>
       <v-col cols="12" md="6">
         <v-file-input
-          @change="Preview_image('right')"
+          @change="Preview_image('right'); info_added('right_img', right_img);"
           v-model="right_img"
           :rules="rules"
           accept="image/png, image/jpeg, image/bmp"
@@ -124,7 +129,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-file-input
-          @change="Preview_image('left')"
+          @change="Preview_image('left'); info_added('left_img', left_img);"
           v-model="left_img"
           :rules="rules"
           accept="image/png, image/jpeg, image/bmp"
@@ -137,7 +142,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-file-input
-          @change="Preview_image('top')"
+          @change="Preview_image('top'); info_added('top_img', top_img);"
           v-model="top_img"
           :rules="rules"
           accept="image/png, image/jpeg, image/bmp"
@@ -150,7 +155,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-file-input
-          @change="Preview_image('back')"
+          @change="Preview_image('back'); info_added('back_img', back_img);"
           v-model="back_img"
           :rules="rules"
           accept="image/png, image/jpeg, image/bmp"
@@ -163,7 +168,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-file-input
-          @change="Preview_image('add')"
+          @change="Preview_image('add'); info_added('add_img', add_img);"
           v-model="add_img"
           :rules="rules"
           accept="image/png, image/jpeg, image/bmp"
@@ -212,7 +217,7 @@
         top_url: null,
         back_url: null,
         add_url: null,
-        updatable_infos : [], // 데이터 불러올 때, 유저가 입력할 수 있는 데이터 종류를 담아둘 리스트 
+        updatated_infos : [], // 데이터 불러올 때, 유저가 입력할 수 있는 데이터 종류를 담아둘 리스트 
 
         brandGroup:['Nike','adidas','New Balance','Vans','Air Jordan','Supreme','Puma','Converse','Reebok','ASICS','Palace','Kith','off white','Stussy','Under Armour','Gucci','BAPE','Balenciaga','Billionaire Boys Club','Saucony','Palm Angels','Amiri','Fear Of God Essentials','Pleasures','Stone Island','Versace','Icecream','MCQ','Saint Laurent','Rhude','Brain Dead','Diadora','Bottega Veneta','Givenchy','Carhartt WIP','Heron Preston','Loewe','comme des garcons play','Air Jordan','Vetements','Anti Social Social Club','Burberry','Casablanca','Dior','Undercover','OFF-WHITE','Under Armour','Jacquemus','Rick Owens','Raf Simons','cactus jack by travis scott','Honor The Gift','Marni','Moncler','Chinatown Market','MM6 Maison Margiela','Market','Neighborhood','Maison Margiela','acne studios','1017 alyx 9sm','GANNI','Alexander McQueen','Moncler Genius','Ambush','Kapital','Marine Serre','Ami','Ksubi','Needles','Aries','Fear Of God','Balmain','a cold wall','Karhu','Vlone','','Dime','Human Made','Fendi','Thisisneverthat','Visvim','Saint Laurent','Lemaire','Helmut Lang','Martine Rose','Saint Michael','Common Projects','Cav Empt','Polo Ralph Lauren','Jil Sander','y 3','032c','KidSuper','The North Face','Crocs','Ader Error','Wacko Maria','Prada','courreges','Sacai','Nahmias','apc','Who Decides War','comme des garcons shirt','Cactus Plant Flea Market','Paco Rabanne','Mizuno','Louis Vuitton','Liberaiders','Yohji Yamamoto Pour Homme','Rick Owens DRKSHDW','Awake NY','Reese Cooper','Engineered Garments','Junya Watanabe','Les Tien','Yeezy Gap','comme des garcons','Valentino','Advisory Board Crystals','New Balance','Fila','JW Anderson','Music','Saintwoods','Just Don','Khaite','comme des garcons wallet','Real Bad Man','Lanvin','We11done','museum of peace quiet','C2H4','Timberland','Born X Raised','GOLF WANG','Hatton Labs','Curry Brand','Yeezy','Gentle Monster','Mykita','Acronym','Bode','Clarks','Martine Ali','Kanye West','Chanel','yproject','CELINE','Parra','comme des garcons homme plus','Mastermind World','Mastermind','Nanamica','li ning','Alexander McQueen','Stone Island Shadow Project','CLOT','ERL','Fred Perry','redone','bricks wood','Ewing','Wales Bonner','READYMADE','Dries Van Noten','Flight Club','paris saint germain','Eckhaus Latta','Sp5der','Kiko Kostadinov','Simone Rocha','girls dont cry','Louis Vuitton','OAMC','Afield Out','And Wander','Skim Milk','Song For The Mute','Agolde','MISBHV','WHOLE','Hoka One One','Hood By Air','Noah','KangaROOS','Kenzo','Online Ceramics','Pleats Please Issey Miyake','Polo By Ralph Lauren','Iise','Li-Ning','Other','Yeezy Gap Engineered By Balenciaga','SUPER By RetroSuperFuture','Yohji Yamamoto','mr saturday','BLUEMARBLE','Flatlist','VTMNTS','dr martens','424','levis','John Geiger','Salomon','Midnight Studios','ON','Students','Bao Bao Issey Miyake','Norse Projects','Patta','2 moncler','Brooks','Champion','Moncler Grenoble','Junya Watanabe MAN','K Swiss','Chemist Creations','Craig Green','Dutch Tulip Financial','Issey Miyake','Big Baller Brand','Children Of The Discordance','Ian Charms','Rassvet','SLVRLAKE','Entire Studios','Psychworld','Hyein Seo','Maison Mihara Yasuhiro','Total Luxury Spa','Camp High','Onitsuka Tiger','Yamborghini','bianca chandon','3paradis','Harley Davidson','Little Africa','VEERT','Anta','CLOTTEE','Drew House','Kids Of Immigrants','Le Coq Sportif','New Era','One Of These Days','CDG','Chrome Hearts','Miu Miu','RetroSuperFuture','Vintage','ernest w baker','porter yoshida co','tao comme des garcons','AI Studios','Casey Casey','Denim Tears','Keiser Clark','Sandal Boyz','Veneda Carter','Birkenstock','Ottolinger','Sandy Liang','Andersson Bell','Dc','Filling Pieces','Mister Green','Supra','dolce gabbana','Etudes','Jack Eller','Sky High Farm','Soulland','comme des garcons homme','number nine','5 moncler','Golden Goose','I Know Nigo','IDEA','MSCHF','Movies','Suicoke','Anonymous Club','Books','Cecilie Bahnsen','Dior Homme','Edward Cuming','Greg Lauren','Jean Paul Gaultier','Know Wave','Mowalola','Polite Worldwide','T By Alexander Wang','Ubiq','ADYAR','Christian Louboutin','Eric Emanuel','Hidden NY','MediCom Toy','Tommy Hilfiger','Travis Scott','tricot comme des garcons','AND1','Borsalino','Buscemi','DC Comics','Haider Ackermann','Hender Scheme','Marc Jacobs','Marcelo Burlon','Merrell','Mugler','Paperboy','Sinclair','Umbro','mercedes benz','361 degrees','66 north','90s anxiety','AREA','Alexander Wang','Angel Chen','Ari','Art','Baracuta','Boris Bidjan Saberi','Brandon Maxwell','Calvin Klein','Cartier','Charles Jeffrey Loverboy','Coperni','Ellesse','Etonic','Ferrari','GR10K','Hummel Hive','Hussein Chalayan','KARA','KAWS','Lotto','Molly Goddard','Nowhere','OVO','PF Flyers','Peter Do','Pierre Hardy','Poche','Quiet Golf','Siberia Hills','Sies Marjan','Sony','Sophie Bille Brahe','Stand Studio','Sulvam','Taiga Takahashi','The Hundreds','The Source','Tier','Tom Sachs','Used Future','Vivienne Westwood','mitchell ness','pam','ys'],
         categories: ['shoes','apparel','accessories','bags','jewelry','miscellaneous','collectibles']
@@ -259,60 +264,36 @@
           for(let i=0; i<img_arr.length; i++) {
             if(img_arr[i].type=='left') {
               this.left_url=img_arr[i].img_url
-              if(this.left_url == 'http://localhost:8000/media/images/defaultImg.png'){
-                this.updatable_infos.push('left')
-              }
+              
             }
             if(img_arr[i].type=='right') {
               this.right_url=img_arr[i].img_url
-              if(this.right_url == 'http://localhost:8000/media/images/defaultImg.png'){
-                this.updatable_infos.push('right')
-              }
             }
             if(img_arr[i].type=='top') {
               this.top_url=img_arr[i].img_url
-              if(this.top_url == 'http://localhost:8000/media/images/defaultImg.png'){
-                this.updatable_infos.push('top')
-              }
             }
             if(img_arr[i].type=='back') {
               this.back_url=img_arr[i].img_url
-              if(this.back_url == 'http://localhost:8000/media/images/defaultImg.png'){
-                this.updatable_infos.push('back')
-              }
             }
             if(img_arr[i].type=='additional') {
               this.add_url=img_arr[i].img_url
-              if(this.add_url == 'http://localhost:8000/media/images/defaultImg.png'){
-                this.updatable_infos.push('add')
-              }
             }
           }
         }
         if(res.data.brand!=null) {
           this.brand_select=res.data.brand
-        }else{
-          this.updatable_infos.push('brand')
         }
         if(res.data.colorway!=null) {
           this.color_select=res.data.colorway.split('/')
-        }else{
-          this.updatable_infos.push('colorway')
         }
         if(res.data.releaseDate!=null) {
           this.date=res.data.releaseDate
-        }else{
-          this.updatable_infos.push('releaseDate')
         }
         if(res.data.retailPrice!=null && res.data.retailPrice!=0) {
           this.retail=res.data.retailPrice
-        }else{
-          this.updatable_infos.push('retailPrice')
         }
         if(res.data.category!=null && res.data.category!='') {
           this.category_select=res.data.category
-        }else{
-          this.updatable_infos.push('category')
         }
       },
       price_formatter(){
@@ -326,8 +307,14 @@
         }
       },
       regist_infos(){
-        let retail_p = this.retail
-        alert('등록완료' + retail_p)
+
+      },
+      info_added(info,value){
+        console.log('info_added: ', info, value)
+        let info_dict = {}
+        info_dict[info] = value
+        this.updatated_infos.push(info_dict)
+        console.log('updatated_infos: ', this.updatated_infos)
       },
     }, // methods end
     created(){
