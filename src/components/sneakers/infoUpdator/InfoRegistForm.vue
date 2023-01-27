@@ -307,7 +307,18 @@
         }
       },
       regist_infos(){
-
+        console.log('regist_infos: ', this.updatated_infos)
+        let data = {
+          'product_id': this.product_id,
+          'user': this.$store.state.user_data.pk,
+          'infos': this.updatated_infos
+        }
+        console.log('regist_infos data: ', data)
+        //TODO: BE 구성 후 axios로 데이터 전송 구성
+      //   axios({
+      //     method: 'POST',
+      //     url: 'http://'
+      // },)
       },
       info_added(info,value){
         console.log('info_added: ', info, value)
