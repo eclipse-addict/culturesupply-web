@@ -308,23 +308,33 @@
       },
       regist_infos(){
         console.log('regist_infos: ', this.updatated_infos)
-        let data = {
-          'product_id': this.product_id,
-          'user': this.$store.state.user_data.pk,
-          'infos': this.updatated_infos
+
+        const formData = new FormData();
+
+        formData.append('product_id', this.product_id)
+        formData.append('user', this.$store.state.user_data.pk)
+
+        let updated_info_list = this.updatated_infos
+        for (let i=0; i<updated_info_list.length; i++){
+          formData.append(updated_info_list[i], this[updated_info_list[i]])
         }
-        console.log('regist_infos data: ', data)
+        console.log('regist_infos formData: ', formData)
         //TODO: BE 구성 후 axios로 데이터 전송 구성
-      //   axios({
-      //     method: 'POST',
-      //     url: 'http://'
-      // },)
+        axios({
+          method: 'POST',
+          headers: {'Authorization':'Bearer '+this.$store.state.user_data.access_token},
+          url: 'http://127.0.0.1:8000/info/create/updator/',
+          data: formData,
+      },).then(res=> {
+        console.log('regist_infos res: ', res)
+      }).catch(err => {
+        console.log('regist_infos err :', err)
+      })
       },
       info_added(info,value){
         console.log('info_added: ', info, value)
-        let info_dict = {}
-        info_dict[info] = value
-        this.updatated_infos.push(info_dict)
+        // let info_dict = {}
+        this.updatated_infos.push(info)
         console.log('updatated_infos: ', this.updatated_infos)
       },
     }, // methods end
