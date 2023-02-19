@@ -53,7 +53,7 @@
 
 <script>
 import axios from 'axios'
-const url = 'http://localhost:8000/'
+const url = 'http://www.kickin.co.kr:9000/'
 
 export default {
   name: 'LoginView',

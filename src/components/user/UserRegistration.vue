@@ -561,7 +561,7 @@ export default {
         axios({
           method: "GET",
           url:
-            "http://127.0.0.1:8000/user/nickcheck/?nick_name=" + this.nickName,
+            "http://www.kickin.co.kr:9000/user/nickcheck/?nick_name=" + this.nickName,
           params: { nickName: this.nickName },
         })
           .then((res) => {
@@ -595,7 +595,7 @@ export default {
 
         axios({
           method: "GET",
-          url: "http://127.0.0.1:8000/user/emailcheck/?email=" + this.email,
+          url: "http://www.kickin.co.kr:9000/user/emailcheck/?email=" + this.email,
           params: { email: this.email },
         })
           .then((res) => {

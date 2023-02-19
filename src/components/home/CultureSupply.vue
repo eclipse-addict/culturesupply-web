@@ -53,7 +53,7 @@ export default {
       console.log('main_image_fatch()')
       axios({
         method: 'GET',
-        url: 'http://127.0.0.1:8000/kicks/img/main/',
+        url: 'http://www.kickin.co.kr:9000/kicks/img/main/',
       }).then(res => {
         console.log('main_image_fatch res: ', res.data);
         this.main_product = res.data[1]

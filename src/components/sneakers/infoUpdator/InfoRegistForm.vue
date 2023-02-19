@@ -325,11 +325,11 @@
           headers: {'Authorization':'Bearer '+this.$store.state.user_data.access_token},
           url: 'http://127.0.0.1:8000/info/create/updator/',
           data: formData,
-      },).then(res=> {
-        console.log('regist_infos res: ', res)
-      }).catch(err => {
-        console.log('regist_infos err :', err)
-      })
+        },).then(res=> {
+          console.log('regist_infos res: ', res)
+        }).catch(err => {
+          console.log('regist_infos err :', err)
+        })
       },
       info_added(info,value){
         console.log('info_added: ', info, value)

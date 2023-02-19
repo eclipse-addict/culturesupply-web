@@ -21,7 +21,7 @@ export default {
 <style scoped>
 
 .back {
-  background-image: url('http://localhost:8000/media/images/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg.webp');
+  background-image: url('http://www.kickin.co.kr:9000/media/images/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg.webp');
           height: 100vh;
         width: 100vw;
               background-repeat : no-repeat;
