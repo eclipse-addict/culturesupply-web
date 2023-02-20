@@ -256,7 +256,7 @@ export default {
     img_check(){
       let result = false
       for(let img of this.kick.productImg){
-        if(img.img_url =="http://localhost:8000/media/images/defaultImg.png")
+        if(img.img_url =="http://218.155.159.235:9000/media/images/defaultImg.png")
           result = true
           break;
       }
@@ -309,7 +309,7 @@ export default {
       if(this.kick.brand){
         const brand = this.kick.brand
         if(brand == 'Air Jordan' || brand == 'Jordan'){
-          return  'http://localhost:8000/media/images/logos/air-jordan.png'
+          return  'http://218.155.159.235:9000/media/images/logos/air-jordan.png'
         }else if(brand == 'Nike'){
           return 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Nike_Just_Do_It_logo.svg/1200px-Nike_Just_Do_It_logo.svg.png'
         }else if(brand == 'Adidas'){

@@ -393,7 +393,7 @@
         }
       },
       right_img_exist(){
-        if(this.right_url != 'http://localhost:8000/media/images/defaultImg.png'){
+        if(this.right_url != 'http://218.155.159.235:9000/media/images/defaultImg.png'){
           console.log('right_url: ', this.right_url)
           return true
         }else{
@@ -401,35 +401,35 @@
         }
       },
       left_img_exist(){
-        if(this.left_url != 'http://localhost:8000/media/images/defaultImg.png'){
+        if(this.left_url != 'http://218.155.159.235:9000/media/images/defaultImg.png'){
           return true
         }else{
           return false
         }
       },
       top_img_exist(){
-        if(this.top_url != 'http://localhost:8000/media/images/defaultImg.png'){
+        if(this.top_url != 'http://218.155.159.235:9000/media/images/defaultImg.png'){
           return true
         }else{
           return false
         }
       },
       bottom_img_exist(){
-        if(this.back_url != 'http://localhost:8000/media/images/defaultImg.png'){
+        if(this.back_url != 'http://218.155.159.235:9000/media/images/defaultImg.png'){
           return true
         }else{
           return false
         }
       },
       back_img_exist(){
-        if(this.back_url != 'http://localhost:8000/media/images/defaultImg.png'){
+        if(this.back_url != 'http://218.155.159.235:9000/media/images/defaultImg.png'){
           return true
         }else{
           return false
         }
       },
       add_img_exist(){
-        if(this.add_url != 'http://localhost:8000/media/images/defaultImg.png'){
+        if(this.add_url != 'http://218.155.159.235:9000/media/images/defaultImg.png'){
           return true
         }else{
           return false
