@@ -42,7 +42,7 @@
                     <v-btn 
                       rounded color="primary" 
                       dark 
-                      v-if="k.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png' || 
+                      v-if="k.local_imageUrl == 'http://218.155.159.235:9000/media/images/defaultImg.png' || 
                             k.brand == null || 
                             k.colorway == null ||
                             k.releaseDate == '1900-01-01'||
@@ -159,7 +159,7 @@ export default {
             }
       axios({
         method: "GET",
-        url: "http://127.0.0.1:8000/kicks/sneaker/list/",
+        url: "http://218.155.159.235:9000/kicks/sneaker/list/",
         params: params,
       })
         .then((res) => {
@@ -321,7 +321,7 @@ export default {
       }
     },
     needed_tobe_updated(){
-      if(this.local_imageUrl == 'http://localhost:8000/media/images/defaultImg.png'){
+      if(this.local_imageUrl == 'http://218.155.159.235:9000/media/images/defaultImg.png'){
         return true
       }else{
         return false
