@@ -561,7 +561,7 @@ export default {
         axios({
           method: "GET",
           url:
-            "http://www.kickin.co.kr:9000/user/nickcheck/?nick_name=" + this.nickName,
+            "http://218.155.159.235:9000/user/nickcheck/?nick_name=" + this.nickName,
           params: { nickName: this.nickName },
         })
           .then((res) => {
@@ -595,7 +595,7 @@ export default {
 
         axios({
           method: "GET",
-          url: "http://www.kickin.co.kr:9000/user/emailcheck/?email=" + this.email,
+          url: "http://218.155.159.235:9000/user/emailcheck/?email=" + this.email,
           params: { email: this.email },
         })
           .then((res) => {
