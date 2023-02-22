@@ -133,7 +133,7 @@ export default {
       genderGroup: ['All', 'Youth', 'Men', 'Women', 'Infant', 'Toddler', 'Child', 'Unisex', 'Preschool'],
       brand: ['All',],
       dates: [],
-      url : 'http://218.155.159.235:9000/kicks/sneaker/',
+      url : 'https://218.155.159.235:9000/kicks/sneaker/',
 
     };
   },

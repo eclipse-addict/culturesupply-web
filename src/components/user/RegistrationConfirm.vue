@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 #main-body {
-  background-image: url('http://218.155.159.235:9000/media/images/confirmpagebackground.jpg');
+  background-image: url('https://218.155.159.235:9000/media/images/confirmpagebackground.jpg');
   background-repeat : no-repeat;
   background-size : contain;
 }

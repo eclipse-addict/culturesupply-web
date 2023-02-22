@@ -9,7 +9,7 @@
               안좋은 이미지 예시
             </v-card-title>
             <v-img
-              :src="`http://218.155.159.235:9000/media/images/defaultImg.png`"
+              :src="`https://218.155.159.235:9000/media/images/defaultImg.png`"
               max-height=""
               contain
               class="grey darken-4"
@@ -22,7 +22,7 @@
               좋은 이미지 예시
             </v-card-title>
             <v-img
-              :src="`http://218.155.159.235:9000/media/images/defaultImg.png`"
+              :src="`https://218.155.159.235:9000/media/images/defaultImg.png`"
               max-height=""
               contain
               class="grey darken-4"
@@ -35,7 +35,7 @@
               측면
             </v-card-title>
             <v-img
-              :src="`http://218.155.159.235:9000/media/images/defaultImg.png`"
+              :src="`https://218.155.159.235:9000/media/images/defaultImg.png`"
               max-height=""
               contain
               class="grey darken-4"
@@ -48,7 +48,7 @@
               정면
             </v-card-title>
             <v-img
-              :src="`http://218.155.159.235:9000/media/images/defaultImg.png`"
+              :src="`https://218.155.159.235:9000/media/images/defaultImg.png`"
               max-height=""
               contain
               class="grey darken-4"
@@ -61,7 +61,7 @@
               후면
             </v-card-title>
             <v-img
-              :src="`http://218.155.159.235:9000/media/images/defaultImg.png`"
+              :src="`https://218.155.159.235:9000/media/images/defaultImg.png`"
               max-height=""
               contain
               class="grey darken-4"
@@ -74,7 +74,7 @@
               상단
             </v-card-title>
             <v-img
-              :src="`http://218.155.159.235:9000/media/images/defaultImg.png`"
+              :src="`https://218.155.159.235:9000/media/images/defaultImg.png`"
               max-height=""
               contain
               class="grey darken-4"
