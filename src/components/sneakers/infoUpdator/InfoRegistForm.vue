@@ -323,7 +323,7 @@
         axios({
           method: 'POST',
           headers: {'Authorization':'Bearer '+this.$store.state.user_data.access_token},
-          url: 'http://127.0.0.1:8000/info/create/updator/',
+          url: 'https://218.155.159.235:9000/info/create/updator/',
           data: formData,
         },).then(res=> {
           console.log('regist_infos res: ', res)
@@ -342,7 +342,7 @@
       const product_id = this.$route.params.id;
       axios({
         method: 'GET',
-        url: 'http://127.0.0.1:8000/kicks/sneaker/' + product_id,
+        url: 'https://218.155.159.235:9000/kicks/sneaker/' + product_id,
       }).then(res=> {
         console.log('updator res: ', res)
         this.kick = res.data

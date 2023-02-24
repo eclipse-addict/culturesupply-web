@@ -140,6 +140,7 @@ export default {
   mounted() {
 	// goTop을 위해 mount 시 element 설정
     console.log('mount')
+    // console.log(process.env)
     // this.scrollTarget = document.getElementById('top');
     document.addEventListener('scroll', this.onScroll);
   },
