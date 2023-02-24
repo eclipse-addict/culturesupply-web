@@ -159,7 +159,7 @@ export default {
             }
       axios({
         method: "GET",
-        url: "https://218.155.159.235:9000/kicks/sneaker/list/",
+        url: "https://www.kickin.co.kr/kicks/sneaker/list/",
         params: params,
       })
         .then((res) => {
