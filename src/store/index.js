@@ -6,14 +6,14 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-const url = 'https://218.155.159.235:9000/'
+const url = 'https://www.kickin.co.kr/'
 
 export default new Vuex.Store({
   plugins: [
     createPersistedState(),
   ],
   state: {
-    dev_url : "https://218.155.159.235:9000/",
+    dev_url : "https://www.kickin.co.kr/",
     isLoading : true,
     user_data : {
       email: null,
