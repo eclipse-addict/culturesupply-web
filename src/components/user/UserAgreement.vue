@@ -9,7 +9,7 @@
       <img src="" alt="" class="img-fluid center-block" >
     </div>
   </div>
-    <div>
+    <div class="content-main">
       <p>
         ㈜킥인(http://www.kickin.co.kr/ 이하 "회사"이라 함)는 귀하의 개인정보를 중요시하며, 
         『정보통신망 이용촉진 및 정보보호 등에 관한 법률』, 『개인정보 보호법』, 『통신비밀보호법』, 『전기통신사업법』 
@@ -292,4 +292,13 @@ computed : {
 </script>
 
 <style scoped>
+
+.content-main{
+  height: 550px;
+  overflow: scroll;
+  border-block: 1px solid black;
+  /* box-shadow: 1px 1px 15px; */
+  /* background-image: linear-gradient(to bottom, white, rgb(176, 174, 174)); */
+}
+
 </style>

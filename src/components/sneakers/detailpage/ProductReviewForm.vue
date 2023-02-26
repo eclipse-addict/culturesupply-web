@@ -65,7 +65,7 @@ export default {
       const rating = this.rating
       const user_id = this.$store.state.user_data.pk
       const product_id = this.$props.product_id
-      const url = `https://218.155.159.235:9000/review/new/${product_id}/${user_id}/`
+      const url = this.$store.state.prod_url+'review/new/'+product_id+'/'+user_id
 
       axios({
         method: 'POST',

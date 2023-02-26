@@ -42,7 +42,7 @@
                     <v-btn 
                       rounded color="primary" 
                       dark 
-                      v-if="k.local_imageUrl == 'https://218.155.159.235:9000/media/images/defaultImg.png' || 
+                      v-if="k.local_imageUrl == 'media/images/defaultImg.png' || 
                             k.brand == null || 
                             k.colorway == null ||
                             k.releaseDate == '1900-01-01'||
@@ -159,7 +159,7 @@ export default {
             }
       axios({
         method: "GET",
-        url: "https://www.kickin.co.kr/kicks/sneaker/list/",
+        url: this.$store.state.prod_url+"kicks/sneaker/list/",
         params: params,
       })
         .then((res) => {
@@ -241,7 +241,7 @@ export default {
         const user_id = this.$store.state.user_data.pk
         axios({
           method: 'POST',
-          url: this.$store.state.dev_url+`kicks/sneaker/like/${product_id}/${user_id}/`,
+          url: this.$store.state.prod_url+`kicks/sneaker/like/${product_id}/${user_id}/`,
           headers: {'Authorization':'Bearer '+this.$store.state.user_data.access_token},
         }).then(res =>{
           // console.log('like req: ',res);
@@ -321,7 +321,7 @@ export default {
       }
     },
     needed_tobe_updated(){
-      if(this.local_imageUrl == 'https://218.155.159.235:9000/media/images/defaultImg.png'){
+      if(this.local_imageUrl == this.$store.state.prod_url+'media/images/defaultImg.png'){
         return true
       }else{
         return false

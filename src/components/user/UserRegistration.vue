@@ -23,7 +23,8 @@
         <div
           class="
             col-md-5 col-lg-4 col-sm-4
-            d-sm-none d-xl-block d-md-block
+
+            d-none d-xl-block d-md-block
             position-fixed
             d-xl-block
             border-1
@@ -488,7 +489,7 @@
 import axios from "axios";
 import swal from 'sweetalert';
 
-// const dev_url = "http://localhost:8000/";
+// const prod_url = "http://localhost:8000/";
 export default {
   name: "userRegisterForm",
   data() {
@@ -561,7 +562,7 @@ export default {
         axios({
           method: "GET",
           url:
-            "https://218.155.159.235:9000/user/nickcheck/?nick_name=" + this.nickName,
+            this.$store.state.prod_url+"user/nickcheck/?nick_name=" + this.nickName,
           params: { nickName: this.nickName },
         })
           .then((res) => {
@@ -595,7 +596,7 @@ export default {
 
         axios({
           method: "GET",
-          url: "https://218.155.159.235:9000/user/emailcheck/?email=" + this.email,
+          url: this.$store.state.prod_url+"user/emailcheck/?email=" + this.email,
           params: { email: this.email },
         })
           .then((res) => {
@@ -620,7 +621,7 @@ export default {
       axios({
         method: "POST",
         ContentType: 'application/json',
-        url: this.$store.state.dev_url + "user/userinfo/"+pk+'/',
+        url: this.$store.state.prod_url + "user/userinfo/"+pk+'/',
         headers: {
           'Authorization':'Bearer '+token,
           'Content-Type': 'multipart/form-data'
@@ -666,7 +667,7 @@ export default {
         // this.$store.dispatch('signupRequest', payload)
         axios({
           method: "POST",
-          url: this.$store.state.dev_url + "user/dj-rest-auth/registration/",
+          url: this.$store.state.prod_url + "user/dj-rest-auth/registration/",
           data: {
             email: payload.email,
             password1: payload.password,

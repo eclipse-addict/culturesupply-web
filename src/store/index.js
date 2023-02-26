@@ -4,16 +4,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
-Vue.use(Vuex)
+let baseUrl = process?.env.VUE_APP_DEV === '_ENV_DEVELOPMENT' ? 'http://localhost:8000/' : 'https://www.kickin.co.kr/'
 
-const url = 'https://www.kickin.co.kr/'
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
     createPersistedState(),
   ],
   state: {
-    dev_url : "https://www.kickin.co.kr/",
+    prod_url : baseUrl,
     isLoading : true,
     user_data : {
       email: null,
@@ -44,7 +44,7 @@ export default new Vuex.Store({
     },
     SET_USER_INFO(state, payload){
       state.user_data.nick_name = payload.nick_name
-      state.user_data.profile_img = state.dev_url + payload.profile_img
+      state.user_data.profile_img = state.prod_url + payload.profile_img
 
       const user = JSON.stringify(state.user_data);
       window.localStorage.setItem('user', user);
@@ -87,7 +87,7 @@ export default new Vuex.Store({
       
       axios({
         method: 'POST',
-        url : url + 'user/dj-rest-auth/registration/',
+        url : baseUrl + 'user/dj-rest-auth/registration/',
         data: {
           email: payload.email,
           password1: payload.password,
@@ -103,7 +103,7 @@ export default new Vuex.Store({
     signoutRequest(context){
       axios({
         method: 'POST',
-        url: url + 'user/dj-rest-auth/logout/',
+        url: baseUrl + 'user/dj-rest-auth/logout/',
         headers: {
           Authorization: 'Bearer ' + this.state.user_data.access_token
         },
@@ -123,7 +123,7 @@ export default new Vuex.Store({
     refresh_token_request(context, dispatch){
       axios({
         method: 'POST',
-        url: url + 'api/token/refresh/',
+        url: baseUrl + 'api/token/refresh/',
         headers:{"Content-Type": "application/json"},
         data: {
           'refresh': this.state.user_data.refresh_token

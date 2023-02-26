@@ -7,12 +7,12 @@
         style="margin-top:10px"
         max-width="500px"          
         v-if="img_check || 
-              kick.brand == null || 
-              kick.colorway == null ||
-              kick.releaseDate == '1900-01-01'||
-              kick.releaseDate == null ||
-              kick.retailPrice == null ||
-              kick.category == ''
+              kick?.brand == null || 
+              kick?.colorway == null ||
+              kick?.releaseDate == '1900-01-01'||
+              kick?.releaseDate == null ||
+              kick?.retailPrice == null ||
+              kick?.category == ''
               " 
         @click="add_info(kick?.id)" 
       > 
@@ -21,7 +21,7 @@
       </v-btn>
       </div>
     <div class="mt-2 mb-2">
-      <v-btn small absolute fab right style="margin-top:3px; margin-right:12px;" @click="like_btn(kick?.id, index)" v-if="check_like_user(kick.like_users)">
+      <v-btn small absolute fab right style="margin-top:3px; margin-right:12px;" @click="like_btn(kick?.id, index)" v-if="check_like_user(kick?.like_users)">
           <font-awesome-icon icon="fa-solid fa-heart" />
       </v-btn>
       <v-btn small absolute fab right style="margin-right:12px; margin-top:3px;" @click="like_btn(kick?.id, index)" v-else>
@@ -60,7 +60,6 @@
       show-arrows-on-hover
       id="img_caraousel" 
       interval="6000" 
-      touch="true" 
       hide-delimiter-background 
       hide-delimiters
     >
@@ -84,7 +83,7 @@
           </v-btn>
         </template>
         <v-carousel-item 
-          v-for="(img, i) in kick.productImg"
+          v-for="(img, i) in kick?.productImg"
           :key="i"
         >
           <v-sheet height="100%">
@@ -162,6 +161,7 @@ export default {
       kick : null,
       rating: 0,
       like_users: [],
+      selectedItem: null,
     }
   },
   methods: {
@@ -212,7 +212,7 @@ export default {
         const user_id = this.$store.state.user_data.pk
         axios({
           method: 'POST',
-          url: this.$store.state.dev_url+`kicks/sneaker/like/${product_id}/${user_id}/`,
+          url: this.$store.state.prod_url+`kicks/sneaker/like/${product_id}/${user_id}/`,
           headers: {'Authorization':'Bearer '+this.$store.state.user_data.access_token},
         }).then(res =>{
           // console.log('like req: ',res);
@@ -233,13 +233,15 @@ export default {
       }
     },
     check_like_user(like_users){
-      for(let user of like_users){
-        if (user == this.$store.state.user_data.pk){
-          return true;
+      if(like_users){
+        for(let user of like_users){
+          if (user == this.$store.state.user_data.pk){
+            return true;
+          }
+          else {
+            return false;
+          } 
         }
-        else {
-          return false;
-        } 
       }
     },
     set_like_user(){
@@ -255,8 +257,8 @@ export default {
         /**이미지 리스트 중 하나라도 미등록 상태일 경우 정보 등록 버튼을 노출시킨다. return boolean */
     img_check(){
       let result = false
-      for(let img of this.kick.productImg){
-        if(img.img_url =="https://218.155.159.235:9000/media/images/defaultImg.png")
+      for(let img of this.kick?.productImg){
+        if(img.img_url ==this.$store.state.prod_url+"media/images/defaultImg.png")
           result = true
           break;
       }
@@ -278,15 +280,15 @@ export default {
     },
     get_krw(){
       const rate = 1302.58
-      if(this.kick.retailPrice){
-        const krw_price = ((this.kick.retailPrice)* 0.01 * rate)
+      if(this.kick?.retailPrice){
+        const krw_price = ((this.kick?.retailPrice)* 0.01 * rate)
         return Math.ceil(krw_price)
       }
       return 0
     },
     get_dollor(){
-      if(this.kick.retailPrice){
-        const price = this.kick.retailPrice *0.01
+      if(this.kick?.retailPrice){
+        const price = this.kick?.retailPrice *0.01
         var dollarUSLocale = Intl.NumberFormat('en-US');
         return dollarUSLocale.format(price)
       }else{
@@ -294,7 +296,7 @@ export default {
       }
     },
     brand_formatter(){
-      if(this.kick.brand){
+      if(this.kick?.brand){
         const brand = this.kick.brand
         if(brand == 'Air$%20Jordan' || brand == 'Jordan'){
           return  'AIR JORDAN'
@@ -306,10 +308,10 @@ export default {
       }
     },
     brand_logo(){
-      if(this.kick.brand){
-        const brand = this.kick.brand
+      if(this.kick?.brand){
+        const brand = this.kick?.brand
         if(brand == 'Air Jordan' || brand == 'Jordan'){
-          return  'https://218.155.159.235:9000/media/images/logos/air-jordan.png'
+          return  this.$store.state.prod_url+'media/images/logos/air-jordan.png'
         }else if(brand == 'Nike'){
           return 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Nike_Just_Do_It_logo.svg/1200px-Nike_Just_Do_It_logo.svg.png'
         }else if(brand == 'Adidas'){
@@ -345,10 +347,11 @@ export default {
     const product_id = this.$route.params.id;
     axios({
       method: 'GET',
-      url: 'https://218.155.159.235:9000/kicks/sneaker/' + product_id,
+      url: this.$store.state.prod_url+'kicks/sneaker/' + product_id,
     }).then(res=> {
       console.log('detail res: ', res)
       this.kick = res.data
+      this.selectedItem = res.data
       this.product_id = res.data.id
 
     }).catch(err => {
@@ -357,6 +360,7 @@ export default {
     })
   },
   mounted() {
+
   }
 }
 </script>

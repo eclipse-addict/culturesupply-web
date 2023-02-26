@@ -130,6 +130,7 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 .nav-mouse-over {
   cursor: pointer;
  }
@@ -144,6 +145,7 @@ export default {
   }
   .header-font{
     /* font-family: 'Poppins', sans-serif; */
+    /* font-family: 'Quicksand', sans-serif; */
     font-family: 'Quicksand', sans-serif;
     font-weight: 100;
   }

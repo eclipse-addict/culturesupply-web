@@ -61,7 +61,7 @@ export default {
       console.log('reveiw_fetch()')
       axios({
         method: 'GET',
-        url: `https://218.155.159.235:9000/review/list/${this.$route.params.id}/`,
+        url: `${this.$store.state.prod_url}review/list/${this.$route.params.id}/`,
       }).then(res => {
         console.log('reveiw_fetch res : ', res)
         this.get_page_cnt(res.data.length)

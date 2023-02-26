@@ -53,7 +53,7 @@
 
 <script>
 import axios from 'axios'
-const url = 'https://www.kickin.co.kr/'
+// const url = this.$store.state.prod_url
 
 export default {
   name: 'LoginView',
@@ -80,7 +80,7 @@ export default {
 
       axios({
         method: 'POST',
-        url : url + 'user/dj-rest-auth/login/',
+        url : this.$store.state.prod_url + 'user/dj-rest-auth/login/',
         data: {
           email: payload.email,
           password: payload.password,
@@ -108,7 +108,7 @@ export default {
 
       axios({
         method: "GET",
-        url: this.$store.state.dev_url+"user/userinfo/get/"+user_id+'/',
+        url: this.$store.state.prod_url+"user/userinfo/get/"+user_id+'/',
         headers: {
           'Authorization':'Bearer '+token,
           },

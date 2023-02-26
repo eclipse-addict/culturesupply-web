@@ -133,7 +133,7 @@ export default {
       genderGroup: ['All', 'Youth', 'Men', 'Women', 'Infant', 'Toddler', 'Child', 'Unisex', 'Preschool'],
       brand: ['All',],
       dates: [],
-      url : 'https://www.kickin.co.kr:9000/kicks/sneaker/',
+      url : this.$store.state.prod_url+'kicks/sneaker/',
 
     };
   },
