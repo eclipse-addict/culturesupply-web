@@ -12,7 +12,7 @@
     >
       <v-hover v-slot="{ hover }">
         <v-card class="" style="box-shadow: none;" color="grey lighten-4" max-width="600" min-height="455" min-width="200">
-          <v-img :aspect-ratio="1.4" :src="k.local_imageUrl">
+          <v-img :aspect-ratio="1.4" :src="env_url+k.local_imageUrl">
             <v-expand-transition>
               <div
                 v-if="hover"
@@ -127,6 +127,7 @@ export default {
       like_check: false,
       overlay: false,
       next_page : '',
+      env_url: this.$store.state.prod_url,
     };
   },
   props:{
