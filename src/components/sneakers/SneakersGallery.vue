@@ -148,16 +148,37 @@ export default {
     fetch_kicks($state) {
       const search = this.$route.query.search;
       let brand = this.$route.query.brand;
-      const releaseDate = this.$route.query.release;
+      let release_date = this.$route.query.release;
       if(brand == 'All'){
         brand = ''
       }
+      if (!release_date){
+        console.log("releaseDate is null")
+        // 현재 날짜 객체 생성
+        let currentDate = new Date();
+
+        // 현재 날짜에서 2주를 뺀 날짜 계산
+        let twoWeeksAgo = new Date(currentDate.getTime() - 14 * 24 * 60 * 60 * 1000);
+
+        // 현재 날짜에서 2주를 더한 날짜 계산
+        let twoWeeksLater = new Date(currentDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+
+        // 각 날짜를 원하는 포맷에 맞게 변환
+        let twoWeeksAgoFormatted = twoWeeksAgo.toISOString().substring(0, 10);
+        let twoWeeksLaterFormatted = twoWeeksLater.toISOString().substring(0, 10);
+
+        // 결과
+        release_date = twoWeeksAgoFormatted + ',' + twoWeeksLaterFormatted
+        console.log(release_date)
+      }
+
       console.log(" fetch_kicksfetch_kicksfetch_kickscall")
       let params = {
-              search,
-              releaseDate,
+        search,
+              release_date,
               brand,
             }
+      console.log(params)
       axios({
         method: "GET",
         url: this.$store.state.prod_url+"kicks/sneaker/list/",

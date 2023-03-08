@@ -118,7 +118,6 @@ library.add(faEnvelopeOpenText);
 <script>
 // @ is an alias to /src
 import sneakersGallery from "@/components/sneakers/SneakersGallery.vue";
-const StockXData = require("stockx-data");
 export default {
   name: "HomeView",
   data() {
