@@ -1,5 +1,8 @@
 <template>
-  <v-row class="mt-sm-0 container row d-flex justify-content-around" id="main">
+  <v-container>
+
+  
+  <v-row class="mt-sm-0 container row d-flex justify-content-around" id="main" v-if="kicks">
     <v-col
       class="card mt-13"
       cols="12"
@@ -88,7 +91,7 @@
             <div class="font-weight-light text-h6 mb-2">
               {{k.releaseDate}}
             </div>
-            <v-rating
+            <!-- <v-rating
             :value="k.avg_rating?k.avg_rating:0"
             dense
             readonly
@@ -97,8 +100,8 @@
             background-color="orange"
             half-increments
             class="mr-2"
-          ></v-rating>
-          <span class="primary--text text-subtitle-2">{{k.count_reviews}} Reviews</span>
+          ></v-rating> -->
+          <!-- <span class="primary--text text-subtitle-2">{{k.count_reviews}} Reviews</span> -->
           </v-card-text>
         </v-card>
       </v-hover>
@@ -111,11 +114,17 @@
       ref="infiniteLoading"
     ></infinite-loading>
   </v-row>
+    <v-row v-else>
+      <loadingImg></loadingImg>
+
+    </v-row>
+  </v-container>  
 </template>
 
 <script>
 import axios from "axios";
 import infiniteLoading from "vue-infinite-loading";
+import loadingImg from '@/components/common/loadingPage.vue'
 import swal from 'sweetalert';
 export default {
   name: "sneakersGallery",
@@ -140,6 +149,7 @@ export default {
   },
   components: {
     infiniteLoading,
+    loadingImg,
   },
   methods: {
     toDetail(id) {
