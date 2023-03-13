@@ -16,6 +16,18 @@
       <v-hover v-slot="{ hover }">
         <v-card class="" style="box-shadow: none;" color="grey lighten-4" max-width="600" min-height="455" min-width="200">
           <v-img :aspect-ratio="1.4" :src="env_url+k.local_imageUrl">
+            <template v-slot:placeholder>
+              <v-row
+                class="fill-height ma-0"
+                align="center"
+                justify="center"
+              >
+                <v-progress-circular
+                  indeterminate
+                  color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+      </template>
             <v-expand-transition>
               <div
                 v-if="hover"
