@@ -95,7 +95,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name) {
-    // console.log('  router.beforeEach'  )
+    
     store.commit('SET_LOADING_STATE', true);
     NProgress.start()
     }

@@ -28,4 +28,3 @@ new Vue({
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
-// Vue.use(IconsPlugin)

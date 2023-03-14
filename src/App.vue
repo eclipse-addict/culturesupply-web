@@ -198,6 +198,8 @@ export default {
     }
   },
   created() {
+    // console.log(this.$store.state.user_data.profile_img)
+    // console.log()
     this.setLoading()
   },
 };
