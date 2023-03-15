@@ -92,9 +92,12 @@
               align="center"
               justify="center"
             >
-            <v-img :src="img.img_url" contain width="650" height="700" >
+            <v-img 
+              :src="env_url+img.img_url"              
+              contain width="650" 
+              height="700" >
               <div class="text-center">
-              <v-btn class="original_btn" elevation="10" rounded shaped style="margin-top: 15rem;" @click="original_size_img(img.img_url, kick.name)">크게보기</v-btn>
+              <v-btn class="original_btn" elevation="10" rounded shaped style="margin-top: 15rem;" @click="original_size_img(env_url+img.img_url, kick.name)">크게보기</v-btn>
               </div>
             </v-img>
             </v-row>
@@ -162,6 +165,7 @@ export default {
       rating: 0,
       like_users: [],
       selectedItem: null,
+      env_url: this.$store.state.prod_url,
     }
   },
   methods: {
