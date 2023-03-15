@@ -93,7 +93,8 @@
               justify="center"
             >
             <v-img 
-              :src="env_url+img.img_url"              
+              :src="env_url+img.img_url"
+              :lazy-src="env_url+'media/images/defaultImg.png'"              
               contain width="650" 
               height="700" >
               <div class="text-center">
@@ -273,9 +274,9 @@ export default {
     },
   }, // end of methods 
   computed : {
-    img_url () {
-      return this.kick?.local_imageUrl
-    },
+    // img_url_parser () {
+    //   return  this.kick?.local_imageUrl
+    // },
     get_review_cnt() {
       if(this.kick){
         return this.kick.reviews.length
