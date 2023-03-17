@@ -2,7 +2,7 @@
   <v-app id="loading">
     <v-main class="">
       <v-container>
-        <div class="text-center" style="margin-top: 20rem;">
+        <div class="text-center" style="margin-top: 1rem;">
         <img src="@/assets/images/loading.gif" alt="">
         </div>
       </v-container>

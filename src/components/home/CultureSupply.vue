@@ -1,36 +1,17 @@
 <template>
-<div class="container show-grid">
-  <div class="text-center border-bottom">
-  <!-- <h1 class="main-header">Kickin</h1> -->
-  </div>
-  <div class="row h-100 border-bottom pb-5" v-show="main_product">
-    <div class="col-md-6 col-sm-12 mt-auto mb-auto main-font">
-      <p class="brand-name d-none d-md-block">{{main_product?.brand}}</p>
-      <h1 class="d-none d-md-block d-xl-block d-xxl-block main-header">{{main_product?.name}}</h1>
-    <div class="">
-        <h5 style=" font-size:30px;">{{main_product?.name}}</h5>
-        <div class="mt-4">
-        <v-btn class="ma-2" outlined color="black" small @click="toDetail(main_product?.id)">Take me to Detail</v-btn>
-        </div>
-      </div> 
-      <!-- <span class="d-none d-lg-block main-desc">{{main_product.description | desc_shortener}}</span> -->
-    </div>
-      <div class="col-md-6 col-12" style="text-align: center;">
-        <img :src="img_url" alt="main_img" height="400px" class="mx-lg-5" style="width:100%; height:100%;">
-      </div>
-    <div class="text-center d-none mt-lg-10 d-md-block d-xl-block d-xxl-block">
-      <v-btn
-        class="ma-2"
-        outlined
-        color="black"
-        x-large
-        @click="toDetail(main_product?.id)"
-      >
-      Take me to Detail
-      </v-btn>
-    </div>
-  </div>
-  </div>
+  <v-container fluid>
+    <v-row no-gutters>
+      <v-col>
+        <div class="font-monospace font-weight-bold main-header"
+        v-text="`Let's stay Kickin`"></div>
+      </v-col>
+      <v-col>
+        <v-img contain class="mt-5 pt-4" src="https://images.stockx.com/images/Air-Jordan-1-Retro-High-Dior-Product.jpg?fit=fill&bg=FFFFFF&w=1200&h=857&fm=webp&auto=compress&dpr=2&trim=color&updated_at=1607043976&q=75"></v-img>
+      </v-col>
+    </v-row>
+
+
+  </v-container>
 
 </template>
 
@@ -46,6 +27,7 @@ export default {
   data () {
     return {
       main_product : null,
+      
     }
   },
   methods: {
@@ -106,6 +88,9 @@ export default {
   font-weight: bolder;
   color: rgb(7, 7, 7);
   font-size: 3rem;
+  font-family: 'Lobster', cursive;
+  font-family: 'Pathway Gothic One', sans-serif;
+
 }
 .main-font{font-family: 'Poppins', sans-serif;}
 .main-desc{

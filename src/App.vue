@@ -1,37 +1,64 @@
 <template>
-  <v-app>
+  <v-app >
     <!-- <v-navigation-drawer app>
     </v-navigation-drawer>
     <v-app-bar app>
     </v-app-bar> -->
     <v-app-bar
-      app
-      color="#2B3A55"
-      dark
-      shaped extended elevation="10"
+      color="white"
+      flat
+      width="100%"
+      height="38%"
+      
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      
-      <v-toolbar-title class="m-auto nav-mouse-over mt-1" @click="toHome">
-        <img src="@/assets/logo.png" alt="" width="58" height="58">
-      </v-toolbar-title>
+      <v-toolbar-title class="banner_title accent-1 fs-2" @click="toHome">
+        KickIn 
+        <span class="material-symbols-outlined">barefoot</span>
+        </v-toolbar-title>
       <template v-slot:extension >
-        <v-tabs class="d-none d-sm-flex" align-with-title v-model="group" active-class="text--accent-4">
-          <v-tab @click="toHome">Home</v-tab>
-          <v-tab @click="toSneakers">Items</v-tab>
-          <v-tab @click="toCulture">Culture</v-tab>
-          <v-tab>Raffle</v-tab>
-          <v-tab @click="toCalendar">Calendar</v-tab>
-          <v-tab @click="toAuction">Auction</v-tab>
+        <v-tabs  class="d-none d-sm-flex"  v-model="group"  hide-slider inactive-color="grey" v-if="isLogin" >
+          <v-tab  :ripple="false" >Profile</v-tab>
+
+        </v-tabs>
+        <v-tabs class="d-none d-sm-flex"  v-model="group"  hide-slider inactive-color="black" v-else>
+          <v-tab  :ripple="false" @click="toLogin">
+            <!-- <v-btn  class="fw-2" outlined elevation="1" > -->
+            Login
+            <!-- </v-btn> -->
+            </v-tab >
+          <v-tab  :ripple="false" @click="toAgreement">
+            <!-- <v-btn class="fw-2" outlined elevation="1"> -->
+            Sign Up
+            <!-- </v-btn> -->
+            </v-tab>
+        </v-tabs>
+        <v-tabs class="d-none d-sm-flex"   v-model="menu_group"  hide-slider inactive-color="grey" style="flex-direction: row-reverse; border-bottom:1px solid black;">
+          <v-tab  :ripple="false" color="black" @click="toHome">Home</v-tab>
+          <v-tab :ripple="false" color="black" @click="toSneakers">Items</v-tab>
+          <v-tab :ripple="false" color="black" @click="toCulture">Culture</v-tab>
+          <v-tab :ripple="false">Raffle</v-tab>
+          <v-tab :ripple="false" @click="toCalendar">Calendar</v-tab>
+          <v-tab :ripple="false" @click="toAuction">Auction</v-tab>
         </v-tabs>
       </template>
+
+    </v-app-bar>
+    <v-app-bar dense collapse color="white" flat max-width="400" shrink-on-scroll class="mt-5" style="flex-direction: row-reverse; border-bottom:1px solid black;">
+      <v-text-field
+        class=""
+        label="Search Keyword"
+        :loading="false"
+        :append-outer-icon="keyword ? 'mdi-magnify' : ''"
+      ></v-text-field>
     </v-app-bar>
 
     <v-navigation-drawer
       v-model="drawer"
       fixed
       temporary
-      mobile-breakpoint
+      mobile-breakpoint='5'
+      expand-on-hover
     >
       <v-list nav dense>
         <v-list-item-group>
@@ -48,7 +75,7 @@
             <v-list-item-title>로그인을 해주세요.</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
-        <v-list-item-group v-model="group" active-class="text--accent-4">
+        <v-list-item-group v-model="menu_group" active-class="text--accent-4">
           <v-list-item-title class="text-center">
             <!-- <h3>Kickin</h3> -->
           </v-list-item-title>
@@ -110,8 +137,37 @@
         </transition>
       </v-container>
     </v-main>
-    <v-footer app>
-    <!-- -->
+  <v-footer
+      dark
+      padlessq
+    >
+      <v-card
+        class="flex"
+        flat
+        tile
+      >
+        <v-card-title class="teal">
+          <strong class="subheading">Get connected with us on social networks!</strong>
+
+          <v-spacer></v-spacer>
+
+          <v-btn
+            v-for="icon in icons"
+            :key="icon"
+            class="mx-4"
+            dark
+            icon
+          >
+            <v-icon size="24px">
+              {{ icon }}
+            </v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="py-2 white--text text-center">
+          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        </v-card-text>
+      </v-card>
     </v-footer>
   </v-app>
 </template>
@@ -130,7 +186,15 @@ export default {
   data: () => ({
     isLoading: true,
     drawer: false,
+    menu_group: null,
     group: null,
+    keyword: null,
+    icons: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',
+      ],
   }),
   mounted() {
     setTimeout(() => {
@@ -146,10 +210,12 @@ export default {
       //TODO: 현재 위치한 페이지 볼드 처리 .
       // this.$store.dispatch('setLoading', true)
         this.$router.push({name:'home'})
+        this.menu_group = 'home'
       
     },
     toSneakers(){
       // this.$store.dispatch('setLoading', true)
+      this.menu_group = 'items'
       let today = new Date()
       let year = today.getFullYear();
       let month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -162,6 +228,7 @@ export default {
                           brand: '',
                           release: '',
                         }})
+      
     },
     toCalendar(){
       this.$store.dispatch('setLoading').then(
@@ -169,8 +236,9 @@ export default {
       )
     },
     toLogin(){
+      this.group = 'login'
       this.$store.dispatch('setLoading').then(
-        this.$router.push({name:'login'})
+        this.$router.push({name:'login'}) 
       )
     },
     signoutRequest(){
@@ -189,13 +257,20 @@ export default {
     searchKeyword(){
       console.log('search', this.keyword )
       this.keyword = '';
-    }
+    },
+    toAgreement() {
+      this.$router.push({path: '/agreement'})
+      this.group='agreement'
+    },
   },
   computed:{
     is_loading(){
       console.log(this.$state.isLoading)
       return true;
-    }
+    },
+    isLogin(){
+      return this.$store.state.user_data.access_token
+    },
   },
   created() {
     // console.log(this.$store.state.user_data.profile_img)
@@ -221,5 +296,14 @@ export default {
 .nav-mouse-over {
   cursor: pointer;
 }
+.banner_title{
+  font-family: 'Lobster';
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-weight: 900;
+  cursor: pointer;
+  
+
+}
+  
 </style>
 

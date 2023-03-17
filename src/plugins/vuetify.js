@@ -1,7 +1,20 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib/framework';
+// src/plugins/vuetify.js
 
-Vue.use(Vuetify);
+import Vue from 'vue'
+import Vuetify from 'vuetify/lib'
 
-export default new Vuetify({
-});
+Vue.use(Vuetify)
+
+const vuetify = new Vuetify({
+  theme: {
+    themes: {
+      light: {
+        primary: '#10142d',
+        secondary: '#b0bec5',
+        anchor: '#8c9eff',
+      },
+    },
+  },
+})
+
+export default vuetify
