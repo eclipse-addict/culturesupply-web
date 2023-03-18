@@ -8,26 +8,42 @@
         </v-toolbar>
         <v-card-text class="grey lighten-4">
           <v-sheet class="mx-auto px-10 py-3">
-            <v-text-field
-              label="Search Keyword"
-              :loading="isLoading"
-              v-model="keyword"
-              :append-outer-icon="keyword ? 'mdi-magnify' : ''"
-              @click:append-outer="fetch_kicks"
-              @keyup.enter="fetch_kicks"
-            ></v-text-field>
-            <!-- <v-btn elevation="2"></v-btn> -->
-            <p>
-              <v-combobox
-                v-model="brand"
-                :items="brandGroup"
-                label="브랜드"
-                multiple
-                clear-icon="$clear"
-                clearable
-                chips
-              ></v-combobox>
-            </p>
+            <v-row>
+              <v-col cols="12" lg="3" sm="12">
+                <v-combobox
+                  v-model="category"
+                  :items="categoryGroup"
+                  label="카테고리"
+                  multiple
+                  clear-icon="$clear"
+                  clearable
+                  chips
+                ></v-combobox>
+              </v-col>
+              <v-col cols="12" lg="3" sm="12">
+                <v-combobox
+                  v-model="brand"
+                  :items="brandGroup"
+                  label="브랜드"
+                  multiple
+                  clear-icon="$clear"
+                  clearable
+                  chips
+                ></v-combobox>
+              </v-col>
+
+              <v-col cols="12" lg="6" sm="12">
+                <v-text-field
+                  label="Search Keyword"
+                  :loading="isLoading"
+                  v-model="keyword"
+                  :append-outer-icon="keyword ? 'mdi-magnify' : ''"
+                  @click:append-outer="fetch_kicks"
+                  @keyup.enter="fetch_kicks"
+                  height="42"
+                ></v-text-field>
+              </v-col>
+            </v-row>
             <p class="mt-4">
               <span v-show="outOfRange" class="warning" style="font-size: 13px"
                 >검색가능 범위를 초과했습니다.(최대30일)</span
@@ -300,6 +316,7 @@
         <!-- spiral waveDots -->
       </v-col>
       <infinite-loading
+        v-if="!initialLoading"
         @infinite="get_next_page"
         spinner="bubbles"
         ref="infiniteLoading"
@@ -330,6 +347,7 @@ export default {
       env_url: this.$store.state.prod_url,
       sticky: false,
       loadingComplete: true,
+      initialLoading: true,
 
       // search area related
       isLoading: false, // it chages every time user types into the input field
@@ -713,8 +731,9 @@ export default {
         "Unisex",
         "Preschool",
       ],
-      category: [],
+      categoryGroup: ["shoes", "accessories", "apparel", "bags", "jewelry"],
       brand: ["All"],
+      category: ["All"],
       dates: [],
     };
   },
@@ -737,6 +756,7 @@ export default {
     option_reset() {
       this.keyword = "";
       this.brand = ["All"];
+      this.category = ["All"];
       this.dates = [];
     },
     search() {
@@ -756,13 +776,19 @@ export default {
       window.scrollTo(0, 0);
     },
     fetch_kicks($state) {
-      this.loadingComplete = false;
+      this.initialLoading = false; // 검색 전 카드 영역 출력 방지 // 검색 후 카드 영역 출력
+      this.loadingComplete = false; // 검색 결과 출력 전 로딩 이미지 출력
+
+      // 검색 조건
       const search = this.keyword;
       let brand = this.brand.join();
+      let category = this.category.join();
       let release_date = this.dates.join();
-      if (brand == "All") {
-        brand = "";
-      }
+
+      // 검색 조건 정리 (All 제거)
+      if (brand == "All") brand = "";
+      if (category == "All") category = "";
+      // release_date가 null일 경우
       if (!release_date) {
         console.log("releaseDate is null");
         // 현재 날짜 객체 생성
@@ -791,6 +817,7 @@ export default {
       let params = {
         search,
         release_date,
+        category,
         brand,
       };
       console.log(params);
@@ -807,7 +834,7 @@ export default {
             console.log("loadingComplete1111");
             this.loadingComplete = true;
             this.goTop();
-            $state.loaded();
+            // $state.loaded();
           } else {
             console.log("loadingComplete222");
             this.loadingComplete = true;
@@ -947,6 +974,7 @@ export default {
     },
   },
   created() {
+    //TODO: 페이지 헤더에 있는 검색 바에 검색어가 있으면 검색어를 통해 검색할 경우 실행
     // this.fetch_kicks();
   },
   computed: {
@@ -979,6 +1007,20 @@ export default {
         setTimeout(() => {
           this.overlay = false;
         }, 2000);
+    },
+    brand() {
+      if (this.brand.length > 1 && this.brand.indexOf("All") == 0) {
+        this.brand.shift();
+      } else if (this.brand.length == 0) {
+        this.brand = ["All"];
+      }
+    },
+    category() {
+      if (this.category.length > 1 && this.category.indexOf("All") == 0) {
+        this.category.shift();
+      } else if (this.category.length == 0) {
+        this.category = ["All"];
+      }
     },
   },
   filters: {
