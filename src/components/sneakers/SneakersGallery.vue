@@ -32,7 +32,7 @@
                 ></v-combobox>
               </v-col>
 
-              <v-col cols="12" lg="6" sm="12">
+              <v-col cols="12" lg="4" sm="12">
                 <v-text-field
                   label="Search Keyword"
                   :loading="isLoading"
@@ -79,6 +79,9 @@
                 @click="option_reset"
                 >초기화</v-btn
               >
+            </p>
+            <p class="text-center">
+              <v-checkbox label="정보 등록 필요 제품만 보기"></v-checkbox>
             </p>
           </v-sheet>
         </v-card-text>
