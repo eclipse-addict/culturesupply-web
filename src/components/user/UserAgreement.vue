@@ -258,9 +258,19 @@
     </div>
     <br>
     <div class="d-flex justify-content-center text-center">
-      <button class="btn btn-primary" id="registerBtn" :disabled=isAgreed @click="goRegist" style="margin-bottom: 100px;">
+      <v-btn class="me-3" id="registerBtn" :disabled=isAgreed @click="goRegist" style="margin-bottom: 100px;" color="success">
         동의합니다.
-      </button>
+      </v-btn>
+      <v-btn 
+        top
+        left
+        elevation="5"
+        max-width="188"
+        @click="$router.go(-1)"
+        color="error"
+        >
+        동의하지 않습니다.
+      </v-btn>
     </div> 
   </div>
   </v-container>
@@ -268,37 +278,35 @@
 
 <script>
 export default {
-  name: 'userAgreementComp',
-data () {
-  return {
-    agreed : false,
-  }
-},
-methods: {
-  goRegist(){
-    this.$emit('userAgreed')
+  name: "userAgreementComp",
+  data() {
+    return {
+      agreed: false,
+    };
   },
-},
-computed : {
-  isAgreed () {
-    if(!this.agreed){
-      return true
-    }else {
-      return false
-    }
-  }
-}
-}
+  methods: {
+    goRegist() {
+      this.$emit("userAgreed");
+    },
+  },
+  computed: {
+    isAgreed() {
+      if (!this.agreed) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
-
-.content-main{
+.content-main {
   height: 550px;
   overflow: scroll;
   border-block: 1px solid black;
   /* box-shadow: 1px 1px 15px; */
   /* background-image: linear-gradient(to bottom, white, rgb(176, 174, 174)); */
 }
-
 </style>
