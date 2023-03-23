@@ -68,6 +68,7 @@
                 dark
                 color="#497174"
                 @click="fetch_kicks"
+                :loading="!loadingComplete"
                 >검색</v-btn
               >
               <v-btn
@@ -175,6 +176,7 @@
             dark
             color="#497174"
             @click="fetch_kicks"
+            :loading="!loadingComplete"
             >검색</v-btn
           >
         </div>
@@ -1001,6 +1003,13 @@ export default {
         return true;
       } else {
         return false;
+      }
+    },
+    search_btn_loading() {
+      if (this.loadingComplete) {
+        return false;
+      } else {
+        return true;
       }
     },
   },

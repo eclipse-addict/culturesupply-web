@@ -1,5 +1,5 @@
 <template>
-  <container>
+  <v-container>
     <v-row
       align-content="center"
       align-content-xl="center"
@@ -65,7 +65,6 @@
                 height="50"
                 width="230"
                 color="#DDDDDD"
-                ripple="false"
               >
                 Sign in &nbsp;&nbsp;&nbsp;>>>
               </v-btn>
@@ -76,9 +75,8 @@
                 height="50"
                 width="230"
                 color="#DDDDDD"
-                ripple="false"
               >
-                Sign up
+                Sign up &nbsp;&nbsp;&nbsp;&nbsp;>>>
               </v-btn>
             </v-col>
           </v-row>
@@ -126,18 +124,12 @@
           Alias eligendi exercitationem at unde fugit perferendis nobis sapiente
           id? Necessitatibus similique totam reprehenderit?
         </p>
-        <v-btn
-          @click="toAgreement"
-          height="50"
-          width="230"
-          color="#DDDDDD"
-          ripple="false"
-        >
+        <v-btn @click="toAgreement" height="50" width="230" color="#DDDDDD">
           Sign up
         </v-btn>
       </v-col>
     </v-row>
-  </container>
+  </v-container>
 </template>
 
 <script>
@@ -208,6 +200,7 @@ export default {
           console.log("err; ", err);
         });
     },
+    googleSignIn() {},
   },
   watch: {
     // 로그인 실패 메시지 가리기
