@@ -11,7 +11,7 @@
         class="text-white alert w-100 text-start"
         style="background-color: #e91300"
         role="alert"
-        lg="6"
+        cols="12"
       >
         이메일 또는 비밀번호가 일치하지 않습니다.
       </v-col>
@@ -79,34 +79,24 @@
                 Sign up &nbsp;&nbsp;&nbsp;&nbsp;>>>
               </v-btn>
             </v-col>
-          </v-row>
-          <!-- social login area -->
-          <v-row>
-            <v-col sm="12" class="d-flex justify-center">
-              <v-btn
-                @click="googleSignIn"
-                color="red"
-                dark
-                height="48"
-                width="514"
-              >
+            <v-col class="d-flex justify-center">
+              <v-btn @click="googleSignIn" color="red" dark height="48">
                 <v-icon left>mdi-google</v-icon>
                 Sign in with Google
               </v-btn>
             </v-col>
-            <v-col sm="12" class="d-flex justify-center">
-              <v-btn color="#FEE500" href="#" height="48" width="514">
+            <v-col class="d-flex justify-center">
+              <v-btn color="#FEE500" href="#" height="48">
                 <i class="icon-kakaotalk"></i>
                 Sign in with Kakao
               </v-btn>
             </v-col>
-            <v-col sm="12" class="d-flex justify-center">
-              <v-btn color="#06CF5D" href="#" height="48" width="514">
+            <!-- <v-col class="d-flex justify-center">
+              <v-btn color="#06CF5D" href="#" height="48">
                 <i class="icon-kakaotalk"></i>
                 Sign in with Naver
               </v-btn>
-            </v-col>
-            <v-col cols="8"> </v-col>
+            </v-col> -->
           </v-row>
         </form>
       </v-col>
@@ -116,13 +106,13 @@
         class="mt-16 ps-1 pt-10 bg-opacity-100 bg-white d-none d-lg-block"
       >
         <span class="h4 font-weight-lighter">아직 맴버가 아니신가요?</span>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit ea culpa
-          inventore consectetur voluptatibus nihil aperiam, sequi hic repellat
-          deleniti minima dolores atque suscipit voluptatem nobis temporibus
-          libero provident qui exercitationem asperiores eius aliquid nulla in!
-          Alias eligendi exercitationem at unde fugit perferendis nobis sapiente
-          id? Necessitatibus similique totam reprehenderit?
+        <p
+          class="text-justify"
+          style="line-height: 2; margin-top: 20px; margin-bottom: 45px"
+        >
+          지금 바로 회원가입을 하고 KickIn의 다양한 서비스를 이용해보세요!
+          KickIn은 200,000개 이상의 제품 정보를 제공하고 있습니다. 우리가
+          만들어가는 KickIn의 세상을 함께 만들어보세요!
         </p>
         <v-btn @click="toAgreement" height="50" width="230" color="#DDDDDD">
           Sign up

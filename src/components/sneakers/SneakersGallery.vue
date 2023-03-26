@@ -82,7 +82,10 @@
               >
             </p>
             <p class="text-center">
-              <v-checkbox label="정보 등록 필요 제품만 보기"></v-checkbox>
+              <v-checkbox
+                label="정보 등록 필요 제품만 보기"
+                v-model="info_registrequired"
+              ></v-checkbox>
             </p>
           </v-sheet>
         </v-card-text>
@@ -266,8 +269,7 @@
                       "
                       @click="add_info(k?.id)"
                     >
-                      사진 및 정보 등록하기 <br />
-                      [최대 +1000 points 적립]
+                      정보 등록하고 포인트 받기
                     </v-btn>
                     <div v-else>
                       <h6>something</h6>
@@ -740,6 +742,7 @@ export default {
       brand: ["All"],
       category: ["All"],
       dates: [],
+      info_registrequired: false,
     };
   },
   props: {
@@ -789,6 +792,7 @@ export default {
       let brand = this.brand.join();
       let category = this.category.join();
       let release_date = this.dates.join();
+      let info_registrequired = this.info_registrequired;
 
       // 검색 조건 정리 (All 제거)
       if (brand == "All") brand = "";
@@ -824,6 +828,7 @@ export default {
         release_date,
         category,
         brand,
+        info_registrequired,
       };
       console.log(params);
       axios({

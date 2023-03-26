@@ -14,7 +14,44 @@
           inactive-color="grey"
           v-if="isLogin"
         >
-          <v-tab :ripple="false">Profile</v-tab>
+          <v-tab
+            class="d-none d-sm-flex p-0"
+            v-model="group"
+            hide-slider
+            inactive-color="black"
+            width="100"
+          >
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  v-bind="attrs"
+                  v-on="on"
+                  x-large
+                  style="float: left"
+                  depressed
+                  plain
+                  block
+                  width="140"
+                >
+                  PROFILE
+                </v-btn>
+              </template>
+              <v-list dense rounded>
+                <v-list-item-group v-model="selectedAction" color="primary">
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-list-item-title>내 정보</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-list-item-title>로그아웃</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-menu>
+          </v-tab>
         </v-tabs>
         <v-tabs
           class="d-none d-sm-flex"
@@ -203,6 +240,7 @@ export default {
     group: null,
     keyword: null,
     icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
+    selectedAction: null,
   }),
   mounted() {
     setTimeout(() => {

@@ -8,7 +8,7 @@
         style="margin-top: 10px"
         max-width="500px"
         v-if="
-          img_check ||
+          kick?.local_imageUrl == '' ||
           kick?.brand == null ||
           kick?.colorway == null ||
           kick?.releaseDate == '1900-01-01' ||
@@ -18,8 +18,7 @@
         "
         @click="add_info(kick?.id)"
       >
-        사진 및 정보 등록하기 <br />
-        [최대 +1000 points 적립]
+        정보 등록하고 포인트 받기
       </v-btn>
     </div>
     <div class="mt-2 mb-2">
@@ -52,7 +51,7 @@
           </v-btn>
         </template>
         <v-list dense rounded>
-          <v-list-item-group v-model="selectedItem" color="primary">
+          <v-list-item-group v-model="selectedAction" color="primary">
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>공유하기</v-list-item-title>
@@ -68,51 +67,18 @@
       </v-menu>
     </div>
     <v-col sm="12" md="8" xl="8">
-      <v-carousel
-        cycle
-        height="600"
-        show-arrows-on-hover
-        id="img_caraousel"
-        interval="6000"
-        hide-delimiter-background
-        hide-delimiters
-      >
-        <template v-slot:prev="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon fab small>
-            <span class="material-symbols-outlined">chevron_left</span>
-          </v-btn>
-        </template>
-        <template v-slot:next="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon fab small>
-            <span class="material-symbols-outlined">chevron_right</span>
-          </v-btn>
-        </template>
-        <v-carousel-item v-for="(img, i) in kick?.productImg" :key="i">
-          <v-sheet height="100%">
-            <v-row class="fill-height" align="center" justify="center">
-              <v-img
-                :src="env_url + img.img_url"
-                :lazy-src="env_url + 'media/images/loading.gif'"
-                contain
-                width="650"
-                height="700"
-              >
-                <div class="text-center">
-                  <v-btn
-                    class="original_btn"
-                    elevation="10"
-                    rounded
-                    shaped
-                    style="margin-top: 15rem"
-                    @click="original_size_img(env_url + img.img_url, kick.name)"
-                    >크게보기</v-btn
-                  >
-                </div>
-              </v-img>
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
-      </v-carousel>
+      <v-sheet height="100%">
+        <v-row class="fill-height" align="center" justify="center">
+          <v-img
+            :src="env_url + kick?.local_imageUrl"
+            :lazy-src="env_url + 'media/images/loading.gif'"
+            contain
+            width="650"
+            height="700"
+          >
+          </v-img>
+        </v-row>
+      </v-sheet>
     </v-col>
     <v-col class="" dense sm="12" md="4" xl="4">
       <v-card height="600">
@@ -125,7 +91,6 @@
         <v-card-title class="mt-0">
           <h5 class="mb-0">{{ kick?.name }}</h5>
         </v-card-title>
-        <!-- <v-divider class="mx-4 text--black" light></v-divider> -->
         <v-card-text>
           <v-row>
             <v-rating
@@ -177,7 +142,7 @@ export default {
       kick: null,
       rating: 0,
       like_users: [],
-      selectedItem: null,
+      selectedAction: null,
       env_url: this.$store.state.prod_url,
     };
   },
@@ -274,14 +239,16 @@ export default {
     /**이미지 리스트 중 하나라도 미등록 상태일 경우 정보 등록 버튼을 노출시킨다. return boolean */
     img_check() {
       let result = false;
-      for (let img of this.kick?.productImg) {
+      if (this.kick) {
         if (
-          img.img_url ==
-          this.$store.state.prod_url + "media/images/defaultImg.png"
-        )
+          this.kick.local_imageUrl == null ||
+          this.kick.local_imageUrl ==
+            this.$store.state.prod_url + "media/images/defaultImg.png"
+        ) {
           result = true;
-        break;
+        }
       }
+
       return result;
     },
     add_info(id) {
@@ -372,7 +339,6 @@ export default {
       .then((res) => {
         console.log("detail res: ", res);
         this.kick = res.data;
-        this.selectedItem = res.data;
         this.product_id = res.data.id;
       })
       .catch((err) => {
