@@ -13,6 +13,7 @@
                 <v-combobox
                   v-model="category"
                   :items="categoryGroup"
+                  @change="infoCheckBoxReset"
                   label="카테고리"
                   multiple
                   clear-icon="$clear"
@@ -24,6 +25,7 @@
                 <v-combobox
                   v-model="brand"
                   :items="brandGroup"
+                  @change="infoCheckBoxReset"
                   label="브랜드"
                   multiple
                   clear-icon="$clear"
@@ -37,6 +39,7 @@
                   label="Search Keyword"
                   :loading="isLoading"
                   v-model="keyword"
+                  @input="infoCheckBoxReset"
                   :append-outer-icon="keyword ? 'mdi-magnify' : ''"
                   @click:append-outer="fetch_kicks"
                   @keyup.enter="fetch_kicks"
@@ -85,6 +88,7 @@
               <v-checkbox
                 label="정보 등록 필요 제품만 보기"
                 v-model="info_registrequired"
+                @change="reset_other_options"
               ></v-checkbox>
             </p>
           </v-sheet>
@@ -767,19 +771,19 @@ export default {
       this.category = ["All"];
       this.dates = [];
     },
-    search() {
-      this.$router.push({
-        name: "sneakers",
-        query: {
-          search: this.keyword,
-          brand: this.brand.join(),
-          release: this.dates.join(),
-        },
-      });
-      this.keyword = "";
-      this.goTop();
-      location.reload();
-    },
+    // search() {
+    //   this.$router.push({
+    //     name: "sneakers",
+    //     query: {
+    //       search: this.keyword,
+    //       brand: this.brand.join(),
+    //       release: this.dates.join(),
+    //     },
+    //   });
+    //   this.keyword = "";
+    //   this.goTop();
+    //   location.reload();
+    // },
     goTop() {
       window.scrollTo(0, 0);
     },
@@ -981,6 +985,44 @@ export default {
       } else {
         this.$router.push({ name: "updateInfo", params: { id } });
       }
+    },
+    reset_other_options() {
+      //TODO: 검색 조건에서 다른 옵션을 선택했을 때, 다른 옵션들을 초기화, Alert 띄워주기
+      //(예: 정보 등록이 필요한 상품 검색 조건 선택 시, 브랜드, 카테고리, 릴리즈 날짜, 검색어 초기화)
+
+      if (this.info_registrequired) {
+        if (
+          this.keyword != "" ||
+          this.dates.length != 0 ||
+          this.category[0] != "All" ||
+          this.brand[0] != "All"
+        ) {
+          swal(
+            "해당 조건을 선택하면 다른 검색 조건이 초기화됩니다. 계속 하시겠습니까?",
+            {
+              buttons: {
+                cancel: "취소",
+                catch: {
+                  text: "확인",
+                  value: "confirm",
+                },
+              },
+            }
+          ).then((value) => {
+            switch (value) {
+              case "confirm":
+                this.option_reset();
+                break;
+
+              default:
+                break;
+            }
+          });
+        }
+      }
+    },
+    infoCheckBoxReset() {
+      this.info_registrequired = false;
     },
   },
   created() {
