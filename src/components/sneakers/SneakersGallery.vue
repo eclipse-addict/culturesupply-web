@@ -34,7 +34,7 @@
                 ></v-combobox>
               </v-col>
 
-              <v-col cols="12" lg="4" sm="12">
+              <v-col cols="12" lg="6" sm="12">
                 <v-text-field
                   label="Search Keyword"
                   :loading="isLoading"
