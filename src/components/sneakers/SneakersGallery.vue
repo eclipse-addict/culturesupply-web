@@ -785,7 +785,7 @@ export default {
     //   location.reload();
     // },
     goTop() {
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 1000);
     },
     fetch_kicks($state) {
       this.initialLoading = false; // 검색 전 카드 영역 출력 방지 // 검색 후 카드 영역 출력

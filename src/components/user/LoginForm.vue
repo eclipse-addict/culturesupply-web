@@ -160,9 +160,11 @@ export default {
           console.log("login request", res.data);
           this.userInfo_req(res.data.access_token, res.data.user.pk);
           this.$store.dispatch("signinRequest", res.data).then(() => {
-            const id = this.$route.query.next;
-            console.log("login id", id);
-            if (id) {
+            const id = this.$route.query.id;
+            let next = this.$route.query.next;
+            if (next == "updateInfo") {
+              this.$router.push({ name: "updateInfo", params: { id } });
+            } else if (next == "detail") {
               this.$router.push({ name: "detail", params: { id } });
             } else {
               this.$router.push({ name: "home" });

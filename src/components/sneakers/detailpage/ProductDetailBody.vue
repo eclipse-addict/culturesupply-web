@@ -252,7 +252,36 @@ export default {
       return result;
     },
     add_info(id) {
-      this.$router.push({ name: "updateInfo", params: { id } });
+      if (!this.$store.state.user_data.access_token) {
+        swal("계속하려면 로그인해주세요.", {
+          buttons: {
+            cancel: "취소",
+            catch: {
+              text: "로그인하러 가기",
+              value: "login",
+            },
+            회원가입: true,
+          },
+        }).then((value) => {
+          switch (value) {
+            case "회원가입":
+              this.$router.push({ path: "/agreement" });
+              break;
+
+            case "login":
+              this.$router.push({
+                name: "login",
+                query: { next: "updateInfo", id: id },
+              });
+              break;
+
+            default:
+              break;
+          }
+        });
+      } else {
+        this.$router.push({ name: "updateInfo", params: { id } });
+      }
     },
   }, // end of methods
   computed: {
