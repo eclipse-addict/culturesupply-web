@@ -200,10 +200,8 @@
     </v-main>
     <v-footer dark padlessq>
       <v-card class="flex" flat tile>
-        <v-card-title class="teal">
-          <strong class="subheading"
-            >Get connected with us on social networks!</strong
-          >
+        <v-card-title class="">
+          <strong class="subheading">Everything starts from a dot.</strong>
 
           <v-spacer></v-spacer>
 
@@ -215,7 +213,7 @@
         </v-card-title>
 
         <v-card-text class="py-2 white--text text-center">
-          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+          {{ new Date().getFullYear() }} — <strong>Kickin</strong>
         </v-card-text>
       </v-card>
     </v-footer>

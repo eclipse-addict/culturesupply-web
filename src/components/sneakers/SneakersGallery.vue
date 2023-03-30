@@ -101,7 +101,9 @@
           <span>PLEASE SELECET YOUR SEARCH CONDITIONS</span>
         </div>
       </div>
+      <!-- TODO: 아래 버튼도 스크롤 변화에 따라 보이도록  -->
       <v-btn
+        v-show="isScrollDown"
         color="blue"
         dark
         fixed
@@ -747,6 +749,8 @@ export default {
       category: ["All"],
       dates: [],
       info_registrequired: false,
+      isScrollDown: false,
+      scrollTop: 0,
     };
   },
   props: {
@@ -761,7 +765,28 @@ export default {
     infiniteLoading,
     loadingImg,
   },
+  mounted() {
+    // goTop을 위해 mount 시 element 설정
+    // console.log("vue gallary mount");
+    // console.log(process.env)
+    // this.scrollTarget = document.getElementById('top');
+    document.addEventListener("scroll", this.handleScroll);
+  },
+  unmounted() {
+    document.removeEventListener("scroll", this.handleScroll);
+  },
   methods: {
+    handleScroll(e) {
+      // console.log("target", e.target);
+      // console.log("e :", e);
+      // console.log("scroll", e.target.documentElement.scrollTop);
+      this.scrollTop = e.target.documentElement.scrollTop;
+      if (this.scrollTop > 1) {
+        this.isScrollDown = true;
+      } else {
+        this.isScrollDown = false;
+      }
+    },
     toDetail(id) {
       this.$router.push({ name: "detail", params: { id } });
     },

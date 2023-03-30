@@ -18,7 +18,7 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/kicks/:search?/:brand?/:release?',
+    path: '/kicks/',
     name: 'sneakers', 
     component: () => import('../views/sneakers/SneakerView.vue'),
   },
@@ -39,7 +39,7 @@ const routes = [
     component: () => import('../views/CalendarView.vue')
   },
   {
-    path: '/login/:next?',
+    path: '/login/:next?/:id?',
     name: 'login', 
     component: () => import('../views/user/LoginView.vue'),
     meta: { requiresAuth: false }
