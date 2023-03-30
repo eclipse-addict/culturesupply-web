@@ -19,7 +19,7 @@ const routes = [
   },
   {
     path: '/kicks/',
-    name: 'sneakers', 
+    name: 'sneakers',
     component: () => import('../views/sneakers/SneakerView.vue'),
   },
   {

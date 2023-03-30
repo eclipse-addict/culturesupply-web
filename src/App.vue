@@ -101,9 +101,13 @@
     >
       <v-text-field
         class=""
-        label="Search Keyword"
+        label="빠른 검색"
         :loading="false"
+        v-model="keyword"
+        @click:append-outer="quick_search"
+        @keyup.enter="quick_search"
         :append-outer-icon="keyword ? 'mdi-magnify' : ''"
+        v-show="currentRouteName"
       ></v-text-field>
     </v-app-bar>
 
@@ -224,6 +228,9 @@
 // import HeaderMenu from "@/components/layouts/LayoutHeader.vue";
 // import FooterMenu from "@/components/layouts/LayoutFooter.vue";
 import loadingImg from "@/components/common/loadingPage.vue";
+import { mapActions, mapGetters } from "vuex";
+
+const searchStore = "searchStore";
 export default {
   name: "App",
   components: {
@@ -246,6 +253,23 @@ export default {
     }, 1500);
   },
   methods: {
+    ...mapActions(searchStore, ["BANNER_SEARCH_PRODUCTS"]),
+
+    quick_search() {
+      // this.SEARCH_RESULT_RESET();
+      this.BANNER_SEARCH_PRODUCTS(this.keyword);
+      console.log("ready to go", this.banner_search_result);
+      // this.$router.push({
+      //   name: "sneakers",
+      //   params: { data: this.banner_search_result },
+      // });
+      // if (this.banner_search_result.results.length > 0) {
+
+      // } else {
+      //   alert("검색 결과가 없습니다. 다시 검색해주세요.");
+      // }
+      this.keyword = "";
+    },
     setLoading() {
       console.log("App.Vue created");
       this.isLoading = true;
@@ -320,6 +344,16 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(searchStore, ["GET_SEARCH_RESULTS"]),
+
+    banner_search_result() {
+      return this.GET_SEARCH_RESULTS;
+    },
+
+    currentRouteName() {
+      return this.$route.name === "sneakers" ? false : true;
+    },
+
     is_loading() {
       console.log(this.$state.isLoading);
       return true;
