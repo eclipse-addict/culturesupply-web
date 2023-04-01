@@ -192,15 +192,15 @@
       </div>
     </v-row>
     <v-row
-      class="mt-sm-0 container row d-flex justify-content-around"
+      class="mt-sm-0 container d-flex justify-content-around"
       id="main"
       v-if="loadingComplete"
     >
       <v-col
-        class="card mt-13"
-        cols="12"
-        sm="6"
-        md="4"
+        class="mt-13"
+        cols="6"
+        sm="4"
+        md="3"
         style="width: 25rem"
         v-for="(k, index) in kicks"
         :key="index"
@@ -210,10 +210,8 @@
           <v-card
             class=""
             style="box-shadow: none"
-            color="grey lighten-4"
-            max-width="600"
-            min-height="455"
-            min-width="200"
+            max-width="250"
+            min-height="300"
           >
             <v-img
               :aspect-ratio="1.4"
@@ -236,17 +234,17 @@
                 >
                   <div class="mt-5">
                     <v-btn
-                      small
                       absolute
                       fab
                       right
+                      x-small
                       @click="like_btn(k?.id, index)"
                       v-if="check_like_user(k.like_users)"
                     >
                       <font-awesome-icon icon="fa-solid fa-heart" />
                     </v-btn>
                     <v-btn
-                      small
+                      x-small
                       absolute
                       fab
                       right
@@ -255,31 +253,42 @@
                     >
                       <font-awesome-icon icon="fa-regular fa-heart" />
                     </v-btn>
-                    <v-btn small absolute fab left>
+                    <v-btn x-small absolute fab left>
                       <span class="material-symbols-outlined">ios_share</span>
                     </v-btn>
                   </div>
-                  <div class="text-center mt-15 w-100">
+                  <div
+                    class="text-center mt-15 w-100"
+                    v-if="
+                      k.local_imageUrl == 'media/images/defaultImg.png' ||
+                      k.brand == null ||
+                      k.colorway == null ||
+                      k.releaseDate == '1900-01-01' ||
+                      k.releaseDate == null ||
+                      k.retailPrice == null ||
+                      k.category == ''
+                    "
+                  >
                     <v-btn
                       rounded
                       color="primary"
                       dark
-                      v-if="
-                        k.local_imageUrl == 'media/images/defaultImg.png' ||
-                        k.brand == null ||
-                        k.colorway == null ||
-                        k.releaseDate == '1900-01-01' ||
-                        k.releaseDate == null ||
-                        k.retailPrice == null ||
-                        k.category == ''
-                      "
+                      x-small
                       @click="add_info(k?.id)"
                     >
                       정보 등록하고 포인트 받기
                     </v-btn>
-                    <div v-else>
-                      <h6>something</h6>
-                    </div>
+                  </div>
+                  <div class="text-center mt-15 w-100" v-else>
+                    <v-btn
+                      rounded
+                      color="primary"
+                      dark
+                      x-small
+                      @click="add_info(k?.id)"
+                    >
+                      구매 또는 판매하기
+                    </v-btn>
                   </div>
                 </div>
               </v-expand-transition>
@@ -290,25 +299,25 @@
                 color="blue-grey"
                 class="white--text"
                 fab
-                large
                 right
                 top
+                small
                 @click="toDetail(k?.id)"
               >
                 <v-icon>read_more</v-icon>
               </v-btn>
-              <div class="grey--text text-h6 mb-2" v-if="k.brand">
+              <div class="grey--text text-caption mb-2" v-if="k.brand">
                 {{
                   k.brand.includes("%20")
                     ? k.brand.replaceAll("%20", " ").toUpperCase()
                     : k.brand.toUpperCase()
                 }}
               </div>
-              <div class="grey--text text-h6 mb-2" v-else>Brand</div>
-              <h6 class="text-h6 font-weight-heavy black--text mb-2">
+              <div class="grey--text mb-2" v-else>Brand</div>
+              <span class="font-weight-heavy black--text mb-2 text-body-2">
                 {{ k.name }}
-              </h6>
-              <div class="font-weight-light text-h6 mb-2">
+              </span>
+              <div class="font-weight-light mb-2 text-body-1">
                 {{ k.releaseDate }}
               </div>
               <!-- <v-rating

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar color="white" flat width="100%" height="38%">
+    <v-app-bar color="white" flat width="100%" height="38%" fixed>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title class="banner_title accent-1 fs-2" @click="toHome">
         KickIn
