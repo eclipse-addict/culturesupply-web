@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar color="white" flat width="100%" height="38%" fixed>
+    <v-app-bar color="white" flat width="100%" height="38%">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title class="banner_title accent-1 fs-2" @click="toHome">
         KickIn
@@ -253,7 +253,7 @@ export default {
     }, 1500);
   },
   methods: {
-    ...mapActions(searchStore, ["BANNER_SEARCH_PRODUCTS"]),
+    ...mapActions(searchStore, ["BANNER_SEARCH_PRODUCTS", "RESET_RESULT"]),
 
     quick_search() {
       // this.SEARCH_RESULT_RESET();
@@ -361,11 +361,17 @@ export default {
     isLogin() {
       return this.$store.state.user_data.access_token;
     },
+    initial() {
+      this.RESET_RESULT();
+      console.log("initial");
+      return null;
+    },
   },
   created() {
     // console.log(this.$store.state.user_data.profile_img)
     // console.log()
     this.setLoading();
+    this.initial();
   },
 };
 </script>

@@ -287,7 +287,7 @@
                       x-small
                       @click="add_info(k?.id)"
                     >
-                      구매 또는 판매하기
+                      경매 시작하기
                     </v-btn>
                   </div>
                 </div>

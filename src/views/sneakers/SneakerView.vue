@@ -55,7 +55,7 @@ const searchStore = "searchStore";
 // @ is an alias to /src
 import sneakersGallery from "@/components/sneakers/SneakersGallery.vue";
 export default {
-  name: "HomeView",
+  name: "SneakerVie",
   data() {
     return {
       isLoading: false,

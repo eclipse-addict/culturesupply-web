@@ -3,7 +3,14 @@ import router from '../../router';
 let baseUrl = process?.env.VUE_APP_DEV === '_ENV_DEVELOPMENT' ? 'http://localhost:8000/' : 'https://www.kickin.co.kr/'
 const searchStore ={
   namespaced: true,
-
+  state: {
+    prod_url : baseUrl,
+    keyword: '',
+    brand: ["ALL"],
+    category: ["All"],
+    dates: [],
+    search_results: [],  
+  },
   getters: {
     GET_SEARCH_RESULTS(state){
       return state.search_results
@@ -72,14 +79,7 @@ const searchStore ={
       commit('RESET_SEARCH_RESULTS')
     }
 },
-state: {
-  prod_url : baseUrl,
-  keyword: '',
-  brand: ["ALL"],
-  category: ["All"],
-  dates: [],
-  serach_results: [],  
-},
+
 
 }
 
