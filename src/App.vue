@@ -361,17 +361,12 @@ export default {
     isLogin() {
       return this.$store.state.user_data.access_token;
     },
-    initial() {
-      this.RESET_RESULT();
-      console.log("initial");
-      return null;
-    },
   },
   created() {
     // console.log(this.$store.state.user_data.profile_img)
     // console.log()
     this.setLoading();
-    this.initial();
+    this.RESET_RESULT(); // 검색 결과 담을 변수 초기화
   },
 };
 </script>

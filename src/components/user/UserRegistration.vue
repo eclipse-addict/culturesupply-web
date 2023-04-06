@@ -675,6 +675,7 @@ export default {
           },
         })
           .then((res) => {
+            //TODO: 회원가입 성공 여부에 따라 응답이 다를테니, 그에 맞게 처리해야 함.
             console.log(res);
             if (res.status == 201) {
               const pk = res.data.user.pk
