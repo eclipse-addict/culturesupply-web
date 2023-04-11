@@ -1,104 +1,84 @@
 <template>
-  <v-container fluid>
+
     <v-row no-gutters>
-      <v-col cols="12">
-        <span class="font-monospace font-weight-bold main-header">
-          Let's stay Kickin</span
-        >
+      <v-col cols="12" class=" mt-10  m-sm-3">
+        <div class="fw-3 accent-4 text-md-h4 sm-ms md-ms-5 mb-0 border-bottom w-25 text-sm-h6">최신 등록 상품</div>
       </v-col>
-      <v-col cols="12">
-        <!-- <v-img
-          contain
-          class="mt-5 pt-4"
-          aspect-ratio="4"
-          src="https://images.stockx.com/images/Air-Jordan-1-Retro-High-Dior-Product.jpg?fit=fill&bg=FFFFFF&w=1200&h=857&fm=webp&auto=compress&dpr=2&trim=color&updated_at=1607043976&q=75"
-        ></v-img> -->
-      </v-col>
-      <v-slide-group
-        v-model="current_item"
-        class="pa-4"
-        center-active
-        show-arrows
-      >
-        <v-slide-item
-          v-for="(p, index) in recent_releases_products"
-          :key="index"
-          v-slot="{ isSelected, toggle }"
+      <v-col cols="12" class="d-none d-sm-block">
+        <v-slide-group
+          v-model="current_item"
+          class="pa-4"
+          center-active
+          show-arrows
         >
-          <v-hover v-slot="{ hover }">
-            <v-card
-              :color="isSelected ? 'grey lighten-2' : 'grey lighten-4'"
-              class="ma-4"
-              height="200"
-              width="200"
-              @click="toggle"
-            >
-              <v-img
-                :src="env_url + p.local_imageUrl"
-                :lazy-src="env_url + 'media/images/loading.gif'"
+          <v-slide-item
+            v-for="(p, index) in recent_releases_products"
+            :key="index"
+            v-slot="{ isSelected, toggle }"
+          >
+            <v-hover v-slot="{ hover }">
+              <v-card
+                :color="isSelected ? 'grey lighten-2' : 'grey lighten-4'"
+                class="ma-4 sm-"
+                height="200"
+                width="200"
+                @click="toggle"
               >
-                <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out blue-grey lighten-4 v-card--reveal text-h2 black--text"
-                    style="height: 100%; opacity: 0.6"
-                  >
-                    <div class="mt-5">
-                      <v-btn
-                        absolute
-                        fab
-                        right
-                        x-small
-                        @click="like_btn(p?.id, index)"
-                        v-if="check_like_user(p.like_users)"
-                      >
-                        <font-awesome-icon icon="fa-solid fa-heart" />
-                      </v-btn>
-                      <v-btn
-                        x-small
-                        absolute
-                        fab
-                        right
-                        @click="like_btn(p?.id, index)"
-                        v-else
-                      >
-                        <font-awesome-icon icon="fa-regular fa-heart" />
-                      </v-btn>
-                      <v-btn x-small absolute fab left>
-                        <span class="material-symbols-outlined">ios_share</span>
-                      </v-btn>
+                <v-img
+                  :src="env_url + p.local_imageUrl"
+                  :lazy-src="env_url + 'media/images/loading.gif'"
+                >
+                  <v-expand-transition>
+                    <div
+                      v-if="hover"
+                      class="d-flex transition-slow-in-slow-out v-card--reveal text-h2 black--text"
+                      style="height: 100%"
+                    >
+                      <div class="my-auto mx-auto">
+                        <v-btn
+                          color="#F6F1E9"
+                          elevation="10"
+                          class="mx-2"
+                          @click="toDetail(p?.id)"
+                          >Detail</v-btn
+                        >
+                      </div>
                     </div>
-                    <v-btn>test</v-btn>
-                  </div>
-                </v-expand-transition>
-              </v-img>
-              <div
-                class="position-absolute me-4 px-2 bg-white bg-opacity-50"
-                style="bottom: 1%; font-weight: bolder"
-              >
-                {{ p?.name }}
-              </div>
-            </v-card>
-          </v-hover>
-        </v-slide-item>
-      </v-slide-group>
+                  </v-expand-transition>
+                </v-img>
+                <v-sheet elevation="4" rounded="3" outlined
+                  class="position-absolute me-4 px-2 bg-white bg-opacity-50"
+                  style="bottom: 1%;font-weight: bolder;text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;" 
+                >
+                  {{ p?.name }}
+                </v-sheet>
+              </v-card>
+            </v-hover>
+          </v-slide-item>
+        </v-slide-group>
+      </v-col>
+      <v-col cols="12">
+              <SneakersCarousel></SneakersCarousel>
+      </v-col>
+      <loadingImg v-show="isLoading"></loadingImg>
     </v-row>
-  </v-container>
 </template>
 
 <script>
 import axios from "axios";
 // @ is an alias to /src
-// import MainPage from '@/components/home/CultureSupply.vue'
+import SneakersCarousel from '@/components/sneakers/SneakersCarousel.vue'
+import loadingImg from "@/components/common/loadingPage.vue";
 export default {
   name: "CultureSupply",
-  components: {},
+  components: {SneakersCarousel,loadingImg},
   data() {
     return {
       main_product: null,
       current_item: null,
       recent_releases_products: null,
       env_url: this.$store.state.prod_url,
+      isLoading: false,
     };
   },
   methods: {

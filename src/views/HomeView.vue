@@ -1,12 +1,9 @@
 <template >
-  <v-app>
     <v-main>
-      <v-container>
     <CultureSupply />
     <CultureSupplyBottom />
-      </v-container>
+      
     </v-main>
-  </v-app>
 </template>
 
 <script>
@@ -22,10 +19,7 @@
   }
 </script>
 <style scoped>
-.brand-name {
-  margin-bottom: 0px;
-  padding-left: 2.5px;
-}
+
 .background{
   height: 100vh;
   overflow: hidden;

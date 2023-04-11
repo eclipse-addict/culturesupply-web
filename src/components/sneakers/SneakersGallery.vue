@@ -259,14 +259,14 @@
                   </div>
                   <div
                     class="text-center mt-15 w-100"
-                    v-if="
+                    v-if=" /[a-zA-Z]/.test(k?.name) ||
                       k.local_imageUrl == 'media/images/defaultImg.png' ||
                       k.brand == null ||
                       k.colorway == null ||
                       k.releaseDate == '1900-01-01' ||
                       k.releaseDate == null ||
                       k.retailPrice == null ||
-                      k.category == ''
+                      k.category == '' 
                     "
                   >
                     <v-btn
@@ -445,7 +445,7 @@ export default {
     },
 
     goTop() {
-      window.scrollTo(0, 1000);
+      window.scrollTo(0, 870);
     },
     ...mapActions(searchStore, ["SET_SEARCH_RESULT"]),
 
