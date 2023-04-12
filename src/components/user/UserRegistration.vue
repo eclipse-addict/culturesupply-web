@@ -665,9 +665,10 @@ export default {
           password,
         };
         // this.$store.dispatch('signupRequest', payload)
+        // http://localhost:8000/user/rest-auth/registration
         axios({
           method: "POST",
-          url: this.$store.state.prod_url + "user/dj-rest-auth/registration/",
+          url: this.$store.state.prod_url + "user/rest-auth/registration/",
           data: {
             email: payload.email,
             password1: payload.password,
@@ -677,37 +678,38 @@ export default {
           .then((res) => {
             //TODO: 회원가입 성공 여부에 따라 응답이 다를테니, 그에 맞게 처리해야 함.
             console.log(res);
-            if (res.status == 201) {
-              const pk = res.data.user.pk
-              const token = res.data.access_token
+            this.$emit('toFinalStep')
+            // if (res.status == 201) {
+            //   const pk = res.data.user.pk
+            //   const token = res.data.access_token
 
-              const last_name = this.lastName
-              const first_name = this.firstName
-              const nick_name = this.nickName
-              const profile_img = this.avatar
-              const gender = this.gender
-              const shoeSize = this.pickedShoeSize
-              const topSize = this.pickedTopSize
-              const bottomSize = this.pickeBottomSize
+            //   const last_name = this.lastName
+            //   const first_name = this.firstName
+            //   const nick_name = this.nickName
+            //   const profile_img = this.avatar
+            //   const gender = this.gender
+            //   const shoeSize = this.pickedShoeSize
+            //   const topSize = this.pickedTopSize
+            //   const bottomSize = this.pickeBottomSize
 
-              const zipCode = this.postcode
-              const address = this.address + this.extraAddress
+            //   const zipCode = this.postcode
+            //   const address = this.address + this.extraAddress
 
-              const payload2 = {
-                last_name,
-                first_name,
-                nick_name,
-                profile_img,
-                gender,
-                shoeSize,
-                topSize,     
-                bottomSize,
-                zipCode,
-                address,
-              }
+            //   const payload2 = {
+            //     last_name,
+            //     first_name,
+            //     nick_name,
+            //     profile_img,
+            //     gender,
+            //     shoeSize,
+            //     topSize,     
+            //     bottomSize,
+            //     zipCode,
+            //     address,
+            //   }
 
-              this.userInfo_create(pk, token, payload2)
-            }
+            //   this.userInfo_create(pk, token, payload2)
+            // }
           })
           .catch((err) => {
             console.log("signupRequest err:", err.response.data);

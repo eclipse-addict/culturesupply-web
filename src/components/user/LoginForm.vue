@@ -124,6 +124,7 @@
 
 <script>
 import axios from "axios";
+import swal from "sweetalert"
 // const url = this.$store.state.prod_url
 
 export default {
@@ -140,6 +141,10 @@ export default {
       this.$router.push({ path: "/agreement" });
     },
     signinRequest() {
+      if(this.email == null || this.password == null){
+        swal("로그인 실패", "이메일 또는 비밀번호를 입력해주세요.", "error")
+        return
+      }
       const email = this.email;
       const password = this.password;
 
@@ -147,7 +152,7 @@ export default {
         email,
         password,
       };
-
+// http://localhost:8000/user/dj-rest-auth/login/
       axios({
         method: "POST",
         url: this.$store.state.prod_url + "user/dj-rest-auth/login/",
@@ -172,10 +177,22 @@ export default {
           });
         })
         .catch((err) => {
-          this.isFailed = true; // 로그인 실패 메세지 출력
+          this.isFailed = true; // 로그인 실패 메세지 출력\
+          if (err.response?.status == 400) {
+            if(err.response?.data.non_field_errors[0] == '이메일 주소가 확인되지 않았습니다.'){
+              swal("로그인 실패", '이메일 주소 인증이 필요합니다.', "error")
+            }
+            else if(err.response.data.non_field_errors[0] == "주어진 자격 증명으로 로그인이 불가능합니다."){
+              swal("로그인 실패", '이메일 주소 또는 비밀번호가 잘못되었습니다.', "error")
+              this.password = ''
+            }
+            else{
+              swal("로그인 실패", err.response.data.non_field_errors[0], "error")
+            }
+          }
           console.log("login request error", err);
         });
-    },
+    },  
     userInfo_req(token, user_id) {
       axios({
         method: "GET",
