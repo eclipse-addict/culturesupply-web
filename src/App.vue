@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar color="white" flat fixed collapse-on-scroll >
+    <v-app-bar  color="white" flat fixed collapse-on-scroll >
       <v-app-bar-nav-icon @click="drawer = true">
         <span class="material-symbols-outlined">apps</span>
       </v-app-bar-nav-icon>
@@ -196,8 +196,8 @@
         <span class="material-symbols-outlined">logout</span>
       </v-btn>
     </v-navigation-drawer>
-    <v-main>
-      <v-container fluid>
+    <v-main >
+      <v-container fluid style="margin-top: 115px;">
         <transition name="fade">
           <loadingImg v-if="this.$store.state.isLoading" />
           <router-view :key="$route.fullPath" v-else />
