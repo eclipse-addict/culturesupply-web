@@ -72,7 +72,7 @@ export default {
       const user_id = this.$store.state.user_data.pk;
       const product_id = this.$props.product_id;
       const url =
-        this.$store.state.prod_url + "review/new/" + product_id + "/" + user_id;
+        this.$store.state.prod_url + "review/new/" + product_id + "/" + user_id + "/";
 
       axios({
         method: "POST",

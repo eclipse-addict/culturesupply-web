@@ -1,9 +1,10 @@
 <template >
-    <v-main>
-    <CultureSupply />
-    <CultureSupplyBottom />
-      
-    </v-main>
+  <v-app>
+      <v-main>
+        <CultureSupply />
+        <CultureSupplyBottom />      
+      </v-main>
+    </v-app>
 </template>
 
 <script>

@@ -1,6 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar  color="white" flat fixed collapse-on-scroll >
+    <v-app-bar
+      color="white"
+      fixed 
+      collapse-on-scroll rounded="1"
+      dense
+      app
+      >
       <v-app-bar-nav-icon @click="drawer = true">
         <span class="material-symbols-outlined">apps</span>
       </v-app-bar-nav-icon>
@@ -196,15 +202,15 @@
         <span class="material-symbols-outlined">logout</span>
       </v-btn>
     </v-navigation-drawer>
-    <v-main >
-      <v-container fluid style="margin-top: 115px;">
+    <v-main>
+      <v-container fluid>
         <transition name="fade">
           <loadingImg v-if="this.$store.state.isLoading" />
           <router-view :key="$route.fullPath" v-else />
         </transition>
       </v-container>
     </v-main>
-    <v-footer dark padlessq>
+    <v-footer dark app style="z-index: 10;">
       <v-card class="flex" flat tile>
         <v-card-title class="">
           <strong class="subheading">Everything starts from a dot.</strong>
@@ -385,10 +391,8 @@ export default {
     },
 
     search_area_visible() {
-      console.log("search_area_visible", this.$route.name==="sneakers", this.isScrollDown)
-      if (this.$route.name === "sneakers") return false
-      else if (this.isScrollDown) return true
-      else return true
+      if (this.isScrollDown) return true
+      else return false
     },
 
     is_loading() {

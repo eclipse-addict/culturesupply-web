@@ -1,15 +1,14 @@
 <template>
-
-    <v-row no-gutters>
-      <v-col cols="12" class=" mt-10  m-sm-3">
-        <div class="fw-3 accent-4 text-md-h4 sm-ms md-ms-5 mb-0 border-bottom w-25 text-sm-h6">최신 등록 상품</div>
+    <v-row>
+      <v-col cols="12" class="m-sm-3">
+        <div class="fw-3 accent-4 text-md-h4 md-ms-5 mb-0 border-bottom w-25 text-sm-h6">최신 등록 상품</div>
       </v-col>
       <v-col cols="12" class="d-none d-sm-block">
         <v-slide-group
           v-model="current_item"
           class="pa-4"
           center-active
-          show-arrows
+          show-arrows 
         >
           <v-slide-item
             v-for="(p, index) in recent_releases_products"
@@ -19,7 +18,7 @@
             <v-hover v-slot="{ hover }">
               <v-card
                 :color="isSelected ? 'grey lighten-2' : 'grey lighten-4'"
-                class="ma-4 sm-"
+                class="ma-4"
                 height="200"
                 width="200"
                 @click="toggle"

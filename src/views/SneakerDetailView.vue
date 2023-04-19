@@ -43,7 +43,10 @@ data() {
   },
 computed: {
 
-}
+},
+  created(){
+    this.product_id = this.$route.params.id
+  } 
 }
 </script>
 <style scoped>

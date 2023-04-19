@@ -10,20 +10,21 @@
         <sneakersGallery :url="url" ref="sneakersGallery" />
 
         <v-btn
-          style="margin-right: 8px; margin-bottom: 75px"
+          style="margin-right: 8px; margin-bottom: 130px"
           fab
           fixed
           dark
           bottom
           right
           small
+          elevation="9"
           v-show="isScrollDown"
           @click="goTop"
         >
           <v-icon>mdi-menu-up</v-icon>
         </v-btn>
         <v-btn
-          style="margin-right: 8px; margin-bottom: 135px"
+          style="margin-right: 70px; margin-bottom: 130px;"
           fixed
           bottom
           icon
@@ -39,7 +40,6 @@
         </v-btn>
       </v-container>
     </v-main>
-    <v-main> </v-main>
   </v-app>
 </template>
 

@@ -86,7 +86,7 @@
             </p>
             <p class="text-center">
               <v-checkbox
-                label="정보 등록 필요 제품만 보기"
+                label="정보 등록이 필요한 제품만 보기"
                 v-model="info_registrequired"
                 @change="reset_other_options"
               ></v-checkbox>
@@ -96,9 +96,12 @@
       </v-card>
       <div class="marquee fw-bolder" v-if="loadingComplete">
         <div>
-          <span>PLEASE SELECET YOUR SEARCH CONDITIONS</span>
-          <span>PLEASE SELECET YOUR SEARCH CONDITIONS</span>
-          <span>PLEASE SELECET YOUR SEARCH CONDITIONS</span>
+          <span>검색 조건을 설정해 주세요.</span>
+          <span>검색 조건을 설정해 주세요.</span>
+          <span>검색 조건을 설정해 주세요.</span>
+          <span>검색 조건을 설정해 주세요.</span>
+          <span>검색 조건을 설정해 주세요.</span>
+          <span>검색 조건을 설정해 주세요.</span>
         </div>
       </div>
       <!-- TODO: 아래 버튼도 스크롤 변화에 따라 보이도록  -->
@@ -134,7 +137,7 @@
         </div>
         <div class="offcanvas-body">
           <v-text-field
-            label="Search Keyword"
+            label="검색 키워드"
             :loading="isLoading"
             v-model="keyword"
             :append-outer-icon="keyword ? 'mdi-magnify' : ''"
@@ -229,8 +232,8 @@
               <v-expand-transition>
                 <div
                   v-if="hover"
-                  class="d-flex transition-fast-in-fast-out blue-grey lighten-4 v-card--reveal text-h2 black--text"
-                  style="height: 100%; opacity: 0.9"
+                  class="d-flex transition-fast-in-fast-out grey-blue lighten-4 v-card--reveal text-h2 black--text"
+                  style="height: 100%; background: rgba(235, 235, 235, 0.49); "
                 >
                   <div class="mt-5">
                     <v-btn
@@ -293,19 +296,18 @@
                 </div>
               </v-expand-transition>
             </v-img>
-            <v-card-text class="pt-6" style="position: relative">
-              <v-btn
-                absolute
-                color="blue-grey"
-                class="white--text"
-                fab
-                right
-                top
-                small
-                @click="toDetail(k?.id)"
-              >
-                <v-icon>read_more</v-icon>
-              </v-btn>
+            <v-btn
+              absolute
+              color="blue-grey"
+              class="white--text"
+              fab
+              right
+              small 
+              @click="toDetail(k?.id)"
+            >
+              <v-icon>read_more</v-icon>
+            </v-btn>
+            <v-card-text class="pt-6" >
               <div class="grey--text text-caption mb-2" v-if="k.brand">
                 {{
                   k.brand.includes("%20")
@@ -320,8 +322,8 @@
               <div class="font-weight-light mb-2 text-body-1">
                 {{ k.releaseDate }}
               </div>
-              <!-- <v-rating
-            :value="k.avg_rating?k.avg_rating:0"
+              <v-rating
+            :value="k.rating_avg?k.rating_avg:0"
             dense
             readonly
             half-icon
@@ -329,8 +331,8 @@
             background-color="orange"
             half-increments
             class="mr-2"
-          ></v-rating> -->
-              <!-- <span class="primary--text text-subtitle-2">{{k.count_reviews}} Reviews</span> -->
+          ></v-rating>
+              <span class="primary--text text-subtitle-2">{{k.review_count}} Reviews</span>
             </v-card-text>
           </v-card>
         </v-hover>
@@ -343,7 +345,10 @@
         spinner="bubbles"
         ref="infiniteLoading"
         style="width: 100%"
-      ></infinite-loading>
+      > 
+      <div slot="no-results" class="mt-10">검색 설정이 필요합니다.</div>
+      <div slot="no-more">no more data :(</div>
+    </infinite-loading>
     </v-row>
     <v-row v-else>
       <loadingImg></loadingImg>
@@ -445,7 +450,7 @@ export default {
     },
 
     goTop() {
-      window.scrollTo(0, 870);
+      window.scrollTo(0, 770);
     },
     ...mapActions(searchStore, ["SET_SEARCH_RESULT"]),
 
