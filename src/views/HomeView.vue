@@ -2,20 +2,18 @@
   <v-app>
       <v-main>
         <CultureSupply />
-        <CultureSupplyBottom />      
+<!--        <CultureSupplyBottom />      -->
       </v-main>
     </v-app>
 </template>
 
 <script>
   import CultureSupply from '../components/home/CultureSupply.vue'
-  import CultureSupplyBottom from '../components/home/CultureSupplyBottom.vue'
 
   export default {
     name: 'HomeView',
     components: {
       CultureSupply,
-      CultureSupplyBottom,
     },
   }
 </script>

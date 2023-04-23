@@ -346,7 +346,7 @@
         ref="infiniteLoading"
         style="width: 100%"
       > 
-      <div slot="no-results" class="mt-10">검색 설정이 필요합니다.</div>
+      <div slot="no-results" class="mt-10 fw-bold fs-6">검색 설정을 해주세요...&#128531;</div>
       <div slot="no-more">no more data :(</div>
     </infinite-loading>
     </v-row>

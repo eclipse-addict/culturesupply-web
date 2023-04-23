@@ -18,50 +18,19 @@
 
       <template v-slot:extension>
         <v-tabs
-          class="d-none d-sm-flex"
+          v-if="isLogin"
           v-model="group"
+          class="d-none d-sm-flex"
           hide-slider
           inactive-color="grey"
-          v-if="isLogin"
         >
-          <v-tab
-            class="d-none d-sm-flex p-0"
-            v-model="group"
-            hide-slider
-            inactive-color="black"
-            width="100"
-          >
-            <v-menu offset-y>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-bind="attrs"
-                  v-on="on"
-                  x-large
-                  style="float: left"
-                  depressed
-                  plain
-                  block
-                  width="140"
-                >
-                  PROFILE
-                </v-btn>
-              </template>
-              <v-list dense rounded>
-                <v-list-item-group v-model="selectedAction" color="primary">
-                  <v-list-item>
-                    <v-list-item-content>
-                      <v-list-item-title>내 정보</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-content>
-                      <v-list-item-title>로그아웃</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-menu>
-          </v-tab>
+            <v-tab :ripple="false" class="font-weight-regular body-2" @click="toProfile">
+                마이 페이지
+            </v-tab>
+            <v-tab :ripple="false" class="font-weight-regular body-2" @click="signoutRequest">
+                로그아웃
+            </v-tab>
+
         </v-tabs>
         <v-tabs
           class="d-none d-sm-flex"
@@ -72,12 +41,12 @@
         >
           <v-tab :ripple="false" @click="toLogin">
             <!-- <v-btn  class="fw-2" outlined elevation="1" > -->
-            Login
+            로그인
             <!-- </v-btn> -->
           </v-tab>
           <v-tab :ripple="false" @click="toAgreement">
             <!-- <v-btn class="fw-2" outlined elevation="1"> -->
-            Sign Up
+            회원 가입
             <!-- </v-btn> -->
           </v-tab>
         </v-tabs>
@@ -86,7 +55,7 @@
           v-model="menu_group"
           hide-slider
           inactive-color="grey"
-          style="flex-direction: row-reverse border-bottom: 1px solid black"
+          style="flex-direction: row-reverse; border-bottom: 1px solid black;"
         >
           <v-tab :ripple="false" color="black" @click="toHome">Home</v-tab>
           <v-tab :ripple="false" color="black" @click="toSneakers">Items</v-tab>
@@ -99,20 +68,7 @@
         </v-tabs>
       </template>
       <v-divider></v-divider>
-      <!-- <v-text-field
-        class="mt-2"
-        label="빠른 검색"
-        :loading="false"
-        v-model="keyword"
-        @click:append-outer="quick_search"
-        @keyup.enter="quick_search"
-        :append-outer-icon="keyword ? 'mdi-magnify' : ''"
-        v-show="!handleScroll" 
-        clearable
-        clear-icon="mdi-close-circle" hint="찾으시는 제품의 상품명으로 검색해보세요."
-        style=" margin-left: 20px" background-color="white"
-      ></v-text-field> -->
-      <v-btn fab icon v-show="search_area_visible" @click="pop_up_search">
+      <v-btn fab icon v-show="true" @click="pop_up_search">
           <span class="material-symbols-outlined">search</span>
         </v-btn>
     </v-app-bar>
@@ -132,11 +88,18 @@
             v-if="this.$store.state.user_data.access_token"
             @click="toProfile"
           >
-            <v-list-item-avatar>
-              <v-img :src="this.$store.state.user_data.profile_img"></v-img>
-            </v-list-item-avatar>
-            <v-list-item-title class="font-weight-black accent-4 text-h6">{{
-              this.$store.state.user_data.nick_name
+              <v-list-item-avatar size="28">
+                  <v-img
+                        v-if="this.$store.state.user_data.profile_img"
+                        :src="this.$store.state.user_data.profile_img"
+                  ></v-img>
+                  <v-img
+                          v-else
+                          src="@/assets/images/user.png"
+                  ></v-img>
+              </v-list-item-avatar>
+            <v-list-item-title class="font-weight-black accent-4">{{
+              this.$store.state.user_data.email
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item v-else @click="toLogin">
@@ -150,9 +113,6 @@
           <v-list-item-title class="text-center">
             <!-- <h3>Kickin</h3> -->
           </v-list-item-title>
-          <!-- <v-divider></v-divider> -->
-
-          <v-divider></v-divider>
           <v-list-item @click="toHome">
             <v-list-item-icon>
               <span class="material-symbols-outlined">home</span>
@@ -196,7 +156,7 @@
       <v-btn
         v-if="this.$store.state.user_data.access_token"
         icon
-        style="margin-top: 30.3rem"
+        style="margin-top: 30.3rem;"
         @click="signoutRequest"
       >
         <span class="material-symbols-outlined">logout</span>
@@ -289,7 +249,6 @@ export default {
       this.isLoading = true
     },
     toHome() {
-      //TODO: 현재 위치한 페이지 볼드 처리 .
       this.$router.push({ name: "home" })
       this.menu_group = "home"
     },
@@ -333,7 +292,7 @@ export default {
       this.$router.push({ name: "auction" })
     },
     toProfile() {
-      // this.$router.push({name:'profile'})
+      this.$router.push({name:'mypage'})
     },
     searchKeyword() {
       console.log("search", this.keyword)
@@ -390,18 +349,20 @@ export default {
       return this.GET_SEARCH_RESULTS
     },
 
-    search_area_visible() {
-      if (this.isScrollDown) return true
-      else return false
-    },
-
     is_loading() {
       console.log(this.$state.isLoading)
       return true
     },
     isLogin() {
-      return this.$store.state.user_data.access_token
+        return !!this.$store.state.user_data.access_token;
     },
+      profile_img_getter(){
+        if(this.$store.state.user_data.profile_img){
+            return this.$store.state.user_data.profile_img
+        }else{
+            return '@/assets/images/user.png'
+        }
+      }
   },
   created() {
     // console.log(this.$store.state.user_data.profile_img)
