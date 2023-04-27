@@ -36,14 +36,22 @@ export default new Vuex.Store({
       state.user_data.refresh_token = payload.refresh_token;
       state.user_data.email = payload.user.email;
       state.user_data.pk = payload.user.pk;
-
       const user = JSON.stringify(state.user_data);
 
       window.localStorage.setItem("user", user);
     },
+
     SET_USER_INFO(state, payload) {
+      console.log("SET_USER_INFOSET_USER_INFOSET_USER_INFOSET_USER_INFO");
+      state.user_data.first_name = payload.first_name;
+      state.user_data.last_name = payload.last_name;
+      state.user_data.gender = payload.gender;
       state.user_data.nick_name = payload.nick_name;
       state.user_data.profile_img = state.prod_url + payload.profile_img;
+
+      state.user_data.shoeSize = payload.shoeSize;
+      state.user_data.topSize = payload.topSize;
+      state.user_data.bottomSize = payload.bottomSize;
 
       const user = JSON.stringify(state.user_data);
       window.localStorage.setItem("user", user);
@@ -131,8 +139,7 @@ export default new Vuex.Store({
           console.log("refresh_token");
           context.commit("SET_REFRESH_TOKEN", res.data);
         })
-        .catch((err) => {
-          // console.log('refresh_token_err', err);
+        .catch(() => {
           dispatch("signoutRequest").then(() => {
             this.$router.push({ name: "login" });
           });
@@ -526,7 +533,10 @@ export default new Vuex.Store({
       "Preschool",
     ],
     user_data: {
+      first_name: null,
+      last_name: null,
       email: null,
+      gender: null,
       pk: null,
       access_token: null,
       refresh_token: null,
