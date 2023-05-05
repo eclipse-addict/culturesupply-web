@@ -47,12 +47,16 @@ export default new Vuex.Store({
       state.user_data.last_name = payload.last_name;
       state.user_data.gender = payload.gender;
       state.user_data.nick_name = payload.nick_name;
-      state.user_data.profile_img = state.prod_url + payload.profile_img;
+      state.user_data.profile_img = baseUrl + payload.profile_img;
 
       state.user_data.shoeSize = payload.shoeSize;
       state.user_data.topSize = payload.topSize;
       state.user_data.bottomSize = payload.bottomSize;
-
+      state.user_data.zipCode = payload.zipCode;
+      state.user_data.address = payload.address;
+      state.user_data.address_detail = payload.address_detail;
+      state.user_data.current_points = payload.points.current_points;
+      state.user_data.used_points = payload.points.used_points;
       const user = JSON.stringify(state.user_data);
       window.localStorage.setItem("user", user);
     },
@@ -545,7 +549,13 @@ export default new Vuex.Store({
       topSize: null,
       bottomSize: null,
       shoeSize: null,
+
+      zipCode: null,
       address: null,
+      address_detail: null,
+
+      current_points: null,
+      used_points: null,
     },
   },
   modules: {

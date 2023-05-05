@@ -20,7 +20,15 @@
               }}
             </v-list-item-subtitle>
             <v-list-item-content class="fw-bold">
-              <span> 보유 포인트 : 4,000 </span>
+              <span>
+                현재 보유 포인트 :
+
+                {{
+                  get_user_data.current_points
+                    ? get_user_data.current_points
+                    : 0
+                }}
+              </span>
             </v-list-item-content>
             <v-card-text>
               <span class="fw-bold"> 상의 : </span>
@@ -45,6 +53,14 @@
                   get_user_data.address ? get_user_data.address : "미설정"
                 }}</span
               >
+            </v-list-item>
+            <v-list-item>
+              <span class="fw-bold mr-2"> 상세 주소 : </span>
+              {{
+                get_user_data.address_detail
+                  ? get_user_data.address_detail
+                  : "미설정"
+              }}
             </v-list-item>
           </v-list-item-content>
         </v-list-item>

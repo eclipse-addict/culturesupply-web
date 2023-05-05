@@ -8,7 +8,7 @@
           v-model="current_item"
           class="pa-4"
           center-active
-          show-arrows 
+          show-arrows
         >
           <v-slide-item
             v-for="(p, index) in recent_releases_products"
@@ -47,7 +47,7 @@
                 </v-img>
                 <v-sheet elevation="4" rounded="3" outlined
                   class="position-absolute me-4 px-2 bg-white bg-opacity-50"
-                  style="bottom: 1%;font-weight: bolder;text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;" 
+                  style="bottom: 1%;font-weight: bolder;text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;"
                 >
                   {{ p?.name }}
                 </v-sheet>

@@ -4,22 +4,42 @@
     <h4 class="h4 font-weight-bold border-bottom pb-3 mb-6">
       {{ kick?.name }}
     </h4>
+    <p><span>SKU: </span>{{ kick?.sku }}</p>
     <v-row>
+      <v-col>
+        <v-btn
+          small
+          @click="search_url_creator"
+          color="teal"
+          outlined
+          right
+          text
+          rounded
+          max-width="150"
+          >구글 검색</v-btn
+        >
+      </v-col>
       <v-col cols="12">
         <v-file-input
           v-model="img_upload"
           @change="
             Preview_image('img_preview');
-            info_added('right_img', img_preview);
+            info_added('local_imageUrl', img_upload);
           "
           :rules="[(v) => !!v || 'Item is required']"
-          accept="image/png, image/jpeg, image/bmp"
+          accept="image/png, image/jpeg, image/bmp, image/webp"
           placeholder=""
           prepend-icon="mdi-camera"
           label="제품 이미지"
           :disabled="img_preview_exist"
         ></v-file-input>
-        <v-img :src="img_preview" aspect-ratio="1.5"></v-img>
+        <v-img
+          :src="img_preview"
+          aspect-ratio="1.5"
+          class="mx-auto"
+          contain
+          width="450"
+        ></v-img>
       </v-col>
 
       <v-col sm="12" md="6" lg="6">
@@ -67,8 +87,8 @@
       </v-col>
       <v-col sm="12" md="6" lg="6">
         <v-select
-          @change="info_added('brand', brand_select)"
-          v-model="brand_select"
+          @change="info_added('brand', brand)"
+          v-model="brand"
           :items="brandGroup"
           :rules="[(v) => !!v || 'Item is required']"
           label="브랜드"
@@ -110,8 +130,8 @@
       </v-col>
       <v-col sm="12" md="6" lg="6">
         <v-select
-          @change="info_added('category', category_select)"
-          v-model="category_select"
+          @change="info_added('category', category)"
+          v-model="category"
           :items="categories"
           :rules="[(v) => !!v || 'Item is required']"
           label="카테고리"
@@ -143,9 +163,9 @@ export default {
   name: "InfoUpdateForm",
   data() {
     return {
-      brand_select: null,
+      brand: null,
       color_select: null,
-      category_select: null,
+      category: null,
       retail: null,
       kick: null,
       product_id: null,
@@ -536,41 +556,21 @@ export default {
     };
   },
   methods: {
-    // Preview_image(type) {
-    //   switch (type) {
-    //     case "left":
-    //       if (this.left_url == null) {
-    //         this.left_url = URL.createObjectURL(this.left_img);
-    //       }
-    //       break;
-    //     case "right":
-    //       if (this.right_url == null) {
-    //         this.right_url = URL.createObjectURL(this.right_img);
-    //       }
-    //       break;
-    //     case "top":
-    //       if (this.top_url == null) {
-    //         this.top_url = URL.createObjectURL(this.top_img);
-    //       }
-    //       break;
-    //     case "back":
-    //       if (this.back_url == null) {
-    //         this.back_url = URL.createObjectURL(this.back_img);
-    //       }
-    //       break;
-    //     case "add":
-    //       if (this.add_url == null) {
-    //         this.add_url = URL.createObjectURL(this.add_img);
-    //       }
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    //   // this.url= URL.createObjectURL(this.image)
-    // },
+    search_url_creator() {
+      window.open(
+        "https://www.google.com/search?q=" + this.kick?.name,
+        "_blank",
+        "width=900, height=900"
+      );
+    },
+    Preview_image() {
+      console.log("this.img_upload", this.img_upload);
+      this.img_preview = URL.createObjectURL(this.img_upload);
+    },
+
     check_existing_datas(res) {
       if (res.data.brand != null) {
-        this.brand_select = res.data.brand;
+        this.brand = res.data.brand;
       }
       if (res.data.colorway != null) {
         this.color_select = res.data.colorway.split("/");
@@ -582,7 +582,7 @@ export default {
         this.retail = res.data.retailPrice;
       }
       if (res.data.category != null && res.data.category != "") {
-        this.category_select = res.data.category;
+        this.category = res.data.category;
       }
     },
     price_formatter() {
@@ -602,11 +602,16 @@ export default {
 
       const formData = new FormData();
 
-      formData.append("product_id", this.product_id);
+      formData.append("product", this.product_id);
       formData.append("user", this.$store.state.user_data.pk);
 
       let updated_info_list = this.updatated_infos;
       for (let i = 0; i < updated_info_list.length; i++) {
+        if (updated_info_list[i] == "local_imageUrl") {
+          formData.append("local_imageUrl", this.img_upload);
+          continue;
+        }
+        console.log("this[updated_info_list[i]", this[updated_info_list[i]]);
         formData.append(updated_info_list[i], this[updated_info_list[i]]);
       }
       console.log("regist_infos formData: ", formData);
@@ -614,9 +619,10 @@ export default {
       axios({
         method: "POST",
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: "Bearer " + this.$store.state.user_data.access_token,
         },
-        url: "https://www.kickin.co.kr/info/create/updator/",
+        url: this.$store.state.prod_url + "info/create/updator/",
         data: formData,
       })
         .then((res) => {
@@ -629,7 +635,9 @@ export default {
     info_added(info, value) {
       console.log("info_added: ", info, value);
       // let info_dict = {}
-      this.updatated_infos.push(info);
+      if (!this.updatated_infos.includes(info)) {
+        this.updatated_infos.push(info);
+      }
       console.log("updatated_infos: ", this.updatated_infos);
     },
   }, // methods end
@@ -705,5 +713,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

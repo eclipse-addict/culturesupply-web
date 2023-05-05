@@ -13,7 +13,6 @@
             class="form-control"
             id="firstName"
             placeholder=""
-            value=""
             required
             v-model="firstName"
           />
@@ -27,7 +26,6 @@
             class="form-control"
             id="lastName"
             placeholder=""
-            value=""
             required
             v-model="lastName"
           />
@@ -90,16 +88,22 @@
           <label class="form-label"
             >Avatar<span class="text-muted"></span
           ></label>
+          <div class="col-12">
+            <v-avatar class="profile" color="grey" size="130">
+              <v-img :src="current_profile_img"></v-img>
+            </v-avatar>
+          </div>
           <v-file-input
-            v-model="avatar"
+            v-model="profile_img_file"
             show-size
             :rules="rules"
             accept="image/png, image/jpeg, image/bmp"
             placeholder="Pick an avatar"
             prepend-icon="mdi-camera"
-            label="Avatar"
+            label="프로필 이미지 변경"
           ></v-file-input>
         </div>
+
         <div class="col-12">
           <label for="gender" class="form-label"
             >Gender <span class="text-muted"></span
@@ -153,7 +157,7 @@
           <input
             type="text"
             class="form-control"
-            v-model="postcode"
+            v-model="zipCode"
             id="postCode"
             name="postCode"
             placeholder="우편번호"
@@ -186,31 +190,11 @@
             id="detailAddress"
             placeholder="상세주소"
             class="form-control"
-            v-model="extraAddress"
+            v-model="address_detail"
           />
         </div>
       </div>
 
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="same-address" />
-        <label class="form-check-label" for="same-address"
-          >Shipping address is the same as my billing address</label
-        >
-      </div>
-
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="save-info" />
-        <label class="form-check-label" for="save-info"
-          >Save this information for next time</label
-        >
-        <div class="form-check"></div>
-        <form class="card p-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code" />
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
-        </form>
-      </div>
       <hr class="my-4" />
 
       <!-- <h4 class="mb-3">Payment</h4>
@@ -264,22 +248,6 @@
                 </div>
               </div>
             </div> -->
-      <div>
-        <div class="text-center mb-4"></div>
-        <v-alert
-          :value="alert"
-          color="red"
-          dark
-          border="top"
-          icon="mdi-home"
-          transition="scale-transition"
-        >
-          필수 입력값이 누락되었습니다.
-          <v-btn class="mx-1" small color="white" @click="alert = !alert">
-            <span class="material-symbols-outlined text-danger">close</span>
-          </v-btn>
-        </v-alert>
-      </div>
       <hr class="my-4" />
       <button
         class="w-100 btn btn-primary btn-lg"
@@ -335,10 +303,11 @@ export default {
       nickName: "",
 
       // 회원가입 추가 필드
-      avatar: null,
-      postcode: "",
+      profile_img_file: null,
+      current_profile_img: null,
+      zipCode: "",
       address: "",
-      extraAddress: "",
+      address_detail: "",
       gender: "",
       pickedShoeSize: "",
       pickedTopSize: "",
@@ -362,7 +331,7 @@ export default {
         (value) =>
           !value ||
           value.size < 2000000 ||
-          "Avatar size should be less than 2 MB!",
+          "프로필 이미지 사이즈는 4 MB를 초과할 수 없습니다.!",
       ],
     };
   },
@@ -407,8 +376,8 @@ export default {
     dPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          if (this.extraAddress !== "") {
-            this.extraAddress = "";
+          if (this.address_detail !== "") {
+            this.address_detail = "";
           }
           if (data.userSelectedType === "R") {
             // 사용자가 도로명 주소를 선택했을 경우
@@ -422,24 +391,24 @@ export default {
             // 법정동명이 있을 경우 추가한다. (법정리는 제외)
             // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
             if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-              this.extraAddress += data.bname;
+              this.address_detail += data.bname;
             }
             // 건물명이 있고, 공동주택일 경우 추가한다.
             if (data.buildingName !== "" && data.apartment === "Y") {
-              this.extraAddress +=
-                this.extraAddress !== ""
+              this.address_detail +=
+                this.address_detail !== ""
                   ? `, ${data.buildingName}`
                   : data.buildingName;
             }
             // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if (this.extraAddress !== "") {
-              this.extraAddress = `(${this.extraAddress})`;
+            if (this.address_detail !== "") {
+              this.address_detail = `(${this.address_detail})`;
             }
           } else {
-            this.extraAddress = "";
+            this.address_detail = "";
           }
           // 우편번호를 입력한다.
-          this.postcode = data.zonecode;
+          this.zipCode = data.zonecode;
         },
       }).open();
     },
@@ -452,7 +421,11 @@ export default {
       this.pickedTopSize = this.$store.getters.get_user_data.topSize;
       this.pickeBottomSize = this.$store.getters.get_user_data.bottomSize;
       this.gender = this.$store.getters.get_user_data.gender;
-      // this.avatar = this.$store.getters.get_user_data.profile_img;
+      this.current_profile_img = this.$store.getters.get_user_data.profile_img;
+      this.zipCode = this.$store.getters.get_user_data.zipCode;
+      this.address = this.$store.getters.get_user_data.address;
+      this.address_detail = this.$store.getters.get_user_data.addressDetail;
+      this.current_profile_img = this.$store.getters.get_user_data.profile_img;
     },
 
     update_user_info() {
@@ -462,14 +435,15 @@ export default {
       const last_name = this.lastName;
       const first_name = this.firstName;
       const nick_name = this.nickName;
-      const profile_img = this.avatar;
+      const profile_img = this.profile_img_file;
       const gender = this.gender;
       const shoeSize = this.pickedShoeSize;
       const topSize = this.pickedTopSize;
       const bottomSize = this.pickeBottomSize;
 
-      const zipCode = this.postcode;
-      const address = this.address + this.extraAddress;
+      const zipCode = this.zipCode;
+      const address = this.address;
+      const address_detail = this.address_detail;
 
       const payload2 = {
         last_name,
@@ -482,11 +456,13 @@ export default {
         bottomSize,
         zipCode,
         address,
+        address_detail,
       };
       axios({
         method: "PUT",
         url: this.$store.state.prod_url + "user/userinfo/" + pk + "/",
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: "Bearer " + token,
         },
         data: payload2,

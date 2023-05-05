@@ -218,7 +218,12 @@
           >
             <v-img
               :aspect-ratio="1.4"
-              :src="env_url + k.local_imageUrl"
+              contain
+              :src="
+                k.local_imageUrl.startsWith('productUpdator')
+                  ? env_url + 'media/' + k.local_imageUrl
+                  : env_url + k.local_imageUrl
+              "
               :lazy-src="env_url + 'media/images/loading.gif'"
             >
               <template v-slot:placeholder>
@@ -233,7 +238,7 @@
                 <div
                   v-if="hover"
                   class="d-flex transition-fast-in-fast-out grey-blue lighten-4 v-card--reveal text-h2 black--text"
-                  style="height: 100%; background: rgba(235, 235, 235, 0.49); "
+                  style="height: 100%; background: rgba(235, 235, 235, 0.49)"
                 >
                   <div class="mt-5">
                     <v-btn
@@ -262,14 +267,15 @@
                   </div>
                   <div
                     class="text-center mt-15 w-100"
-                    v-if=" /[a-zA-Z]/.test(k?.name) ||
+                    v-if="
+                      /[a-zA-Z]/.test(k?.name) ||
                       k.local_imageUrl == 'media/images/defaultImg.png' ||
                       k.brand == null ||
                       k.colorway == null ||
                       k.releaseDate == '1900-01-01' ||
                       k.releaseDate == null ||
                       k.retailPrice == null ||
-                      k.category == '' 
+                      k.category == ''
                     "
                   >
                     <v-btn
@@ -302,12 +308,12 @@
               class="white--text"
               fab
               right
-              small 
+              small
               @click="toDetail(k?.id)"
             >
               <v-icon>read_more</v-icon>
             </v-btn>
-            <v-card-text class="pt-6" >
+            <v-card-text class="pt-6">
               <div class="grey--text text-caption mb-2" v-if="k.brand">
                 {{
                   k.brand.includes("%20")
@@ -323,16 +329,18 @@
                 {{ k.releaseDate }}
               </div>
               <v-rating
-            :value="k.rating_avg?k.rating_avg:0"
-            dense
-            readonly
-            half-icon
-            color="orange"
-            background-color="orange"
-            half-increments
-            class="mr-2"
-          ></v-rating>
-              <span class="primary--text text-subtitle-2">{{k.review_count}} Reviews</span>
+                :value="k.rating_avg ? k.rating_avg : 0"
+                dense
+                readonly
+                half-icon
+                color="orange"
+                background-color="orange"
+                half-increments
+                class="mr-2"
+              ></v-rating>
+              <span class="primary--text text-subtitle-2"
+                >{{ k.review_count }} Reviews</span
+              >
             </v-card-text>
           </v-card>
         </v-hover>
@@ -345,10 +353,12 @@
         spinner="bubbles"
         ref="infiniteLoading"
         style="width: 100%"
-      > 
-      <div slot="no-results" class="mt-10 fw-bold fs-6">검색 설정을 해주세요...&#128531;</div>
-      <div slot="no-more">no more data :(</div>
-    </infinite-loading>
+      >
+        <div slot="no-results" class="mt-10 fw-bold fs-6">
+          검색 설정을 해주세요...&#128531;
+        </div>
+        <div slot="no-more">no more data :(</div>
+      </infinite-loading>
     </v-row>
     <v-row v-else>
       <loadingImg></loadingImg>
