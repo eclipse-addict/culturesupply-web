@@ -16,6 +16,9 @@
           ></UserInfoUpdateForm>
           <PasswordChange v-else-if="current_tap == 'update_user_password'">
           </PasswordChange>
+          <ProductRegistBoard
+            v-else-if="current_tap == 'product_regist'"
+          ></ProductRegistBoard>
         </v-col>
       </v-row>
     </v-main>
@@ -28,6 +31,7 @@ import MypageMenu from "@/components/user/profile/MypageMenu.vue";
 import CustomerService from "@/components/user/profile/CustomerService.vue";
 import UserInfoUpdateForm from "@/components/user/profile/UserInfoUpdateForm.vue";
 import PasswordChange from "@/components/user/profile/PasswordChange.vue";
+import ProductRegistBoard from "@/components/user/profile/ProductRegistBoard.vue";
 // import axios from "axios";
 export default {
   name: "UserPage",
@@ -37,6 +41,7 @@ export default {
     CustomerService,
     UserInfoUpdateForm,
     PasswordChange,
+    ProductRegistBoard,
   },
   data() {
     return {

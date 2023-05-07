@@ -28,7 +28,12 @@
           <v-list-item-title>내 활동</v-list-item-title>
         </v-list-item-content>
       </template>
-      <v-list-item v-for="([title, icon], i) in cruds" :key="i" link>
+      <v-list-item
+        v-for="([title, icon, tab], i) in cruds"
+        :key="i"
+        link
+        @click="change_tab(tab)"
+      >
         <v-list-item-title v-text="title"></v-list-item-title>
 
         <v-list-item-icon>
@@ -59,7 +64,7 @@ export default {
     cruds: [
       ["응모 내역", "mdi-medal-outline"],
       ["포인트", "mdi-cash-check"],
-      ["등록한 제품 정보", "mdi-pen"],
+      ["등록한 제품 정보", "mdi-pen", "product_regist"],
       ["작성한 리뷰", "mdi-message-draw"],
     ],
   }),

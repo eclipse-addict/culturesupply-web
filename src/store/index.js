@@ -47,7 +47,9 @@ export default new Vuex.Store({
       state.user_data.last_name = payload.last_name;
       state.user_data.gender = payload.gender;
       state.user_data.nick_name = payload.nick_name;
-      state.user_data.profile_img = baseUrl + payload.profile_img;
+      state.user_data.profile_img = payload.profile_img
+        ? baseUrl + payload.profile_img
+        : null;
 
       state.user_data.shoeSize = payload.shoeSize;
       state.user_data.topSize = payload.topSize;

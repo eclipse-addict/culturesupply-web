@@ -70,7 +70,11 @@
       <v-sheet height="100%">
         <v-row class="fill-height" align="center" justify="center">
           <v-img
-            :src="env_url + kick?.local_imageUrl"
+            :src="
+              kick.local_imageUrl.startsWith('productUpdator')
+                ? env_url + 'media/' + kick.local_imageUrl
+                : env_url + kick.local_imageUrl
+            "
             :lazy-src="env_url + 'media/images/loading.gif'"
             contain
             width="650"
