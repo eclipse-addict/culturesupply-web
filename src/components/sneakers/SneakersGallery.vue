@@ -502,8 +502,7 @@ export default {
         release_date = twoWeeksAgoFormatted + "," + twoWeeksLaterFormatted;
         console.log(release_date);
       }
-
-      console.log(" fetch_kicksfetch_kicksfetch_kickscall");
+      window.scrollTo(0, 670);
       let params = {
         search,
         release_date,
@@ -711,7 +710,7 @@ export default {
     // this.fetch_kicks();
   },
   computed: {
-    ...mapGetters(searchStore, ["GET_SEARCH_RESULTS"]),
+    ...mapGetters("searchStore", ["GET_SEARCH_RESULTS"]),
 
     banner_search_result() {
       return this.GET_SEARCH_RESULTS;

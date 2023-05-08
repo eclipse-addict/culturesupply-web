@@ -1,76 +1,78 @@
 <template>
-    <v-row>
-      <v-col cols="12" class="m-sm-3">
-        <div class="fw-3 accent-4 text-md-h4 md-ms-5 mb-0 border-bottom w-25 text-sm-h6">최신 등록 상품</div>
-      </v-col>
-      <v-col cols="12" class="d-none d-sm-block">
-        <v-slide-group
-          v-model="current_item"
-          class="pa-4"
-          center-active
-          show-arrows
+  <v-row>
+    <v-col cols="12" class="d-none d-sm-block" v-if="recent_releases_products">
+      <v-slide-group
+        v-model="current_item"
+        class="pa-4"
+        center-active
+        show-arrows
+      >
+        <v-slide-item
+          v-for="(p, index) in recent_releases_products"
+          :key="index"
+          v-slot="{ isSelected, toggle }"
         >
-          <v-slide-item
-            v-for="(p, index) in recent_releases_products"
-            :key="index"
-            v-slot="{ isSelected, toggle }"
-          >
-            <v-hover v-slot="{ hover }">
-              <v-card
-                :color="isSelected ? 'grey lighten-2' : 'grey lighten-4'"
-                class="ma-4"
-                height="200"
-                width="200"
-                @click="toggle"
+          <v-hover v-slot="{ hover }">
+            <v-card
+              :color="isSelected ? 'grey lighten-2' : 'grey lighten-4'"
+              class="ma-4"
+              height="200"
+              width="200"
+              @click="toggle"
+            >
+              <v-img
+                :src="env_url + p.local_imageUrl"
+                :lazy-src="env_url + 'media/images/loading.gif'"
               >
-                <v-img
-                  :src="env_url + p.local_imageUrl"
-                  :lazy-src="env_url + 'media/images/loading.gif'"
-                >
-                  <v-expand-transition>
-                    <div
-                      v-if="hover"
-                      class="d-flex transition-slow-in-slow-out v-card--reveal text-h2 black--text"
-                      style="height: 100%"
-                    >
-                      <div class="my-auto mx-auto">
-                        <v-btn
-                          color="#F6F1E9"
-                          elevation="10"
-                          class="mx-2"
-                          @click="toDetail(p?.id)"
-                          >Detail</v-btn
-                        >
-                      </div>
+                <v-expand-transition>
+                  <div
+                    v-if="hover"
+                    class="d-flex transition-slow-in-slow-out v-card--reveal text-h2 black--text"
+                    style="height: 100%"
+                  >
+                    <div class="my-auto mx-auto">
+                      <v-btn
+                        color="#F6F1E9"
+                        elevation="10"
+                        class="mx-2"
+                        @click="toDetail(p?.id)"
+                        >Detail</v-btn
+                      >
                     </div>
-                  </v-expand-transition>
-                </v-img>
-                <v-sheet elevation="4" rounded="3" outlined
-                  class="position-absolute me-4 px-2 bg-white bg-opacity-50"
-                  style="bottom: 1%;font-weight: bolder;text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;"
-                >
-                  {{ p?.name }}
-                </v-sheet>
-              </v-card>
-            </v-hover>
-          </v-slide-item>
-        </v-slide-group>
-      </v-col>
-      <v-col cols="12">
-              <SneakersCarousel></SneakersCarousel>
-      </v-col>
-      <loadingImg v-show="isLoading"></loadingImg>
-    </v-row>
+                  </div>
+                </v-expand-transition>
+              </v-img>
+              <v-sheet
+                elevation="4"
+                rounded="3"
+                outlined
+                class="position-absolute me-4 px-2 bg-white bg-opacity-50"
+                style="
+                  bottom: 1%;
+                  font-weight: bolder;
+                  text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke,
+                    1px 0 whitesmoke, 0 -1px whitesmoke;
+                "
+              >
+                {{ p?.name }}
+              </v-sheet>
+            </v-card>
+          </v-hover>
+        </v-slide-item>
+      </v-slide-group>
+    </v-col>
+
+    <loadingImg v-show="isLoading"></loadingImg>
+  </v-row>
 </template>
 
 <script>
 import axios from "axios";
 // @ is an alias to /src
-import SneakersCarousel from '@/components/sneakers/SneakersCarousel.vue'
 import loadingImg from "@/components/common/loadingPage.vue";
 export default {
   name: "CultureSupply",
-  components: {SneakersCarousel,loadingImg},
+  components: { loadingImg },
   data() {
     return {
       main_product: null,

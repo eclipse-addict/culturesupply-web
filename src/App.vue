@@ -67,8 +67,20 @@
           <v-tab :ripple="false" @click="toAuction">Auction</v-tab>
         </v-tabs>
       </template>
-      <v-divider></v-divider>
-      <v-btn fab icon v-show="true" @click="pop_up_search">
+      <template>
+        <div class="carousel-wrapper position-fixed d-none d-sm-block">
+          <div class="carousel-slides">
+            <div
+              class="carousel-slide"
+              v-for="(item, idx) in ranking"
+              :key="idx"
+            >
+              {{ idx + 1 }}. {{ item }}
+            </div>
+          </div>
+        </div>
+      </template>
+      <v-btn fab icon v-show="true" @click="pop_up_search" fixed right>
         <span class="material-symbols-outlined">search</span>
       </v-btn>
     </v-app-bar>
@@ -223,6 +235,13 @@ export default {
     selectedAction: null,
     isScrollDown: false,
     scrollTop: 0,
+    ranking: [
+      "SUPREME",
+      "JORDAN 1",
+      "JORDAN 1 TRAVIS SCOTT",
+      "SPIDER-MAN",
+      "OFF-WHITE",
+    ],
   }),
   mounted() {
     setTimeout(() => {
@@ -411,5 +430,59 @@ export default {
   font-family: "Pathway Gothic One", sans-serif;
   font-weight: 900;
   cursor: pointer;
+}
+.carousel-wrapper {
+  width: 92%;
+  height: 70px;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  animation: slide 15s infinite;
+  cursor: pointer;
+}
+
+.carousel-slide {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carousel-slides:hover {
+  animation-play-state: paused;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-2%);
+  }
+  25% {
+    transform: translateY(-22%);
+  }
+  40% {
+    transform: translateY(-42%);
+  }
+  55% {
+    transform: translateY(-62%);
+  }
+  70% {
+    transform: translateY(-82%);
+  }
 }
 </style>
