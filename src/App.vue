@@ -76,7 +76,7 @@
               v-for="(item, idx) in ranking"
               :key="idx"
             >
-              {{ idx + 1 }}. {{ item }}
+              <span class="slider-inner-text"> {{ idx + 1 }}. {{ item }} </span>
             </div>
           </div>
         </div>
@@ -433,10 +433,10 @@ export default {
   cursor: pointer;
 }
 .carousel-wrapper {
-  width: 52%;
+  width: 32%;
   height: 70px;
   overflow: hidden;
-  margin-left: 400px;
+  margin-left: 580px;
 }
 
 .carousel-slides {
@@ -444,6 +444,9 @@ export default {
   flex-direction: column;
   height: fit-content;
   animation: slide 15s infinite;
+}
+
+.slider-inner-text {
   cursor: pointer;
 }
 

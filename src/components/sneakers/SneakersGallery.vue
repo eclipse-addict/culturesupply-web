@@ -201,11 +201,11 @@
       data-ad-slot="9648734008"
     >
     </InFeedAdsense>
-    <GalleryLoadingCards v-if="!loadingComplete"></GalleryLoadingCards>
+    <GalleryLoadingCards v-if="!loadingComplete"> </GalleryLoadingCards>
     <v-row
       class="mt-sm-0 container d-flex justify-content-around"
       id="main"
-      v-else
+      v-if="loadingComplete"
     >
       <v-col
         class="mt-13"
