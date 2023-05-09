@@ -66,14 +66,27 @@
         </v-list>
       </v-menu>
     </div>
+    <template>
+      <div class="ad-container">
+        <InArticleAdsense
+          style="border: 1px solid black"
+          data-ad-client="ca-pub-6048277531996552"
+          data-ad-slot="9648734008"
+          data-ad-format="fluid"
+          data-adtest="on"
+          data-ad-layout="in-article"
+        >
+        </InArticleAdsense>
+      </div>
+    </template>
     <v-col sm="12" md="8" xl="8">
       <v-sheet height="100%">
         <v-row class="fill-height" align="center" justify="center">
           <v-img
             :src="
-              kick.local_imageUrl.startsWith('productUpdator')
-                ? env_url + 'media/' + kick.local_imageUrl
-                : env_url + kick.local_imageUrl
+              kick?.local_imageUrl.startsWith('productUpdator')
+                ? env_url + 'media/' + kick?.local_imageUrl
+                : env_url + kick?.local_imageUrl
             "
             :lazy-src="env_url + 'media/images/loading.gif'"
             contain
@@ -245,8 +258,8 @@ export default {
       let result = false;
       if (this.kick) {
         if (
-          this.kick.local_imageUrl == null ||
-          this.kick.local_imageUrl ==
+          this.kick?.local_imageUrl == null ||
+          this.kick?.local_imageUrl ==
             this.$store.state.prod_url + "media/images/defaultImg.png"
         ) {
           result = true;

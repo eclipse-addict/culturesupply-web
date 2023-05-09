@@ -1,5 +1,17 @@
 <template>
   <v-app>
+    <template>
+      <div class="ad-container">
+        <Adsense
+          style="border: 1px solid black"
+          data-ad-client="ca-pub-6048277531996552"
+          data-ad-slot="9648734008"
+          data-ad-format="auto"
+          data-adtest="on"
+        >
+        </Adsense>
+      </div>
+    </template>
     <CultureSupply />
     <!--        <CultureSupplyBottom />      -->
   </v-app>

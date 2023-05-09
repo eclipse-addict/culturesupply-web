@@ -23,21 +23,28 @@
         >
           <v-icon>mdi-menu-up</v-icon>
         </v-btn>
-        <v-btn
-          style="margin-right: 70px; margin-bottom: 130px;"
-          fixed
-          bottom
-          icon
-          fab
-          right
-          elevation="9"
-          color="black"
-          small
-          v-show="isScrollDown"
-          @click="reset_sneakers"
-        >
-          <span class="material-symbols-outlined">refresh</span>
-        </v-btn>
+        <v-tooltip left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              style="margin-right: 70px; margin-bottom: 130px"
+              fixed
+              bottom
+              icon
+              fab
+              right
+              elevation="9"
+              color="black"
+              small
+              v-show="isScrollDown"
+              @click="reset_sneakers"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <span class="material-symbols-outlined">refresh</span>
+            </v-btn>
+          </template>
+          <span>페이지 새로고침</span>
+        </v-tooltip>
       </v-container>
     </v-main>
   </v-app>

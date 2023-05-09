@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "npm run build -- --mode=prod && rsync -avz -e ssh dist/ isaacshin92@218.155.159.235:/var/services/web/kickin-web"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
@@ -17,8 +18,10 @@
     "nprogress": "^0.2.0",
     "sweetalert": "^2.1.2",
     "vue": "^2.7.13",
+    "vue-google-adsense": "^1.10.1",
     "vue-infinite-loading": "^2.4.5",
     "vue-router": "^3.5.1",
+    "vue-script2": "^2.1.0",
     "vue-spinner": "^1.0.4",
     "vue-star-rating": "^1.7.0",
     "vuetify": "^2.6.0",

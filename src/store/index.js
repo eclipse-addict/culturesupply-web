@@ -29,6 +29,9 @@ export default new Vuex.Store({
     get_user_data(state) {
       return state.user_data;
     },
+    get_env_url(state) {
+      return state.prod_url;
+    },
   },
   mutations: {
     SET_USER_TOKEN(state, payload) {

@@ -36,7 +36,7 @@
 
               <v-col cols="12" lg="6" sm="12">
                 <v-text-field
-                  label="Search Keyword"
+                  label="검색어"
                   :loading="isLoading"
                   v-model="keyword"
                   @input="infoCheckBoxReset"
@@ -66,7 +66,7 @@
               <v-btn
                 class="mr-2"
                 bottom
-                width="140"
+                width="40"
                 elevation="1"
                 dark
                 color="#497174"
@@ -76,12 +76,12 @@
               >
               <v-btn
                 bottom
-                width="50"
+                width="90"
                 elevation="1"
                 dark
                 color="#EB455F"
                 @click="option_reset"
-                >초기화</v-btn
+                >조건 초기화</v-btn
               >
             </p>
             <p class="text-center">
@@ -194,10 +194,18 @@
         </div>
       </div>
     </v-row>
+    <InFeedAdsense
+      style="border: 1px solid black; margin-top: 10px"
+      data-ad-layout-key="-fg+5n+6t-e7+r"
+      data-ad-client="ca-pub-6048277531996552"
+      data-ad-slot="9648734008"
+    >
+    </InFeedAdsense>
+    <GalleryLoadingCards v-if="!loadingComplete"></GalleryLoadingCards>
     <v-row
       class="mt-sm-0 container d-flex justify-content-around"
       id="main"
-      v-if="loadingComplete"
+      v-else
     >
       <v-col
         class="mt-13"
@@ -347,6 +355,7 @@
 
         <!-- spiral waveDots -->
       </v-col>
+
       <infinite-loading
         v-if="!initialLoading"
         @infinite="get_next_page"
@@ -360,7 +369,7 @@
         <div slot="no-more">no more data :(</div>
       </infinite-loading>
     </v-row>
-    <v-row v-else>
+    <v-row v-else class="mt-10">
       <loadingImg></loadingImg>
     </v-row>
   </v-container>
@@ -370,6 +379,7 @@
 import axios from "axios";
 import infiniteLoading from "vue-infinite-loading";
 import loadingImg from "@/components/common/loadingPage.vue";
+import GalleryLoadingCards from "@/components/sneakers/GalleryLoadingCards.vue";
 import swal from "sweetalert";
 import { mapActions, mapGetters } from "vuex";
 
@@ -414,6 +424,7 @@ export default {
   components: {
     infiniteLoading,
     loadingImg,
+    GalleryLoadingCards,
   },
   mounted() {
     // goTop을 위해 mount 시 element 설정
@@ -502,7 +513,7 @@ export default {
         release_date = twoWeeksAgoFormatted + "," + twoWeeksLaterFormatted;
         console.log(release_date);
       }
-      window.scrollTo(0, 670);
+      window.scrollTo(0, 900);
       let params = {
         search,
         release_date,
