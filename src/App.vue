@@ -67,7 +67,8 @@
           <v-tab :ripple="false" @click="toAuction">Auction</v-tab>
         </v-tabs>
       </template>
-      <template>
+
+      <template v-if="!isScrollDown">
         <div class="carousel-wrapper position-fixed d-none d-sm-block">
           <div class="carousel-slides">
             <div
@@ -432,9 +433,10 @@ export default {
   cursor: pointer;
 }
 .carousel-wrapper {
-  width: 92%;
+  width: 52%;
   height: 70px;
   overflow: hidden;
+  margin-left: 400px;
 }
 
 .carousel-slides {
