@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="drawer = true">
         <span class="material-symbols-outlined">apps</span>
       </v-app-bar-nav-icon>
-      <v-toolbar-title class="banner_title accent-1 fs-2" @click="toHome">
+      <v-toolbar-title class="banner_title accent-1 fs-2 w-100" @click="toHome">
         KickIn
         <span class="material-symbols-outlined">barefoot</span>
       </v-toolbar-title>
@@ -69,14 +69,15 @@
       </template>
 
       <template v-if="!isScrollDown">
-        <div class="carousel-wrapper position-fixed d-none d-sm-block">
+        <div class="carousel-wrapper d-none d-sm-block">
           <div class="carousel-slides">
             <div
               class="carousel-slide"
               v-for="(item, idx) in ranking"
               :key="idx"
+              @click="ranking_click(item)"
             >
-              <span class="slider-inner-text"> {{ idx + 1 }}. {{ item }} </span>
+              {{ idx + 1 }}. {{ item }}
             </div>
           </div>
         </div>
@@ -254,7 +255,7 @@ export default {
     document.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
-    ...mapActions(searchStore, ["BANNER_SEARCH_PRODUCTS", "RESET_RESULT"]),
+    ...mapActions(searchStore, ["banner_search_product", "reset_result"]),
     handleScroll(e) {
       this.scrollTop = e.target.documentElement.scrollTop;
       if (this.scrollTop > 1) {
@@ -265,7 +266,7 @@ export default {
     },
     quick_search() {
       // this.SEARCH_RESULT_RESET()
-      this.BANNER_SEARCH_PRODUCTS(this.keyword);
+      this.banner_search_product(this.keyword);
       console.log("ready to go", this.banner_search_result);
       this.keyword = "";
     },
@@ -370,10 +371,13 @@ export default {
           swal("검색어는 3글자 이상 입력해주세요.", { icon: "error" });
           return;
         }
-        this.BANNER_SEARCH_PRODUCTS(name);
+        this.banner_search_product(name);
         swal.stopLoading();
         swal.close();
       });
+    },
+    ranking_click(item) {
+      this.banner_search_product(item);
     },
   },
   computed: {
@@ -398,11 +402,12 @@ export default {
       }
     },
   },
+  watch: {},
   created() {
     // console.log(this.$store.state.user_data.profile_img)
     // console.log()
     this.setLoading();
-    this.RESET_RESULT(); // 검색 결과 담을 변수 초기화
+    this.reset_result(); // 검색 결과 담을 변수 초기화
   },
 };
 </script>
@@ -433,10 +438,10 @@ export default {
   cursor: pointer;
 }
 .carousel-wrapper {
-  width: 32%;
+  width: 100%;
   height: 70px;
   overflow: hidden;
-  margin-left: 580px;
+  padding-right: 5rem;
 }
 
 .carousel-slides {
@@ -446,17 +451,14 @@ export default {
   animation: slide 15s infinite;
 }
 
-.slider-inner-text {
-  cursor: pointer;
-}
-
 .carousel-slide {
+  cursor: pointer;
   display: flex;
   justify-content: right;
   align-items: center;
   width: 100%;
   height: 100px;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 

@@ -6,6 +6,7 @@ import NProgress from "nprogress";
 import HomeView from "../views/HomeView.vue";
 import NotFound404 from "../views/error/NotFound404.vue";
 import store from "@/store/index.js";
+import searchStore from "@/store/modules/searchStore";
 
 import "../../node_modules/nprogress/nprogress.css";
 import "@/assets/css/progress.css";
@@ -105,7 +106,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log("#####nam#####: ", to.name);
   if (to.name) {
+    if (to.name != "sneakers") {
+      console.log('to.name != "sneakers" || to.name != "detail"');
+      store.dispatch("searchStore/reset_result");
+    }
     store.commit("SET_LOADING_STATE", true);
     NProgress.start();
   }

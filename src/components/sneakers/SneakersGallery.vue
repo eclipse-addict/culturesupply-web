@@ -213,7 +213,7 @@
         sm="4"
         md="3"
         style="width: 25rem"
-        v-for="(k, index) in kicks"
+        v-for="(k, index) in search_result"
         :key="index"
         v-scroll:#main="infinityScrollHandler"
       >
@@ -357,7 +357,6 @@
       </v-col>
 
       <infinite-loading
-        v-if="!initialLoading"
         @infinite="get_next_page"
         spinner="bubbles"
         ref="infiniteLoading"
@@ -448,6 +447,22 @@ export default {
     );
     document.removeEventListener("scroll", this.handleScroll);
   },
+
+  beforeRouteUpdate(to, from, next) {
+    console.log(
+      "beforeRouteUpdatebeforeRouteUpdatebeforeRouteUpdatebeforeRouteUpdatebeforeRouteUpdate"
+    );
+    console.log("to :", to);
+    console.log("from :", from);
+    console.log("next :", next);
+    if (to.name === "sneakersGallery") {
+      this.kicks = this.$store.state.searchStore.search_result.results;
+      this.next_page = this.$store.state.searchStore.search_result.next;
+      this.initialLoading = false;
+      this.goTop();
+    }
+    next();
+  },
   methods: {
     handleScroll(e) {
       // console.log("target", e.target);
@@ -473,9 +488,10 @@ export default {
     goTop() {
       window.scrollTo(0, 770);
     },
-    ...mapActions(searchStore, ["SET_SEARCH_RESULT"]),
+    ...mapActions(searchStore, ["saveSearchResult", "reset_result"]),
 
     fetch_kicks($state) {
+      this.reset_result();
       this.initialLoading = false; // 검색 전 카드 영역 출력 방지 // 검색 후 카드 영역 출력
       this.loadingComplete = false; // 검색 결과 출력 전 로딩 이미지 출력
 
@@ -491,7 +507,6 @@ export default {
       if (category == "All") category = "";
       // release_date가 null일 경우
       if (!release_date) {
-        console.log("releaseDate is null");
         // 현재 날짜 객체 생성
         let currentDate = new Date();
 
@@ -511,7 +526,6 @@ export default {
 
         // 결과
         release_date = twoWeeksAgoFormatted + "," + twoWeeksLaterFormatted;
-        console.log(release_date);
       }
       window.scrollTo(0, 900);
       let params = {
@@ -530,15 +544,11 @@ export default {
         .then((res) => {
           console.log(res);
           if (res) {
-            this.kicks = res.data.results;
-            this.next_page = res.data.next;
-            console.log("loadingComplete1111");
             this.loadingComplete = true;
-            this.SET_SEARCH_RESULT(res.data);
+            this.saveSearchResult(res.data);
             this.goTop();
             // $state.loaded();
           } else {
-            console.log("loadingComplete222");
             this.loadingComplete = true;
             $state.complete();
           }
@@ -551,16 +561,17 @@ export default {
     // searchStore의 Actions 에서 결과 리턴 받아온 뒤,
     // 결과값에 따라 $state.loaded() 또는 $state.complete() 실행
     get_next_page($state) {
-      if (this.next_page != null) {
+      console.log("get_next_page()");
+      if (this.next_page_url != null) {
         axios({
           method: "GET",
-          url: this.next_page,
+          url: this.next_page_url,
         })
           .then((res) => {
             console.log(res);
             if (res) {
-              this.kicks = this.kicks.concat(res.data.results);
-              this.next_page = res.data.next;
+              this.saveSearchResult(res.data);
+
               $state.loaded();
             } else {
               $state.complete();
@@ -721,10 +732,13 @@ export default {
     // this.fetch_kicks();
   },
   computed: {
-    ...mapGetters("searchStore", ["GET_SEARCH_RESULTS"]),
+    ...mapGetters("searchStore", ["GET_SEARCH_RESULTS", "GET_NEXT_PAGE_URL"]),
 
-    banner_search_result() {
+    search_result() {
       return this.GET_SEARCH_RESULTS;
+    },
+    next_page_url() {
+      return this.GET_NEXT_PAGE_URL;
     },
 
     brand_formatter() {

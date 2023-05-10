@@ -43,7 +43,7 @@
               <span class="material-symbols-outlined">refresh</span>
             </v-btn>
           </template>
-          <span>페이지 새로고침</span>
+          <span>검색 결과 초기화</span>
         </v-tooltip>
       </v-container>
     </v-main>
@@ -65,7 +65,6 @@ export default {
   name: "SneakerVie",
   data() {
     return {
-      isLoading: false,
       scroll: 0,
       scrollTarget: null,
 
@@ -95,7 +94,7 @@ export default {
     sneakersGallery,
   },
   methods: {
-    ...mapActions(searchStore, ["RESET_RESULT"]),
+    ...mapActions(searchStore, ["reset_result"]),
     search() {
       this.$router.push({
         name: "sneakers",
@@ -111,7 +110,7 @@ export default {
     },
     reset_sneakers() {
       //TODO: vuex 에 들어있는 검색 결과 초기화
-      this.RESET_RESULT();
+      this.reset_result();
       location.reload();
       this.goTop();
     },
@@ -161,6 +160,7 @@ export default {
       }
     },
   },
+
   computed: {
     dateRangeText() {
       return this.dates.join(" ~ ");
