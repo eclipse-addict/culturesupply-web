@@ -11,7 +11,7 @@ import searchStore from "@/store/modules/searchStore";
 import "../../node_modules/nprogress/nprogress.css";
 import "@/assets/css/progress.css";
 Vue.use(VueRouter);
-
+//TODO: chunk 하기
 const routes = [
   {
     path: "/",
@@ -107,8 +107,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   console.log("#####nam#####: ", to.name);
+  const resetStoreRoute = ["sneakers", "detail"];
   if (to.name) {
-    if (to.name != "sneakers") {
+    if (!resetStoreRoute.includes(to.name)) {
+      console.log(resetStoreRoute.includes(to.name), to.name);
       console.log('to.name != "sneakers" || to.name != "detail"');
       store.dispatch("searchStore/reset_result");
     }

@@ -1,6 +1,11 @@
 <template>
   <v-row>
-    <v-col cols="12" class="d-none d-sm-block" v-if="recent_releases_products">
+    <v-col cols="12" class="d-block" v-if="show_recent_views">
+      <v-card-subtitle>
+        <p class="text-h6 font-weight-bold text-left text-black main_fon mb-0t">
+          최근 본 상품
+        </p>
+      </v-card-subtitle>
       <v-slide-group
         v-model="current_item"
         class="pa-4"
@@ -8,7 +13,7 @@
         show-arrows
       >
         <v-slide-item
-          v-for="(p, index) in recent_releases_products"
+          v-for="(p, index) in recent_views"
           :key="index"
           v-slot="{ isSelected, toggle }"
         >
@@ -59,6 +64,18 @@
             </v-card>
           </v-hover>
         </v-slide-item>
+        <v-slide-item
+          v-if="show_recent_views"
+          class="text-center align-items-center"
+        >
+          <p
+            class="text-subtitle-2 font-weight-bold text-center text-black main_font mb-0 mx-auto"
+            style="padding-top: 72px"
+          >
+            아직 최근 본 상품이 없습니다. <br />
+            <v-btn class="mt-3" small elevation="1" outlined>둘러보기</v-btn>
+          </p>
+        </v-slide-item>
       </v-slide-group>
     </v-col>
 
@@ -67,9 +84,12 @@
 </template>
 
 <script>
-import axios from "axios";
 // @ is an alias to /src
 import loadingImg from "@/components/common/loadingPage.vue";
+import { mapGetters } from "vuex";
+
+const searchStore = "searchStore";
+
 export default {
   name: "CultureSupply",
   components: { loadingImg },
@@ -80,24 +100,10 @@ export default {
       recent_releases_products: null,
       env_url: this.$store.state.prod_url,
       isLoading: false,
+      no_recents: "아직 최근 본 상품이 없습니다.",
     };
   },
   methods: {
-    recent_releases() {
-      console.log("recent_releases()");
-      axios({
-        method: "GET",
-        url: this.$store.state.prod_url + "kicks/recent/",
-      })
-        .then((res) => {
-          console.log("recent_releases res: ", res.data);
-          this.recent_releases_products = res.data;
-          console.log("main_product", this.main_product);
-        })
-        .catch((err) => {
-          console.log("recent_releases err: ", err);
-        });
-    },
     toDetail(id) {
       this.$router.push({ name: "detail", params: { id } });
     },
@@ -112,13 +118,22 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(searchStore, ["GET_RECENT_VIEWS"]),
     img_url() {
       return this.main_product?.local_imageUrl;
     },
+    recent_views() {
+      return this.GET_RECENT_VIEWS;
+    },
+    show_recent_views() {
+      if (this.GET_RECENT_VIEWS) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
-  created() {
-    this.recent_releases();
-  },
+  created() {},
   filters: {
     desc_shortener(desc) {
       if (desc) {

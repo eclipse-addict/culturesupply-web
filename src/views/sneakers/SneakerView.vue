@@ -18,8 +18,9 @@
           right
           small
           elevation="9"
-          v-show="isScrollDown"
           @click="goTop"
+          class="button"
+          :class="{ button_show: isScrollDown }"
         >
           <v-icon>mdi-menu-up</v-icon>
         </v-btn>
@@ -35,10 +36,11 @@
               elevation="9"
               color="black"
               small
-              v-show="isScrollDown"
               @click="reset_sneakers"
               v-bind="attrs"
               v-on="on"
+              class="button"
+              :class="{ button_show: isScrollDown }"
             >
               <span class="material-symbols-outlined">refresh</span>
             </v-btn>
@@ -169,7 +171,15 @@ export default {
 };
 </script>
 <style scoped>
-/*.sneaker-main {
-   background-color: rgb(239, 239, 239); 
-}*/
+/* 초기 상태 */
+.button {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* 호버 또는 포커스 상태 */
+
+.button_show {
+  opacity: 1;
+}
 </style>

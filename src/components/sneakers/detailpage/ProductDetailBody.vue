@@ -148,6 +148,7 @@
 // import StarRating from 'vue-star-rating'
 import axios from "axios";
 import swal from "sweetalert";
+import { mapActions } from "vuex";
 export default {
   name: "productDetail",
   components: {
@@ -164,6 +165,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions("searchStore", ["addTorecentView"]),
     get_avg_rating() {
       let avg_rating = 0;
       if (this.kick) {
@@ -386,11 +388,14 @@ export default {
         console.log("detail res: ", res);
         this.kick = res.data;
         this.product_id = res.data.id;
+        console.log("axios Finally clause", this.kick);
+        this.addTorecentView(this.kick);
       })
       .catch((err) => {
         console.log("detail err :", err);
         this.$router.push("/404");
-      });
+      })
+      .finally(() => {});
   },
   mounted() {},
 };

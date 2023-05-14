@@ -9,7 +9,16 @@
         <v-card-text class="grey lighten-4">
           <v-sheet class="mx-auto px-10 py-3">
             <v-row>
-              <v-col cols="12" lg="3" sm="12">
+              <v-col cols="12" lg="2" sm="12">
+                <v-combobox
+                  v-model="ordering"
+                  :items="ordering_filters"
+                  @change="infoCheckBoxReset"
+                  label="정렬 기준"
+                  chips
+                ></v-combobox>
+              </v-col>
+              <v-col cols="12" lg="2" sm="12">
                 <v-combobox
                   v-model="category"
                   :items="categoryGroup"
@@ -21,7 +30,7 @@
                   chips
                 ></v-combobox>
               </v-col>
-              <v-col cols="12" lg="3" sm="12">
+              <v-col cols="12" lg="2" sm="12">
                 <v-combobox
                   v-model="brand"
                   :items="brandGroup"
@@ -84,13 +93,15 @@
                 >조건 초기화</v-btn
               >
             </p>
-            <p class="text-center">
-              <v-checkbox
-                label="정보 등록이 필요한 제품만 보기"
-                v-model="info_registrequired"
-                @change="reset_other_options"
-              ></v-checkbox>
-            </p>
+
+            <v-treeview
+              hoverable
+              rounded
+              dense
+              selectable
+              v-model="info_registrequired"
+              :items="items"
+            ></v-treeview>
           </v-sheet>
         </v-card-text>
       </v-card>
@@ -194,13 +205,13 @@
         </div>
       </div>
     </v-row>
-    <InFeedAdsense
-      style="border: 1px solid black; margin-top: 10px"
-      data-ad-layout-key="-fg+5n+6t-e7+r"
-      data-ad-client="ca-pub-6048277531996552"
-      data-ad-slot="9648734008"
-    >
-    </InFeedAdsense>
+    <!--    <InFeedAdsense-->
+    <!--      style="border: 1px solid black; margin-top: 10px"-->
+    <!--      data-ad-layout-key="-fg+5n+6t-e7+r"-->
+    <!--      data-ad-client="ca-pub-6048277531996552"-->
+    <!--      data-ad-slot="9648734008"-->
+    <!--    >-->
+    <!--    </InFeedAdsense>-->
     <GalleryLoadingCards v-if="!loadingComplete"> </GalleryLoadingCards>
     <v-row
       class="mt-sm-0 container d-flex justify-content-around"
@@ -322,7 +333,7 @@
               <v-icon>read_more</v-icon>
             </v-btn>
             <v-card-text class="pt-6">
-              <div class="grey--text text-caption mb-2" v-if="k.brand">
+              <div class="grey--text text-caption" v-if="k.brand">
                 {{
                   k.brand.includes("%20")
                     ? k.brand.replaceAll("%20", " ").toUpperCase()
@@ -330,25 +341,31 @@
                 }}
               </div>
               <div class="grey--text mb-2" v-else>Brand</div>
-              <span class="font-weight-heavy black--text mb-2 text-body-2">
+              <span class="font-weight-heavy black--text text-body-2">
                 {{ k.name }}
               </span>
-              <div class="font-weight-light mb-2 text-body-1">
+              <div class="font-weight-light text-body-1">
                 {{ k.releaseDate }}
               </div>
-              <v-rating
-                :value="k.rating_avg ? k.rating_avg : 0"
-                dense
-                readonly
-                half-icon
-                color="orange"
-                background-color="orange"
-                half-increments
-                class="mr-2"
-              ></v-rating>
-              <span class="primary--text text-subtitle-2"
-                >{{ k.review_count }} Reviews</span
-              >
+              <div class="mx-0">
+                <v-rating
+                  :value="k.rating_avg ? k.rating_avg : 0"
+                  dense
+                  readonly
+                  half-icon
+                  color="amber"
+                  background-color="orange"
+                  half-increments
+                  x-small
+                  style="display: inline-block"
+                ></v-rating>
+                <span class="grey--text ms-4">({{ k.review_count }})</span>
+              </div>
+
+              <div class="grey--text text-caption">
+                {{ k.click }}
+                <v-icon x-small>mdi-eye-outline</v-icon>
+              </div>
             </v-card-text>
           </v-card>
         </v-hover>
@@ -407,9 +424,24 @@ export default {
       brand: ["All"],
       category: ["All"],
       dates: [],
-      info_registrequired: false,
+      info_registrequired: [],
       isScrollDown: false,
       scrollTop: 0,
+      ordering_filters: ["발매일 기준", "조회수"],
+      ordering: ["발매일 기준"],
+      items: [
+        {
+          id: 1,
+          name: "정보 등록하고 포인트 받기",
+          children: [
+            { id: "brand", name: "브랜드" },
+            { id: "date", name: "발매일" },
+            { id: "category", name: "카테고리" },
+            { id: "price", name: "발매 금액" },
+            { id: "image", name: "제품 이미지" },
+          ],
+        },
+      ],
     };
   },
   props: {
@@ -483,6 +515,7 @@ export default {
       this.brand = ["All"];
       this.category = ["All"];
       this.dates = [];
+      this.info_registrequired = [];
     },
 
     goTop() {
@@ -501,10 +534,19 @@ export default {
       let category = this.category.join();
       let release_date = this.dates.join();
       let info_registrequired = this.info_registrequired;
+      let ordering = this.ordering;
 
       // 검색 조건 정리 (All 제거)
       if (brand == "All") brand = "";
       if (category == "All") category = "";
+      if (ordering == "발매일 기준") ordering = "all";
+      else if (ordering == "조회수") ordering = "click";
+
+      if (info_registrequired.length != 0) {
+        info_registrequired = this.info_registrequired.join();
+        console.log("info_registrequired", info_registrequired);
+      }
+
       // release_date가 null일 경우
       if (!release_date) {
         // 현재 날짜 객체 생성
@@ -534,6 +576,7 @@ export default {
         category,
         brand,
         info_registrequired,
+        ordering,
       };
       console.log(params);
       axios({

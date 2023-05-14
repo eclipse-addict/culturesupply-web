@@ -17,6 +17,7 @@ const searchStore = {
       previous: null,
       results: [],
     },
+    recent_view: [],
   },
   getters: {
     GET_SEARCH_RESULTS(state) {
@@ -24,6 +25,9 @@ const searchStore = {
     },
     GET_NEXT_PAGE_URL(state) {
       return state.search_result.next;
+    },
+    GET_RECENT_VIEWS(state) {
+      return state.recent_view;
     },
   },
   mutations: {
@@ -48,11 +52,67 @@ const searchStore = {
         results: [],
       };
     },
+    ADD_TO_RECENT_VIEW(state, payload) {
+      console.log("ADD_TO_RECENT_VIEW");
+      if (state.recent_view.length > 0) {
+        let idx = state.recent_view.findIndex((item) => item.id === payload.id);
+        console.log("idx: ", idx);
+        if (idx === -1) {
+          console.log("idx === -1");
+          if (state.recent_view.length >= 10) state.recent_view.shift();
+          state.recent_view.push(payload);
+        }
+      } else {
+        state.recent_view.push(payload);
+      }
+    },
   },
   actions: {
-    banner_search_product({ commit, context }, payload) {
+    mainPageSearch({ commit }, payload) {
+      console.log("mainPageSearch", payload);
       commit("RESET_SEARCH_RESULTS"); // 우선 결과 초기화. (이전에 검색한 내역이 남아있을 수 있음.)
-      console.log("searchStore: ", context, payload, commit); // error prevent code
+      let currentDate = new Date();
+
+      // 현재 날짜에서 2주를 뺀 날짜 계산
+      let twoWeeksAgo = new Date(1900, 0, 1);
+
+      // 현재 날짜에서 2주를 더한 날짜 계산
+      let twoWeeksLater = new Date(
+        currentDate.getTime() + 14 * 24 * 60 * 60 * 1000
+      );
+
+      // 각 날짜를 원하는 포맷에 맞게 변환
+      let twoWeeksAgoFormatted = twoWeeksAgo.toISOString().substring(0, 10);
+      let twoWeeksLaterFormatted = twoWeeksLater.toISOString().substring(0, 10);
+
+      // 두 날짜를 하나의 문자열로 합침
+      let release_date = twoWeeksAgoFormatted + "," + twoWeeksLaterFormatted;
+      let ordering = payload;
+
+      let params = {
+        ordering,
+        release_date,
+      };
+      axios({
+        method: "GET",
+        url: this.state.prod_url + "kicks/sneaker/list/",
+        params: params,
+      })
+        .then((res) => {
+          if (res) {
+            commit("SET_SEARCH_RESULTS", res.data);
+            router.push({
+              name: "sneakers",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("vuex search err: ", err);
+        });
+    },
+
+    banner_search_product({ commit }, payload) {
+      commit("RESET_SEARCH_RESULTS"); // 우선 결과 초기화. (이전에 검색한 내역이 남아있을 수 있음.)
       let currentDate = new Date();
 
       // 현재 날짜에서 2주를 뺀 날짜 계산
@@ -72,10 +132,10 @@ const searchStore = {
       let search = payload;
 
       let params = {
+        ordering: "all",
         search,
         release_date,
       };
-      console.log(params);
       axios({
         method: "GET",
         url: this.state.prod_url + "kicks/sneaker/list/",
@@ -83,7 +143,6 @@ const searchStore = {
       })
         .then((res) => {
           if (res) {
-            console.log("vuex search res: ", res);
             commit("SET_SEARCH_RESULTS", res.data);
             router.push({
               name: "sneakers",
@@ -101,6 +160,10 @@ const searchStore = {
     reset_result({ commit }) {
       console.log("reset_result");
       commit("RESET_SEARCH_RESULTS");
+    },
+    addTorecentView({ commit }, payload) {
+      console.log("addTorecentView", payload);
+      commit("ADD_TO_RECENT_VIEW", payload);
     },
   },
 };
