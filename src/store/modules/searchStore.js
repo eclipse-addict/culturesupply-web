@@ -87,9 +87,20 @@ const searchStore = {
 
       // 두 날짜를 하나의 문자열로 합침
       let release_date = twoWeeksAgoFormatted + "," + twoWeeksLaterFormatted;
+      let info_registrequired = [];
+      if (payload === "info_need") {
+        info_registrequired = [
+          "brand",
+          "date",
+          "category",
+          "price",
+          "image",
+        ].join();
+      }
       let ordering = payload;
 
       let params = {
+        info_registrequired,
         ordering,
         release_date,
       };

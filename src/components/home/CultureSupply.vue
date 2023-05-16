@@ -26,8 +26,8 @@
               @click="toggle"
             >
               <v-img
-                :src="env_url + p.local_imageUrl"
-                :lazy-src="env_url + 'media/images/loading.gif'"
+                :src="img_url + p.local_imageUrl"
+                :lazy-src="img_url + 'media/images/loading.gif'"
               >
                 <v-expand-transition>
                   <div
@@ -99,6 +99,7 @@ export default {
       current_item: null,
       recent_releases_products: null,
       env_url: this.$store.state.prod_url,
+      img_url: this.$store.state.imageUrl,
       isLoading: false,
       no_recents: "아직 최근 본 상품이 없습니다.",
     };
@@ -119,9 +120,9 @@ export default {
   },
   computed: {
     ...mapGetters(searchStore, ["GET_RECENT_VIEWS"]),
-    img_url() {
-      return this.main_product?.local_imageUrl;
-    },
+    // img_url() {
+    //   return this.main_product?.local_imageUrl;
+    // },
     recent_views() {
       return this.GET_RECENT_VIEWS;
     },

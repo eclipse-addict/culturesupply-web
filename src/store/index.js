@@ -162,6 +162,7 @@ export default new Vuex.Store({
   state: {
     prod_url: baseUrl,
     isLoading: true,
+    imageUrl: "https://www.kickin.co.kr/",
     brandGroup: [
       "Nike",
       "adidas",

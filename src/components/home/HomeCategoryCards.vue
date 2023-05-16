@@ -9,18 +9,14 @@
               :class="[{ 'on-hover': hover }, { card_hover: hover }]"
               @click="searchByLabel(All_card.label)"
             >
-              <v-img
-                :src="hover ? All_card.gif_img : All_card.still_img"
-                height="225px"
-                contain
-              >
+              <v-img :src="All_card.gif_img" height="225px" contain>
                 <v-card-title class="text-h6 white--text">
                   <v-row
                     class="fill-height flex-column"
                     justify="space-between"
                   >
                     <p class="mt-4 subheading text-left text-black main_font">
-                      {{ hyper_card.title }}
+                      {{ All_card.title }}
                     </p>
 
                     <div>
@@ -116,10 +112,14 @@
           </v-hover> </v-col
         ><v-col cols="12" md="4">
           <v-hover v-slot="{ hover }" close-delay="200">
-            <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+            <v-card
+              :elevation="hover ? 12 : 2"
+              :class="{ 'on-hover': hover }"
+              @click="searchByLabel(info_need.label)"
+            >
               <v-img
                 contain
-                :src="hover ? recent_card.gif_img : recent_card.still_img"
+                :src="hover ? info_need.gif_img : info_need.still_img"
                 height="225px"
               >
                 <v-card-title class="text-h6 white--text">
@@ -128,7 +128,7 @@
                     justify="space-between"
                   >
                     <p class="mt-4 subheading text-left text-black main_font">
-                      {{ recent_card.title }}
+                      {{ info_need.title }}
                     </p>
                     <div>
                       <p
@@ -159,28 +159,29 @@ import { mapActions } from "vuex";
 const searchStore = "searchStore";
 export default {
   data: () => ({
+    All_card: {
+      still_img: require("@/assets/images/sneaker-main.png"),
+      gif_img: require("@/assets/images/sneaker-main.gif"),
+      title: "RECENT DROP",
+      label: "recent_drop",
+    },
+    info_need: {
+      still_img: require("@/assets/images/dunk_c.avif"),
+      gif_img: require("@/assets/images/dunk_c.gif"),
+      title: "INFO NEEDED",
+      label: "info_need",
+    },
+    hyper_card: {
+      still_img: require("@/assets/images/tifany.avif"),
+      gif_img: require("@/assets/images/tifany.gif"),
+      title: "MOST COMMENTED",
+      label: "most_commented",
+    },
     most_view_card: {
       still_img: require("@/assets/images/travis_still_img.avif"),
       gif_img: require("@/assets/images/travis_frag_j.gif"),
       title: "MOST VIEWED",
       label: "click",
-    },
-    hyper_card: {
-      still_img: require("@/assets/images/tifany.avif"),
-      gif_img: require("@/assets/images/tifany.gif"),
-      title: "MOST HYPED",
-      label: "most_hyped",
-    },
-    recent_card: {
-      still_img: require("@/assets/images/dunk_c.avif"),
-      gif_img: require("@/assets/images/dunk_c.gif"),
-      title: "RECENT DROP",
-      label: "recent_drop",
-    },
-    All_card: {
-      still_img: require("@/assets/images/sneaker-main.png"),
-      gif_img: require("@/assets/images/sneaker-main.gif"),
-      title: "all",
     },
   }),
   methods: {

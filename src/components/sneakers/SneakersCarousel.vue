@@ -30,7 +30,7 @@
             </v-img>
           </div>
           </v-hover>
-          <div style="position: absolute; margin-top: 5rem; text-center">
+          <div style="position: absolute; margin-top: 5rem;">
             <h1  class="h1-font">{{ slide.name }}</h1>
             <!-- <v-btn class="detail-btn"  style="margin:4.5rem 20rem 0 20rem;" outlined raised rounded text color="black" x-large>Take me to Detail</v-btn> -->
           </div>
@@ -56,7 +56,7 @@ export default {
     fetch_kicks(){
       axios({
         method: "GET",
-        url: this.$store.state.prod_url + '/kicks/recent/',
+        url: this.$store.state.prod_url + 'kicks/recent/',
       })
       .then(res => {
         console.log(res)

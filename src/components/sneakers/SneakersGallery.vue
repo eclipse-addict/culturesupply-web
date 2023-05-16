@@ -240,8 +240,8 @@
               contain
               :src="
                 k.local_imageUrl.startsWith('productUpdator')
-                  ? env_url + 'media/' + k.local_imageUrl
-                  : env_url + k.local_imageUrl
+                  ? imag_url + 'media/' + k.local_imageUrl
+                  : imag_url + k.local_imageUrl
               "
               :lazy-src="env_url + 'media/images/loading.gif'"
             >
@@ -411,6 +411,7 @@ export default {
       overlay: false,
       next_page: "",
       env_url: this.$store.state.prod_url,
+      imag_url: this.$store.state.imageUrl,
       sticky: false,
       loadingComplete: true,
       initialLoading: true,
