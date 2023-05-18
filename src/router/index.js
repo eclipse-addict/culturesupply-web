@@ -127,7 +127,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   console.log("#####nam#####: ", to.name);
-  const resetStoreRoute = ["sneakers", "detail"];
+  const resetStoreRoute = ["sneakers", "detail", "updateInfo"];
   if (to.name) {
     if (!resetStoreRoute.includes(to.name)) {
       console.log(resetStoreRoute.includes(to.name), to.name);
