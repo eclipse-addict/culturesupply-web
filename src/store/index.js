@@ -5,7 +5,7 @@ import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
 let baseUrl =
-  process?.env.VUE_APP_DEV === "_ENV_DEVELOPMENT"
+  process?.env.VUE_APP_MODE === "_ENV_DEVELOPMENT"
     ? "http://localhost:8000/"
     : "https://www.kickin.co.kr/";
 
@@ -32,6 +32,15 @@ export default new Vuex.Store({
     get_env_url(state) {
       return state.prod_url;
     },
+    get_brand_list(state){
+      return state.brandGroup;
+    },
+    get_category_list(state){
+      return state.categoryGroup;
+    },
+    get_img_url(state){
+      return state.imageUrl;
+    }
   },
   mutations: {
     SET_USER_TOKEN(state, payload) {

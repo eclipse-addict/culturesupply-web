@@ -1,7 +1,12 @@
 <template>
-  <v-row>
-    <InfoRegistryList :updators="updators"></InfoRegistryList>
-  </v-row>
+  <v-container>
+    <v-row>
+      <InfoRegistryList
+        :updators="updators"
+        @chage_filter="fetch_updators"
+      ></InfoRegistryList>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -19,10 +24,12 @@ export default {
     };
   },
   methods: {
-    fetch_updators(url) {
-      const request_url = url
-        ? url
-        : this.$store.state.prod_url + "info/updators/";
+    fetch_updators(condition) {
+      console.log("fetch_updators condition: ", condition);
+      const request_condition = condition ? condition : 3;
+      const request_url =
+        this.$store.state.prod_url +
+        `info/updators/?condition=${request_condition}`;
       axios({
         method: "GET",
         url: request_url,

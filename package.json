@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "dev": "vue-cli-service serve --mode local",
     "deploy": "npm run build -- --mode=prod && rsync -avz -e ssh dist/ isaacshin92@218.155.159.235:/var/services/web/kickin-web"
   },
   "dependencies": {

@@ -5,7 +5,7 @@
       </v-select>
     </v-col>
     <v-col cols="12">
-      <v-expansion-panels v-for="(updator, idx) in list_filter" :key="idx">
+      <v-expansion-panels v-for="(updator, idx) in updators" :key="idx">
         <InfoRegistryItem :updator="updator"></InfoRegistryItem>
       </v-expansion-panels>
     </v-col>
@@ -28,12 +28,22 @@ export default {
     };
   },
   mehtods: {},
+  watch: {
+    filter_select() {
+      console.log(this.list_filter_condition);
+      this.$emit("chage_filter", this.list_filter_condition);
+    },
+  },
   computed: {
-    list_filter() {
-      if (this.filter_select == "") {
-        return;
+    list_filter_condition() {
+      if (this.filter_select == "승인 완료") {
+        return 1;
+      } else if (this.filter_select == "정보 확인 중") {
+        return 0;
+      } else if (this.filter_select == "반려") {
+        return 2;
       }
-      return this.$props.updators;
+      return 3;
     },
   },
 };

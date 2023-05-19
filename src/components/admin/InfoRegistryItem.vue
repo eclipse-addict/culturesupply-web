@@ -80,9 +80,25 @@ export default defineComponent({
 <template>
   <v-expansion-panel>
     <v-expansion-panel-header>
-      {{ updator.final_approved ? "승인" : "승인 필요" }}
-      <v-divider></v-divider>
-      {{ updator.product_info.name }}
+      <v-row>
+        <v-col cols="2">
+          <v-icon
+            v-if="updator.final_approved == 0"
+            color="red darken-2"
+            class="confirm_icon"
+            >mdi-alpha-x</v-icon
+          >
+          <v-icon
+            v-else-if="updator.final_approved == 1"
+            color="green darken-2"
+            class="confirm_icon"
+            >mdi-check-all</v-icon
+          >
+        </v-col>
+        <v-col>
+          {{ updator.product_info.name }}
+        </v-col>
+      </v-row>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
       <v-simple-table>
@@ -147,4 +163,8 @@ export default defineComponent({
   </v-expansion-panel>
 </template>
 
-<style scoped></style>
+<style scoped>
+v-icon {
+  .confirm_icon: start !important;
+}
+</style>
