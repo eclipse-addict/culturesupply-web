@@ -160,6 +160,12 @@
             </v-list-item-icon>
             <v-list-item-title>Auction</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="signoutRequest">
+            <v-list-item-icon>
+              <span class="material-symbols-outlined"> logout </span>
+            </v-list-item-icon>
+            <v-list-item-title>log out</v-list-item-title>
+          </v-list-item>
           <v-list-item
             @click="toAdmin"
             v-show="
@@ -173,14 +179,6 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-      <v-btn
-        v-if="this.$store.state.user_data.access_token"
-        icon
-        style="margin-top: 30.3rem"
-        @click="signoutRequest"
-      >
-        <span class="material-symbols-outlined">logout</span>
-      </v-btn>
     </v-navigation-drawer>
     <v-main>
       <v-container fluid>
@@ -190,7 +188,6 @@
         </transition>
       </v-container>
     </v-main>
-
   </v-app>
 </template>
 

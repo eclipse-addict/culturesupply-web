@@ -1,11 +1,34 @@
 <template>
   <v-container>
-    <v-row>
-      <InfoRegistryList
-        :updators="updators"
-        @chage_filter="fetch_updators"
-      ></InfoRegistryList>
-    </v-row>
+    <v-card>
+      <v-card-title>관리자 페이지</v-card-title>
+      <v-tabs v-model="tab" background-color="primary" dark>
+        <v-tab v-for="item in items" :key="item.tab">
+          {{ item.tab }}
+        </v-tab>
+      </v-tabs>
+      <v-tabs-items v-model="tab">
+        <v-tab-item v-for="item in items" :key="item.tab">
+          <v-card flat>
+            <v-row v-if="item.key == 'updator'">
+              <InfoRegistryList
+                :updators="updators"
+                @chage_filter="fetch_updators"
+              ></InfoRegistryList>
+              <v-col>
+                <div class="text-center my-3">
+                  <v-pagination
+                    v-model="page"
+                    :length="page_count"
+                    circle
+                  ></v-pagination>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card>
   </v-container>
 </template>
 
@@ -21,15 +44,24 @@ export default {
       next_page: null,
       previous_page: null,
       count: null,
+      page: 1,
+      condition: 3,
+      tab: null,
+      items: [
+        { tab: "제품 정보 업데이터", key: "updator" },
+        { tab: "회원 문의 관리", key: "Tab 2 Content" },
+        { tab: "응모 현황", key: "Tab 3 Content" },
+        { tab: "회원 신고", key: "Tab 4 Content" },
+      ],
     };
   },
   methods: {
     fetch_updators(condition) {
       console.log("fetch_updators condition: ", condition);
-      const request_condition = condition ? condition : 3;
+      this.condition = condition;
       const request_url =
         this.$store.state.prod_url +
-        `info/updators/?condition=${request_condition}`;
+        `info/updators/?condition=${this.condition}&page=${this.page}`;
       axios({
         method: "GET",
         url: request_url,
@@ -44,24 +76,24 @@ export default {
           this.next_page = res.data.next;
           this.previous_page = res.data.previous;
           this.count = res.data.count;
+          window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
         })
         .catch((err) => {
           console.log("fetch_updators err: ", err);
         });
     },
   },
+  watch: {
+    page() {
+      this.fetch_updators(this.condition);
+    },
+  },
   created() {
-    this.fetch_updators();
+    this.fetch_updators(this.condition);
   },
   computed: {
-    beforeApprove() {
-      // 승인이 필요한 정보들 필터링
-      return this.item.productUpdatorItems.filter(
-        (item) => item.approved == false
-      );
-    },
-    registedInfoLength() {
-      return this.beforeApprove.length;
+    page_count() {
+      return Math.ceil(this.count / 5);
     },
   },
 };

@@ -1,15 +1,21 @@
 <template>
-  <v-row align-content="center">
-    <v-col cols="8" class="mx-auto mt-2">
-      <v-select v-model="filter_select" :items="filter_items" attach chips>
-      </v-select>
-    </v-col>
-    <v-col cols="12">
-      <v-expansion-panels v-for="(updator, idx) in updators" :key="idx">
-        <InfoRegistryItem :updator="updator"></InfoRegistryItem>
-      </v-expansion-panels>
-    </v-col>
-  </v-row>
+  <v-container>
+    <v-row align-content="center">
+      <v-col cols="8" class="mx-auto mt-2">
+        <v-select v-model="filter_select" :items="filter_items" attach chips>
+        </v-select>
+      </v-col>
+      <v-col cols="12">
+        <v-expansion-panels
+          v-for="(updator, idx) in updators"
+          :key="idx"
+          focusable
+        >
+          <InfoRegistryItem :updator="updator"></InfoRegistryItem>
+        </v-expansion-panels>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
 import InfoRegistryItem from "@/components/admin/InfoRegistryItem.vue";

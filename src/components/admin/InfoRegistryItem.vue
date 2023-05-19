@@ -30,9 +30,21 @@ export default defineComponent({
         this.approval_list.push(payload);
       }
     },
-    approve_updator() {
+    approve_or_deny_updator(type) {
+      const before_msg =
+        type === "approve"
+          ? "등록된 정보의 일괄 승인 처리하시겠습니까?"
+          : "등록된 정보를 반려하시겠습니까?";
+
+      const request_url =
+        type === "approve"
+          ? `info/accpet/${this.$props.updator.pk}/`
+          : `info/deny/${this.$props.updator.pk}/`;
+
+      const after_msg = type === "approve" ? "승인" : "반려";
+
       if (this.approval_list.length == 0) {
-        swal("주의 요망", "등록된 정보를 일괄 승인처리합니다", {
+        swal("주의 요망", before_msg, {
           icon: "info",
           buttons: {
             cancel: "취소",
@@ -50,17 +62,19 @@ export default defineComponent({
                   Authorization:
                     "Bearer " + this.$store.state.user_data.access_token,
                 },
-                url:
-                  this.$store.state.prod_url +
-                  `info/accpet/${this.$props.updator.pk}/`,
+                url: this.$store.state.prod_url + request_url,
               })
                 .then((res) => {
                   console.log("approve_updator res: ", res.data);
-                  swal("승인 완료", "정보가 승인되었습니다", "success");
+                  swal(
+                    `${after_msg} 완료`,
+                    `정보가 ${after_msg}되었습니다`,
+                    "success"
+                  );
                   // this.$emit("updator_approved");
                 })
                 .catch((err) => {
-                  console.log("approve_updator err: ", err);
+                  console.log(`updator ${after_msg} err: `, err);
                 });
               break;
             default:
@@ -74,30 +88,54 @@ export default defineComponent({
       this.$router.push({ name: "detail", params: { id } });
     },
   },
+  computed: {
+    button_disabled() {
+      return this.$props.updator.final_approved == 2
+        ? true
+        : this.$props.updator.final_approved == 1
+        ? true
+        : this.$store.getters.get_user_data.email != "kickin.@kickin.kr"
+        ? true
+        : false;
+    },
+    button_show() {
+      return this.$store.getters.get_user_data.email == "kickin.@kickin.kr"
+        ? true
+        : false;
+    },
+  },
 });
 </script>
 
 <template>
-  <v-expansion-panel>
+  <v-expansion-panel class="my-2">
     <v-expansion-panel-header>
       <v-row>
-        <v-col cols="2">
-          <v-icon
-            v-if="updator.final_approved == 0"
-            color="red darken-2"
-            class="confirm_icon"
-            >mdi-alpha-x</v-icon
-          >
-          <v-icon
-            v-else-if="updator.final_approved == 1"
-            color="green darken-2"
-            class="confirm_icon"
+        <v-col cols="3">
+          <v-icon v-if="updator.final_approved == 0" color="red darken-2"
+            >mdi-exclamation-thick
+          </v-icon>
+          <v-icon v-else-if="updator.final_approved == 1" color="green darken-2"
             >mdi-check-all</v-icon
+          ><v-icon v-else-if="updator.final_approved == 2" color="red darken-2"
+            >mdi-cancel</v-icon
           >
+          <span class="overline fw-light">
+            {{
+              updator.final_approved == 0
+                ? "미승인"
+                : updator.final_approved == 1
+                ? "승인"
+                : "반려"
+            }}
+          </span>
         </v-col>
         <v-col>
           {{ updator.product_info.name }}
         </v-col>
+        <v-col>{{
+          new Date(updator.created_at).toLocaleDateString("ko-KR")
+        }}</v-col>
       </v-row>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
@@ -122,49 +160,66 @@ export default defineComponent({
         <v-btn
           color="primary"
           @click="search_url_creator"
-          width="15%"
+          width="17%"
           height="30"
           class="mx-1"
+          x-small
         >
           <v-icon>mdi-magnify</v-icon>
-          구글 검색
+
+          <span style="font-size: 10px">구글 검색</span>
         </v-btn>
         <v-btn
           color="blue lighten-2
 "
           @click="toDetail(updator.product)"
-          width="15%"
+          width="17%"
           height="30"
           class="mx-1"
+          x-small
         >
           <v-icon>mdi-magnify</v-icon>
-          제품 보기
+          <span style="font-size: 10px">제품 보기 </span>
         </v-btn>
         <v-btn
-          width="15%"
+          width="17%"
           height="30"
           class="mx-1"
           color="success"
-          @click="approve_updator"
+          @click="approve_or_deny_updator('approve')"
+          :disabled="button_disabled"
+          v-show="button_show"
+          x-small
         >
           <v-icon>mdi-check</v-icon>
-          전체 승인
+          <span style="font-size: 10px"> 전체 승인</span>
         </v-btn>
-        <v-btn width="15%" height="30" class="mx-1">
+        <v-btn
+          width="17%"
+          height="30"
+          class="mx-1"
+          :disabled="button_disabled"
+          v-show="button_show"
+        >
           <v-icon>mdi-check</v-icon>
-          선택 승인
+          <span style="font-size: 10px">선택 승인</span>
         </v-btn>
-        <v-btn class="mx-1" width="15%" height="30" color="warning">
+        <v-btn
+          class="mx-1"
+          width="17%"
+          height="30"
+          color="warning"
+          @click="approve_or_deny_updator('deny')"
+          :disabled="button_disabled"
+          v-show="button_show"
+          x-small
+        >
           <v-icon>mdi-close</v-icon>
-          반려
+          <span style="font-size: 10px"> 반려 </span>
         </v-btn>
       </div>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
 
-<style scoped>
-v-icon {
-  .confirm_icon: start !important;
-}
-</style>
+<style scoped></style>
