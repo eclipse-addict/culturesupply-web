@@ -85,8 +85,8 @@
           <v-img
             :src="
               kick?.local_imageUrl.startsWith('productUpdator')
-                ? env_url + 'media/' + kick?.local_imageUrl
-                : env_url + kick?.local_imageUrl
+                ? img_base_url + 'media/' + kick?.local_imageUrl
+                : img_base_url + kick?.local_imageUrl
             "
             :lazy-src="env_url + 'media/images/loading.gif'"
             contain
@@ -162,6 +162,7 @@ export default {
       like_users: [],
       selectedAction: null,
       env_url: this.$store.state.prod_url,
+      img_base_url: this.$store.getters.get_img_url,
     };
   },
   methods: {
