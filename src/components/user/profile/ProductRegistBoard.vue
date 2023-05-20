@@ -53,6 +53,11 @@ export default defineComponent({
   created() {
     this.fetch_updators(this.condition);
   },
+  watch: {
+    page() {
+      this.fetch_updators(this.condition);
+    },
+  },
 });
 </script>
 

@@ -19,6 +19,9 @@
           <ProductRegistBoard
             v-else-if="current_tap == 'product_regist'"
           ></ProductRegistBoard>
+          <PointHistory
+            v-else-if="current_tap == 'point_history'"
+          ></PointHistory>
         </v-col>
       </v-row>
     </v-main>
@@ -32,6 +35,7 @@ import CustomerService from "@/components/user/profile/CustomerService.vue";
 import UserInfoUpdateForm from "@/components/user/profile/UserInfoUpdateForm.vue";
 import PasswordChange from "@/components/user/profile/PasswordChange.vue";
 import ProductRegistBoard from "@/components/user/profile/ProductRegistBoard.vue";
+import PointHistory from "@/components/user/profile/PointHistory.vue";
 // import axios from "axios";
 export default {
   name: "UserPage",
@@ -42,6 +46,7 @@ export default {
     UserInfoUpdateForm,
     PasswordChange,
     ProductRegistBoard,
+    PointHistory,
   },
   data() {
     return {

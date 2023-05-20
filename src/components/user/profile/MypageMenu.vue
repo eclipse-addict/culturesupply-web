@@ -63,7 +63,7 @@ export default {
     ],
     cruds: [
       ["응모 내역", "mdi-medal-outline"],
-      ["포인트", "mdi-cash-check"],
+      ["포인트", "mdi-cash-check", "point_history"],
       ["등록한 제품 정보", "mdi-pen", "product_regist"],
       ["작성한 리뷰", "mdi-message-draw"],
     ],

@@ -9,7 +9,11 @@
               :class="[{ 'on-hover': hover }, { card_hover: hover }]"
               @click="searchByLabel(All_card.label)"
             >
-              <v-img :src="All_card.gif_img" height="225px" contain>
+              <v-img
+                :src="hover ? All_card.gif_img : All_card.still_img"
+                height="225px"
+                contain
+              >
                 <v-card-title class="text-h6 white--text">
                   <v-row
                     class="fill-height flex-column"
@@ -160,14 +164,14 @@ const searchStore = "searchStore";
 export default {
   data: () => ({
     All_card: {
-      still_img: require("@/assets/images/sneaker-main.png"),
-      gif_img: require("@/assets/images/sneaker-main.gif"),
+      still_img: require("@/assets/images/dunk_c.avif"),
+      gif_img: require("@/assets/images/dunk_c.gif"),
       title: "RECENT DROP",
       label: "recent_drop",
     },
     info_need: {
-      still_img: require("@/assets/images/dunk_c.avif"),
-      gif_img: require("@/assets/images/dunk_c.gif"),
+      still_img: require("@/assets/images/adidas.avif"),
+      gif_img: require("@/assets/images/adidas.gif"),
       title: "INFO NEEDED",
       label: "info_need",
     },
