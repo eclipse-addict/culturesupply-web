@@ -64,16 +64,14 @@
             </v-card>
           </v-hover>
         </v-slide-item>
-        <v-slide-item
-          v-if="show_recent_views"
-          class="text-center align-items-center"
-        >
+        <v-slide-item class="text-center align-items-center">
           <p
             class="text-subtitle-2 font-weight-bold text-center text-black main_font mb-0 mx-auto"
             style="padding-top: 72px"
           >
-            아직 최근 본 상품이 없습니다. <br />
-            <v-btn class="mt-3" small elevation="1" outlined>둘러보기</v-btn>
+            <v-btn style="margin-top: 20%" x-large elevation="1" outlined
+              >더 둘러보기</v-btn
+            >
           </p>
         </v-slide-item>
       </v-slide-group>
@@ -175,7 +173,8 @@ export default {
 .main-desc {
   color: #0e0d0d;
 }
-/* img {
-  box-shadow: 0px 0px 10px 40px #ffffff;
-} */
+
+.show_more {
+  margin-left: 75%;
+}
 </style>

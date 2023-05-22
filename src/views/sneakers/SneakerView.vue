@@ -10,7 +10,7 @@
         <sneakersGallery :url="url" ref="sneakersGallery" />
 
         <v-btn
-          style="margin-right: 8px; margin-bottom: 130px"
+          style="margin-right: 8px"
           fab
           fixed
           dark
@@ -27,7 +27,7 @@
         <v-tooltip left>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              style="margin-right: 70px; margin-bottom: 130px"
+              style="margin-right: 70px"
               fixed
               bottom
               icon

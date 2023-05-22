@@ -151,6 +151,13 @@
               </v-img>
             </v-card>
           </v-hover>
+          <v-overlay :value="overlay">
+            <div>
+              <div class="typing-effect">
+                제품 정보를 불러오는 중입니다. 잠시만 기다려주세요......
+              </div>
+            </div>
+          </v-overlay>
         </v-col>
       </template>
     </v-row>
@@ -160,6 +167,7 @@
 
 <script>
 import { mapActions } from "vuex";
+
 const searchStore = "searchStore";
 export default {
   data: () => ({
@@ -187,12 +195,22 @@ export default {
       title: "MOST VIEWED",
       label: "click",
     },
+    overlay: false,
   }),
   methods: {
     ...mapActions(searchStore, ["mainPageSearch"]),
     searchByLabel(label) {
-      console.log("label", label);
+      // 화면 전환 되기 전까지 로딩 컴포넌트 띄우기
+      this.overlay = !this.overlay;
       this.mainPageSearch(label);
+    },
+  },
+  watch: {
+    overlay(val) {
+      val &&
+        setTimeout(() => {
+          this.overlay = false;
+        }, 15000);
     },
   },
 };
@@ -221,5 +239,37 @@ export default {
   letter-spacing: 0.7rem;
   text-shadow: 1px 1px 2px #000000;
   transition: all ease 1.5s 0s;
+}
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.typing-effect {
+  overflow: hidden; /* 내용이 넘치는 경우 숨김 처리 */
+  white-space: nowrap; /* 한 줄에 모든 내용 표시 */
+  border-right: 2px solid #000; /* 글자가 한 글자씩 나타나는 효과를 줄 테두리 스타일 설정 */
+  width: fit-content; /* 내용에 맞게 너비 설정 */
+  animation: typing 5s steps(40) infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  } /* 글자가 보이지 않는 상태로 시작 */
+  to {
+    width: 100%;
+  } /* 글자가 한 글자씩 나타남 */
 }
 </style>

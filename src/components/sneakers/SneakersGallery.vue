@@ -122,7 +122,7 @@
         dark
         fixed
         bottom
-        right
+        left
         fab
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasRight"
@@ -281,7 +281,9 @@
                       <font-awesome-icon icon="fa-regular fa-heart" />
                     </v-btn>
                     <v-btn x-small absolute fab left>
-                      <span class="material-symbols-outlined">ios_share</span>
+                      <font-awesome-icon
+                        :icon="['fas', 'up-right-from-square']"
+                      />
                     </v-btn>
                   </div>
                   <div
