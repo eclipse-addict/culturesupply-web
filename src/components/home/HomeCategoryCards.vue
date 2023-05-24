@@ -210,7 +210,7 @@ export default {
       val &&
         setTimeout(() => {
           this.overlay = false;
-        }, 15000);
+        }, 25000);
     },
   },
 };

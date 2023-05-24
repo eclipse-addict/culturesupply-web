@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>관리자 페이지</v-card-title>
       <v-tabs v-model="tab" background-color="primary" dark>
         <v-tab v-for="item in items" :key="item.tab">
           {{ item.tab }}
@@ -25,6 +24,9 @@
                 </div>
               </v-col>
             </v-row>
+            <v-row v-else-if="item.key == 'Product'">
+              <ProductManager></ProductManager>
+            </v-row>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -34,10 +36,11 @@
 
 <script>
 import InfoRegistryList from "@/components/admin/InfoRegistryList.vue";
+import ProductManager from "@/components/admin/ProductManager.vue";
 import axios from "axios";
 export default {
   name: "AdminView",
-  components: { InfoRegistryList },
+  components: { InfoRegistryList, ProductManager },
   data() {
     return {
       updators: [],
@@ -49,9 +52,10 @@ export default {
       tab: null,
       items: [
         { tab: "제품 정보 업데이터", key: "updator" },
-        { tab: "회원 문의 관리", key: "Tab 2 Content" },
-        { tab: "응모 현황", key: "Tab 3 Content" },
-        { tab: "회원 신고", key: "Tab 4 Content" },
+        { tab: "회원 문의 관리", key: "Content" },
+        { tab: "응모 현황", key: "Content" },
+        { tab: "회원 신고", key: "Content" },
+        { tab: "제품 관리", key: "Product" },
       ],
     };
   },
