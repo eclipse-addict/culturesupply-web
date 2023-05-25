@@ -31,6 +31,22 @@ const searchStore = {
     },
   },
   mutations: {
+    ADDLIKE_OR_REMOVE(state, payload) {
+      if (payload.action === "added") {
+        state.search_result.results[payload.index].like_users.push(
+          payload.user_id
+        );
+      } else if (payload.action === "removed") {
+        const user_idx = state.search_result.results[
+          payload.index
+        ].like_users.findIndex((item) => item === payload.user_id);
+        state.search_result.results[payload.index].like_users.splice(
+          user_idx,
+          1
+        );
+      }
+    },
+
     SET_SEARCH_RESULTS(state, payload) {
       console.log("SET_SEARCH_RESULTS", payload);
       state.search_result.next = payload.next;
@@ -175,6 +191,13 @@ const searchStore = {
     addTorecentView({ commit }, payload) {
       console.log("addTorecentView", payload);
       commit("ADD_TO_RECENT_VIEW", payload);
+    },
+    likeOrUnlike({ commit }, payload) {
+      if (payload.action == "added") {
+        commit("ADDLIKE_OR_REMOVE", payload);
+      } else if (payload.action == "removed") {
+        commit("ADDLIKE_OR_REMOVE", payload);
+      }
     },
   },
 };

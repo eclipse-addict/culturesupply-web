@@ -30,7 +30,7 @@ const routes = [
     name: "updateInfo",
     component: () =>
       import(
-        /* webpackChunkName: "sneakers" */ "../views/sneakers/UpdateInfoView.vue"
+        /* webpackChunkName: "updateInfo" */ "../views/sneakers/UpdateInfoView.vue"
       ),
   },
   {
@@ -38,7 +38,7 @@ const routes = [
     name: "detail",
     component: () =>
       import(
-        /* webpackChunkName: "sneakers" */ "../views/sneakers/SneakerDetailView.vue"
+        /* webpackChunkName: "detail" */ "../views/sneakers/SneakerDetailView.vue"
       ),
   },
 
@@ -46,13 +46,13 @@ const routes = [
     path: "/calendar",
     name: "calendar",
     component: () =>
-      import(/* webpackChunkName: "sneakers" */ "../views/CalendarView.vue"),
+      import(/* webpackChunkName: "calendar" */ "../views/CalendarView.vue"),
   },
   {
     path: "/login/:next?/:id?",
     name: "login",
     component: () =>
-      import(/* webpackChunkName: "sneakers" */ "../views/user/LoginView.vue"),
+      import(/* webpackChunkName: "login" */ "../views/user/LoginView.vue"),
     meta: { requiresAuth: false },
   },
   {
@@ -60,7 +60,7 @@ const routes = [
     name: "agreement",
     component: () =>
       import(
-        /* webpackChunkName: "sneakers" */ "../views/user/UserAgreementView.vue"
+        /* webpackChunkName: "agreement" */ "../views/user/UserAgreementView.vue"
       ),
     meta: { requiresAuth: false },
   },
@@ -69,7 +69,7 @@ const routes = [
     name: "regist",
     component: () =>
       import(
-        /* webpackChunkName: "sneakers" */ "@/components/user/UserRegistration"
+        /* webpackChunkName: "regist" */ "@/components/user/UserRegistration"
       ),
     meta: { requiresAuth: false },
   },
@@ -77,28 +77,28 @@ const routes = [
     path: "/culture",
     name: "culture",
     component: () =>
-      import(/* webpackChunkName: "sneakers" */ "../views/CultureView.vue"),
+      import(/* webpackChunkName: "culture" */ "../views/CultureView.vue"),
     meta: { requiresAuth: false },
   },
   {
     path: "/auction",
     name: "auction",
     component: () =>
-      import(/* webpackChunkName: "sneakers" */ "../views/AuctionView.vue"),
+      import(/* webpackChunkName: "auction" */ "../views/AuctionView.vue"),
     meta: { requiresAuth: false },
   },
   {
     path: "/mypage",
     name: "mypage",
     component: () =>
-      import(/* webpackChunkName: "sneakers" */ "../views/user/UserPage.vue"),
+      import(/* webpackChunkName: "mypage" */ "../views/user/UserPage.vue"),
     meta: { requiresAuth: false },
   },
   {
     path: "/admin",
     name: "admin",
     component: () =>
-      import(/* webpackChunkName: "sneakers" */ "../views/admin/AdminView.vue"),
+      import(/* webpackChunkName: "admin" */ "../views/admin/AdminView.vue"),
     meta: { requiresAuth: false },
   },
   {

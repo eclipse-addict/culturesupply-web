@@ -865,6 +865,7 @@ export default {
     next();
   },
   methods: {
+    ...mapActions(searchStore, ["likeOrUnlike"]),
     handleScroll(e) {
       // console.log("target", e.target);
       // console.log("e :", e);
@@ -1042,19 +1043,24 @@ export default {
           },
         })
           .then((res) => {
-            // console.log('like req: ',res);
+            // console.log("like req: ", res);
             if (res.data.message == "added") {
-              this.kicks[index].like_users.push(user_id);
+              this.likeOrUnlike({
+                index: index,
+                action: "added",
+                user_id: user_id,
+              });
             } else if (res.data.message == "removed") {
-              this.kicks[index].like_users.splice(
-                this.kicks.indexOf(user_id),
-                1
-              );
+              this.likeOrUnlike({
+                index: index,
+                action: "removed",
+                user_id: user_id,
+              });
             }
           })
           .catch((err) => {
-            // console.log('err: ',err);
-            if (err.response.status == 401) {
+            // console.log("err: ", err);
+            if (err.status == 401) {
               this.$store.dispatch("refresh_token_request").then(() => {
                 this.like_btn(product_id, index);
               });

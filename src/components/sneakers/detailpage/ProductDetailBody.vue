@@ -28,7 +28,7 @@
         fab
         right
         style="margin-top: 3px; margin-right: 12px"
-        @click="like_btn(kick?.id, index)"
+        @click="like_btn(kick?.id)"
         v-if="check_like_user(kick?.like_users)"
       >
         <font-awesome-icon icon="fa-solid fa-heart" />
@@ -39,7 +39,7 @@
         fab
         right
         style="margin-right: 12px; margin-top: 3px"
-        @click="like_btn(kick?.id, index)"
+        @click="like_btn(kick?.id)"
         v-else
       >
         <font-awesome-icon icon="fa-regular fa-heart" />
@@ -166,7 +166,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("searchStore", ["addTorecentView"]),
+    ...mapActions("searchStore", ["addTorecentView", "likeOrUnlike"]),
     get_avg_rating() {
       let avg_rating = 0;
       if (this.kick) {
@@ -180,7 +180,7 @@ export default {
         this.rating = 0;
       }
     },
-    like_btn(product_id, index) {
+    like_btn(product_id) {
       // console.log('index Check :', index)
       if (!this.$store.state.user_data.access_token) {
         swal("계속하려면 로그인해주세요.", {
@@ -226,12 +226,12 @@ export default {
             }
           })
           .catch((err) => {
-            // console.log('err: ',err);
-            if (err.response.status == 401) {
-              this.$store.dispatch("refresh_token_request").then(() => {
-                this.like_btn(product_id, index);
-              });
-            }
+            console.log("err: ", err);
+            // if (err.response.status == 401) {
+            //   this.$store.dispatch("refresh_token_request").then(() => {
+            //     this.like_btn(product_id, index);
+            //   });
+            // }
           });
       }
     },

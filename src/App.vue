@@ -182,6 +182,10 @@
     </v-navigation-drawer>
     <v-main>
       <v-container fluid>
+        <v-banner single-line>
+          <v-icon slot="icon" color="warning" size="36"> mdi-update </v-icon>
+          마지막 업데이트 : {{ last_updated?.last_updated }}
+        </v-banner>
         <transition name="fade">
           <loadingImg v-if="this.$store.state.isLoading" />
           <router-view :key="$route.fullPath" v-else />
@@ -197,6 +201,7 @@
 import loadingImg from "@/components/common/loadingPage.vue";
 import swal from "sweetalert";
 import { mapActions, mapGetters } from "vuex";
+import axios from "axios";
 
 const searchStore = "searchStore";
 export default {
@@ -207,6 +212,7 @@ export default {
     loadingImg,
   },
   data: () => ({
+    last_updated: null,
     isLoading: true,
     drawer: false,
     menu_group: null,
@@ -358,6 +364,12 @@ export default {
     ranking_click(item) {
       this.banner_search_product(item);
     },
+    get_last_updated() {
+      axios.get(this.$store.state.prod_url + "kicks/last/").then((res) => {
+        console.log(res.data);
+        this.last_updated = res.data;
+      });
+    },
   },
   computed: {
     ...mapGetters(searchStore, ["GET_SEARCH_RESULTS"]),
@@ -383,6 +395,7 @@ export default {
   },
   watch: {},
   created() {
+    this.get_last_updated();
     // console.log(this.$store.state.user_data.profile_img)
     // console.log()
     this.setLoading();
