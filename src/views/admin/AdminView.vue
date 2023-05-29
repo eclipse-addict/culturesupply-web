@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-tabs v-model="tab" background-color="primary" dark>
+      <v-tabs v-model="tab" background-color="primary" dark show-arrows>
         <v-tab v-for="item in items" :key="item.tab">
           {{ item.tab }}
         </v-tab>
@@ -27,6 +27,9 @@
             <v-row v-else-if="item.key == 'Product'">
               <ProductManager></ProductManager>
             </v-row>
+            <v-row v-else-if="item.key == 'Raffle'">
+              <RaffleManager></RaffleManager>
+            </v-row>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -37,10 +40,11 @@
 <script>
 import InfoRegistryList from "@/components/admin/InfoRegistryList.vue";
 import ProductManager from "@/components/admin/ProductManager.vue";
+import RaffleManager from "@/components/admin/RaffleManager.vue";
 import axios from "axios";
 export default {
   name: "AdminView",
-  components: { InfoRegistryList, ProductManager },
+  components: { InfoRegistryList, ProductManager, RaffleManager },
   data() {
     return {
       updators: [],
@@ -53,7 +57,7 @@ export default {
       items: [
         { tab: "제품 정보 업데이터", key: "updator" },
         { tab: "회원 문의 관리", key: "Content" },
-        { tab: "응모 현황", key: "Content" },
+        { tab: "응모 관리", key: "Raffle" },
         { tab: "회원 신고", key: "Content" },
         { tab: "제품 관리", key: "Product" },
       ],

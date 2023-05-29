@@ -156,6 +156,10 @@
               <div class="typing-effect">
                 제품 정보를 불러오는 중입니다. 잠시만 기다려주세요......
               </div>
+              <v-progress-circular
+                indeterminate
+                size="64"
+              ></v-progress-circular>
             </div>
           </v-overlay>
         </v-col>

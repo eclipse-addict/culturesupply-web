@@ -16,6 +16,7 @@
                   @change="infoCheckBoxReset"
                   label="정렬 기준"
                   chips
+                  dense
                 ></v-combobox>
               </v-col>
               <v-col cols="12" lg="2" sm="12">
@@ -26,20 +27,21 @@
                   label="카테고리"
                   multiple
                   clear-icon="$clear"
+                  dense
                   clearable
                   chips
                 ></v-combobox>
               </v-col>
               <v-col cols="12" lg="2" sm="12">
                 <v-combobox
-                  v-model="brand"
+                  item-value="brand"
                   :items="brandGroup"
                   @change="infoCheckBoxReset"
                   label="브랜드"
-                  multiple
                   clear-icon="$clear"
                   clearable
                   chips
+                  dense
                 ></v-combobox>
               </v-col>
 
@@ -53,6 +55,7 @@
                   @click:append-outer="fetch_kicks"
                   @keyup.enter="fetch_kicks"
                   height="42"
+                  dense
                 ></v-text-field>
               </v-col>
             </v-row>

@@ -21,6 +21,16 @@
         정보 등록하고 포인트 받기
       </v-btn>
     </div>
+    <div class="text-center mt-2">
+      <v-btn
+        small
+        rounded
+        color="#E2E2EF"
+        v-if="this.$store.getters.get_user_data.email == 'kickin@kickin.kr'"
+        @click="overlay = true"
+        >라플 생성</v-btn
+      >
+    </div>
     <div class="mt-2 mb-2">
       <v-btn
         small
@@ -67,17 +77,17 @@
       </v-menu>
     </div>
     <template>
-      <div class="ad-container">
-        <InArticleAdsense
-          style="border: 1px solid black"
-          data-ad-client="ca-pub-6048277531996552"
-          data-ad-slot="9648734008"
-          data-ad-format="fluid"
-          data-adtest="on"
-          data-ad-layout="in-article"
-        >
-        </InArticleAdsense>
-      </div>
+      <!--      <div class="ad-container">-->
+      <!--        <InArticleAdsense-->
+      <!--          style="border: 1px solid black"-->
+      <!--          data-ad-client="ca-pub-6048277531996552"-->
+      <!--          data-ad-slot="9648734008"-->
+      <!--          data-ad-format="fluid"-->
+      <!--          data-adtest="on"-->
+      <!--          data-ad-layout="in-article"-->
+      <!--        >-->
+      <!--        </InArticleAdsense>-->
+      <!--      </div>-->
     </template>
     <v-col sm="12" md="8" xl="8">
       <v-sheet height="100%">
@@ -141,6 +151,134 @@
         </v-card-text>
       </v-card>
     </v-col>
+    <v-overlay :value="overlay"
+      ><v-card color="white" width="520">
+        <v-card-title>라플 등록</v-card-title>
+        <v-card-text>
+          <v-form>
+            <v-row>
+              <v-col cols="6"
+                ><v-text-field
+                  label="제목"
+                  v-model="new_raffle.title"
+                  required
+                  light
+                ></v-text-field
+              ></v-col>
+
+              <v-col cols="6">
+                <v-combobox
+                  label="제품 검색"
+                  light
+                  required
+                  readonly
+                  v-model="new_raffle.product"
+                ></v-combobox>
+              </v-col>
+              <v-col cols="12">
+                <v-date-picker v-model="dates" range></v-date-picker
+              ></v-col>
+              <v-col cols="12" class="text-dark">
+                <span><strong>이벤트 기간:</strong> {{ return_dates }}</span>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  label="당첨자 수"
+                  v-model="new_raffle.winnerCount"
+                  required
+                  light
+                  readonly
+                >
+                  <v-icon
+                    slot="append"
+                    color="red"
+                    @click="
+                      new_raffle.winnerCount < 5
+                        ? new_raffle.winnerCount++
+                        : null
+                    "
+                  >
+                    mdi-plus
+                  </v-icon>
+                  <v-icon
+                    slot="prepend"
+                    color="green"
+                    @click="
+                      new_raffle.winnerCount > 1
+                        ? new_raffle.winnerCount--
+                        : null
+                    "
+                  >
+                    mdi-minus
+                  </v-icon></v-text-field
+                >
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  label="응모 포인트"
+                  v-model="new_raffle.pointRequired"
+                  readonly
+                  required
+                  light
+                >
+                  <v-icon
+                    slot="append"
+                    color="red"
+                    @click="new_raffle.pointRequired += 500"
+                  >
+                    mdi-plus
+                  </v-icon>
+                  <v-icon
+                    slot="prepend"
+                    color="green"
+                    @click="
+                      new_raffle.pointRequired > 500
+                        ? (new_raffle.pointRequired -= 500)
+                        : null
+                    "
+                  >
+                    mdi-minus
+                  </v-icon></v-text-field
+                >
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  label="인원 제한"
+                  v-model="new_raffle.raffle_cnt"
+                  readonly
+                  required
+                  light
+                >
+                  <v-icon
+                    slot="append"
+                    color="red"
+                    @click="new_raffle.raffle_cnt += 100"
+                  >
+                    mdi-plus
+                  </v-icon>
+                  <v-icon
+                    slot="prepend"
+                    color="green"
+                    @click="
+                      new_raffle.raffle_cnt > 500
+                        ? (new_raffle.raffle_cnt -= 100)
+                        : null
+                    "
+                  >
+                    mdi-minus
+                  </v-icon></v-text-field
+                >
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="success" @click="create_raffle"> 등록 </v-btn>
+          <v-btn color="warning" @click="overlay = false"> 취소 </v-btn>
+          <v-btn color="error"> 초기화 </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-overlay>
   </v-row>
 </template>
 
@@ -163,10 +301,28 @@ export default {
       selectedAction: null,
       env_url: this.$store.state.prod_url,
       img_base_url: this.$store.getters.get_img_url,
+      overlay: false,
+      dates: null,
+      new_raffle: {
+        title: null,
+        winnerCount: 1,
+        product: null,
+        pointRequired: 500,
+        end_date: null,
+        start_date: null,
+      },
     };
   },
   methods: {
     ...mapActions("searchStore", ["addTorecentView", "likeOrUnlike"]),
+
+    getCurrentDateTime() {
+      var now = new Date();
+      var hours = ("0" + now.getHours()).slice(-2);
+      var minutes = ("0" + now.getMinutes()).slice(-2);
+      var seconds = ("0" + now.getSeconds()).slice(-2);
+      return " " + hours + ":" + minutes + ":" + seconds;
+    },
     get_avg_rating() {
       let avg_rating = 0;
       if (this.kick) {
@@ -180,6 +336,7 @@ export default {
         this.rating = 0;
       }
     },
+
     like_btn(product_id) {
       // console.log('index Check :', index)
       if (!this.$store.state.user_data.access_token) {
@@ -303,11 +460,57 @@ export default {
         this.$router.push({ name: "updateInfo", params: { id } });
       }
     },
+    create_raffle() {
+      if (
+        !this.new_raffle.title ||
+        !this.new_raffle.start_date ||
+        !this.new_raffle.end_date ||
+        !this.new_raffle.product
+      ) {
+        swal("필수 항목을 입력해 주세요.");
+
+        return;
+      }
+
+      axios({
+        method: "POST",
+        url: "http://localhost:8000/raffle/",
+        data: this.new_raffle,
+        headers: {
+          Authorization:
+            "Bearer " + this.$store.getters.get_user_data.access_token,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.overlay = false;
+          swal("성공적으로 등록되었습니다.", { buttons: "확인" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   }, // end of methods
   computed: {
     // img_url_parser () {
     //   return  this.kick?.local_imageUrl
     // },
+    return_dates() {
+      const default_msg = "날짜를 선택해 주세요.";
+      switch (this.dates?.length) {
+        case 0:
+          return default_msg;
+
+        case 1:
+          return this.dates[0];
+
+        case 2:
+          return this.dates[0] + " ~ " + this.dates[1];
+
+        default:
+          return default_msg;
+      }
+    },
     get_review_cnt() {
       if (this.kick) {
         return this.kick.reviews.length;
@@ -378,6 +581,15 @@ export default {
       this.get_avg_rating();
       this.set_like_user();
     },
+    dates() {
+      if (this.dates.length > 1) {
+        this.new_raffle.start_date = this.dates[0] + "T00:00:00+00:00";
+        this.new_raffle.end_date = this.dates[1] + "T00:00:00+00:00";
+      } else {
+        this.new_raffle.start_date = this.dates[0] + "T00:00:00+00:00";
+        this.new_raffle.end_date = this.dates[0] + "T00:00:00+00:00";
+      }
+    },
   },
   created() {
     const product_id = this.$route.params.id;
@@ -389,6 +601,7 @@ export default {
         console.log("detail res: ", res);
         this.kick = res.data;
         this.product_id = res.data.id;
+        this.new_raffle.product = res.data.id;
         console.log("axios Finally clause", this.kick);
         this.addTorecentView(this.kick);
       })

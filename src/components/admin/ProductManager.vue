@@ -14,9 +14,11 @@ export default defineComponent({
   methods: {
     crawling() {
       this.loading = true;
+
       axios({
         method: "POST",
-        url: this.$store.getters.getProdUrl + "kicks/dev/crawling/",
+        url: this.$store.getters.getProdUrl + "kicks/goat/collections/",
+        timeout: 1200000,
         headers: {
           Authorization:
             "Bearer " + this.$store.getters.get_user_data.access_token,
