@@ -32,22 +32,33 @@ export default defineComponent({
 <template>
   <v-container>
     <v-overlay :value="overlay"
-      ><v-card width="500" height="500" class="mx-auto" color="primary"
+      ><v-card width="500" height="330" class="mx-auto" color="primary"
         ><v-card-title>{{ selected_item?.title }}</v-card-title
-        ><v-card-subtitle>
+        ><v-card-text>
           <v-row>
-            <v-col cols="5"> </v-col>
+            <v-col cols="5">
+              <v-img
+                :src="img_base_url + selected_item.product?.local_imageUrl"
+              ></v-img
+            ></v-col>
             <v-col cols="7">
               <v-row>
                 <v-col cols="12">
+                  <span>브랜드: </span>
                   {{ selected_item.product?.brand }}
                 </v-col>
-                <v-col cols="12">{{ selected_item.product?.name }}</v-col>
+                <v-col cols="12"
+                  ><span>제품명: </span>{{ selected_item.product?.name }}</v-col
+                >
+                <v-col cols="12"
+                  ><span>조회수:</span>
+                  {{ selected_item.product?.click }}</v-col
+                >
+                <v-col cols="12"><span>응모:</span> 999</v-col>
               </v-row>
             </v-col>
           </v-row>
-          {{ selected_item.product }}
-        </v-card-subtitle>
+        </v-card-text>
         <v-card-actions>
           <v-btn>추첨</v-btn>
           <v-btn>수정</v-btn>
