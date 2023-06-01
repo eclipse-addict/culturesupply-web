@@ -27,7 +27,7 @@
         rounded
         color="#E2E2EF"
         v-if="this.$store.getters.get_user_data.email == 'kickin@kickin.kr'"
-        @click="overlay = true"
+        @click="raffle_exsit_check"
         >라플 생성</v-btn
       >
     </div>
@@ -118,6 +118,9 @@
         <v-card-title class="mt-0">
           <h5 class="mb-0">{{ kick?.name }}</h5>
         </v-card-title>
+        <v-card-subtitle v-if="kick?.name_kr">
+          {{ kick?.name_kr }}
+        </v-card-subtitle>
         <v-card-text>
           <v-row>
             <v-rating
@@ -300,7 +303,7 @@ export default {
       like_users: [],
       selectedAction: null,
       env_url: this.$store.state.prod_url,
-      img_base_url: this.$store.getters.get_img_url,
+      img_base_url: this.$store.getters.get_env_url,
       overlay: false,
       dates: null,
       new_raffle: {
@@ -310,6 +313,7 @@ export default {
         pointRequired: 500,
         end_date: null,
         start_date: null,
+        raffle_cnt: 100,
       },
     };
   },
@@ -460,7 +464,26 @@ export default {
         this.$router.push({ name: "updateInfo", params: { id } });
       }
     },
+    raffle_exsit_check() {
+      axios({
+        method: "GET",
+        url: `http://localhost:8000/raffle/${this.kick?.id}/`,
+      })
+        .then((res) => {
+          if (res.data.result == 1) {
+            swal("이미 해당 제품의 라플이 존재합니다.");
+            return;
+          } else {
+            this.overlay = true;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     create_raffle() {
+      //해당 제품으로 이미 존재하는 라플이 있는지 확인
+
       if (
         !this.new_raffle.title ||
         !this.new_raffle.start_date ||

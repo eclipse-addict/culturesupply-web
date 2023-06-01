@@ -74,6 +74,12 @@ const routes = [
     meta: { requiresAuth: false },
   },
   {
+    path: "/raffle",
+    name: "raffle",
+    component: () =>
+      import(/* webpackChunkName: "raffle" */ "../views/RaffleView.vue"),
+  },
+  {
     path: "/culture",
     name: "culture",
     component: () =>
@@ -84,7 +90,10 @@ const routes = [
     path: "/auction",
     name: "auction",
     component: () =>
-      import(/* webpackChunkName: "auction" */ "../views/AuctionView.vue"),
+      // import(/* webpackChunkName: "auction" */ "../views/AuctionView.vue"),
+      import(
+        /* webpackChunkName: "auction" */ "../views/error/DevelopPage.vue"
+      ),
     meta: { requiresAuth: false },
   },
   {

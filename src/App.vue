@@ -59,11 +59,11 @@
         >
           <v-tab :ripple="false" color="black" @click="toHome">Home</v-tab>
           <v-tab :ripple="false" color="black" @click="toSneakers">Items</v-tab>
-          <v-tab :ripple="false" color="black" @click="toCulture"
-            >Culture</v-tab
-          >
-          <v-tab :ripple="false">Raffle</v-tab>
-          <v-tab :ripple="false" @click="toCalendar">Calendar</v-tab>
+          <!--          <v-tab :ripple="false" color="black" @click="toCulture"-->
+          <!--            >Culture</v-tab-->
+          <!--          >-->
+          <v-tab :ripple="false" @click="toRaffle">Raffle</v-tab>
+          <!--          <v-tab :ripple="false" @click="toCalendar">Calendar</v-tab>-->
           <v-tab :ripple="false" @click="toAuction">Auction</v-tab>
         </v-tabs>
       </template>
@@ -135,31 +135,31 @@
             </v-list-item-icon>
             <v-list-item-title>Items</v-list-item-title>
           </v-list-item>
-          <v-list-item @click="toCulture">
-            <v-list-item-icon>
-              <font-awesome-icon icon="fa-solid fa-fire" />
-            </v-list-item-icon>
-            <v-list-item-title>Culture</v-list-item-title>
-          </v-list-item>
-          <v-list-item>
+          <!--          <v-list-item @click="toCulture">-->
+          <!--            <v-list-item-icon>-->
+          <!--              <font-awesome-icon icon="fa-solid fa-fire" />-->
+          <!--            </v-list-item-icon>-->
+          <!--            <v-list-item-title>Culture</v-list-item-title>-->
+          <!--          </v-list-item>-->
+          <v-list-item @click="toRaffle">
             <v-list-item-icon>
               <span class="material-symbols-outlined">casino</span>
             </v-list-item-icon>
             <v-list-item-title>Raffle</v-list-item-title>
           </v-list-item>
 
-          <v-list-item @click="toCalendar">
-            <v-list-item-icon>
-              <span class="material-symbols-outlined">calendar_month</span>
-            </v-list-item-icon>
-            <v-list-item-title>Calendar</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="toAuction">
-            <v-list-item-icon>
-              <span class="material-symbols-outlined">gavel</span>
-            </v-list-item-icon>
-            <v-list-item-title>Auction</v-list-item-title>
-          </v-list-item>
+          <!--          <v-list-item @click="toCalendar">-->
+          <!--            <v-list-item-icon>-->
+          <!--              <span class="material-symbols-outlined">calendar_month</span>-->
+          <!--            </v-list-item-icon>-->
+          <!--            <v-list-item-title>Calendar</v-list-item-title>-->
+          <!--          </v-list-item>-->
+          <!--          <v-list-item @click="toAuction">-->
+          <!--            <v-list-item-icon>-->
+          <!--              <span class="material-symbols-outlined">gavel</span>-->
+          <!--            </v-list-item-icon>-->
+          <!--            <v-list-item-title>Auction</v-list-item-title>-->
+          <!--          </v-list-item>-->
           <v-list-item @click="signoutRequest">
             <v-list-item-icon>
               <span class="material-symbols-outlined"> logout </span>
@@ -168,9 +168,7 @@
           </v-list-item>
           <v-list-item
             @click="toAdmin"
-            v-show="
-              this.$store.getters.get_user_data.email == 'kickin@kickin.kr'
-            "
+            v-if="this.$store.getters.get_user_data.email == 'kickin@kickin.kr'"
           >
             <v-list-item-icon>
               <span class="material-symbols-outlined">construction</span>
@@ -315,6 +313,9 @@ export default {
     },
     toAdmin() {
       this.$router.push({ name: "admin" });
+    },
+    toRaffle() {
+      this.$router.push({ name: "raffle" });
     },
     to_url(icon) {
       if (icon == "mdi-facebook") {

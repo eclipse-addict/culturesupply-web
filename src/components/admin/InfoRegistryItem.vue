@@ -94,12 +94,12 @@ export default defineComponent({
         ? true
         : this.$props.updator.final_approved == 1
         ? true
-        : this.$store.getters.get_user_data.email != "kickin.@kickin.kr"
+        : this.$store.getters.get_user_data.email != "kickin@kickin.kr"
         ? true
         : false;
     },
     button_show() {
-      return this.$store.getters.get_user_data.email == "kickin.@kickin.kr"
+      return this.$store.getters.get_user_data.email == "kickin@kickin.kr"
         ? true
         : false;
     },

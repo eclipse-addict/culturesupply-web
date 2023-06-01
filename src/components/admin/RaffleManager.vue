@@ -13,12 +13,13 @@ export default defineComponent({
         { tab: "응모자 목록", key: "raffle_participant_list" },
       ],
       raffle_list_tabs: [
+        { tab: "전체", key: "raffle_list_all" },
         { tab: "진행중", key: "raffle_list_ongoing" },
         { tab: "종료", key: "raffle_list_finished" },
-        { tab: "예정", key: "raffle_list_scheduled" },
+        { tab: "예정", key: "raffle_list_upcoming" },
       ],
       current_tab: "raffle_list",
-      current_status_tab: "raffle_list_ongoing",
+      current_tabcurrent_status_tab: "raffle_list_all",
       raffle_tot_cnt: 1,
       results: null,
       page: 1,
@@ -31,6 +32,27 @@ export default defineComponent({
   computed: {
     page_count() {
       return Math.ceil(this.raffle_tot_cnt / 5);
+    },
+    resutl_filter() {
+      const date = new Date();
+      if (this.results) {
+        if (this.current_status_tab == 1) {
+          return this.results.filter((item) => {
+            return (
+              new Date(item.start_date) < date && new Date(item.end_date) > date
+            );
+          });
+        } else if (this.current_status_tab == 2) {
+          return this.results.filter((item) => {
+            return new Date(item.end_date) < date;
+          });
+        } else if (this.current_status_tab == 3) {
+          return this.results.filter((item) => {
+            return new Date(item.start_date) > date;
+          });
+        }
+      }
+      return this.results;
     },
   },
   watch: {
@@ -108,7 +130,7 @@ export default defineComponent({
                 </v-tabs></v-card
               >
             </v-tab-item>
-            <RaffleList :raffle_list="results"></RaffleList>
+            <RaffleList :raffle_list="resutl_filter"></RaffleList>
             <div class="text-center" v-if="page_count">
               <v-pagination :length="page_count" v-model="page"></v-pagination>
             </div>

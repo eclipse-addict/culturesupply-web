@@ -243,8 +243,8 @@
               contain
               :src="
                 k.local_imageUrl.startsWith('productUpdator')
-                  ? imag_url + 'media/' + k.local_imageUrl
-                  : imag_url + k.local_imageUrl
+                  ? env_url + 'media/' + k.local_imageUrl
+                  : env_url + k.local_imageUrl
               "
               :lazy-src="env_url + 'media/images/loading.gif'"
             >
@@ -299,7 +299,8 @@
                       k.releaseDate == '1900-01-01' ||
                       k.releaseDate == null ||
                       k.retailPrice == null ||
-                      k.category == ''
+                      k.category == '' ||
+                      k.name_kr == null
                     "
                   >
                     <v-btn
@@ -415,7 +416,7 @@ export default {
       like_check: false,
       overlay: false,
       next_page: "",
-      env_url: this.$store.state.prod_url,
+      env_url: this.$store.getters.get_env_url,
       imag_url: this.$store.state.imageUrl,
       sticky: false,
       loadingComplete: true,

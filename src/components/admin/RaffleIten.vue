@@ -16,11 +16,13 @@ export default defineComponent({
 </script>
 
 <template>
-  <tr style="cursor: pointer">
-    <td>{{ raffle.title }}</td>
-    <td>{{ date_format(raffle.start_date) }}</td>
-    <td>{{ date_format(raffle.end_date) }}</td>
-  </tr>
+  <v-container>
+    <tr style="cursor: pointer">
+      <td>{{ raffle.title }}</td>
+      <td>{{ date_format(raffle.start_date) }}</td>
+      <td>{{ date_format(raffle.end_date) }}</td>
+    </tr>
+  </v-container>
 </template>
 
 <style scoped></style>

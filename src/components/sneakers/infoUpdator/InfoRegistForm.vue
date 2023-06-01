@@ -20,13 +20,22 @@
         >
       </v-col>
       <v-col cols="12">
+        <v-text-field
+          v-model="name_kr"
+          label="한글 제품명"
+          hint="한글 제품명을 입력해주세요."
+          @change="info_added('name_kr', name_kr)"
+          :rules="[(v) => !!v || '누락된 정보를 기입해주세요.']"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12">
         <v-file-input
           v-model="img_upload"
           @change="
             Preview_image('img_preview');
             info_added('local_imageUrl', img_upload);
           "
-          :rules="[(v) => !!v || 'Item is required']"
+          :rules="[(v) => !!v || '첨부된 파일이 없습니다.']"
           accept="image/png, image/jpeg, image/bmp, image/webp"
           placeholder=""
           prepend-icon="mdi-camera"
@@ -177,8 +186,8 @@ export default {
       img_base_url: this.$store.getters.get_img_url,
       img_upload: null,
       img_preview: null,
-      update_cnt : 0,
-
+      update_cnt: 0,
+      name_kr: null,
 
       updatated_infos: [], // 데이터 불러올 때, 유저가 입력할 수 있는 데이터 종류를 담아둘 리스트
 
@@ -202,6 +211,9 @@ export default {
     check_existing_datas(res) {
       if (res.data.brand != null) {
         this.brand = res.data.brand;
+      }
+      if (res.data.name_kr != null) {
+        this.name_kr = res.data.name_kr;
       }
       if (res.data.colorway != null) {
         this.color_select = res.data.colorway.split("/");
@@ -230,9 +242,9 @@ export default {
     },
     regist_infos() {
       console.log("regist_infos: ", this.updatated_infos);
-      if(this.update_cnt == 0){
-          swal("누락된 제품의 정보를 기입해주세요!",{icon:"info"})
-          return
+      if (this.update_cnt == 0) {
+        swal("누락된 제품의 정보를 기입해주세요!", { icon: "info" });
+        return;
       }
 
       const formData = new FormData();
@@ -262,39 +274,41 @@ export default {
       })
         .then((res) => {
           console.log("regist_infos res: ", res);
-          if(res.status == '201'){
-              swal("정보가 성공적으로 등록되었습니다.",{
-                  icon: "success",
-                  buttons: {
-                      list: {
-                          text: "뒤로가기",
-                          value: "prod_list",
-                      },
-                      mypage:{
-                          text: "등록 제품 확인",
-                          value: "regist_list",
-                      },
-                  },
-              }).then((value) => {
-                  switch (value) {
-                      case "목록으로":
-                          this.$router.push({ path: "/sneakers" });
-                          break;
+          if (res.status == "201") {
+            swal("정보가 성공적으로 등록되었습니다.", {
+              icon: "success",
+              buttons: {
+                list: {
+                  text: "뒤로가기",
+                  value: "prod_list",
+                },
+                mypage: {
+                  text: "등록 제품 확인",
+                  value: "regist_list",
+                },
+              },
+            }).then((value) => {
+              switch (value) {
+                case "목록으로":
+                  this.$router.push({ path: "/sneakers" });
+                  break;
 
-                      case "regist_list":
-                          this.$router.push({ name: "mypage" });
-                          break;
+                case "regist_list":
+                  this.$router.push({ name: "mypage" });
+                  break;
 
-                      default:
-                          this.$router.go(-1)
-                          break;
-                  }
-              });
+                default:
+                  this.$router.go(-1);
+                  break;
+              }
+            });
           }
         })
         .catch((err) => {
           console.log("regist_infos err :", err);
-          swal("","요청을 처리하는 중 오류가 발생했습니다.",{icon:"error"})
+          swal("", "요청을 처리하는 중 오류가 발생했습니다.", {
+            icon: "error",
+          });
         });
     },
     info_added(info, value) {
@@ -304,7 +318,7 @@ export default {
         this.updatated_infos.push(info);
       }
       console.log("updatated_infos: ", this.updatated_infos);
-      this.update_cnt ++;
+      this.update_cnt++;
     },
   }, // methods end
   created() {
@@ -357,6 +371,13 @@ export default {
         return false;
       }
     },
+    name_kr_exist() {
+      if (this.kick?.name_kr != null) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     category_exist() {
       if (this.kick?.category != "") {
         return true;
@@ -367,7 +388,7 @@ export default {
     img_preview_exist() {
       if (
         this.img_preview !=
-        this.$store.state.prod_url + "media/images/defaultImg.png"
+        this.img_base_url + "media/images/defaultImg.png"
       ) {
         console.log("img_preview: ", this.img_preview);
         return true;
@@ -381,6 +402,6 @@ export default {
 
 <style scoped>
 div.swal-footer {
-    text-align: center !important;
+  text-align: center !important;
 }
 </style>
