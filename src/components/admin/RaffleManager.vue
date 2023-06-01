@@ -67,7 +67,7 @@ export default defineComponent({
     fetch_raffles() {
       axios({
         method: "GET",
-        url: `http://localhost:8000/raffle/?page=${this.page}`,
+        url: this.$store.getters.get_env_url + `raffle/?page=${this.page}`,
         headers: {
           Authorization:
             "Bearer " + this.$store.getters.get_user_data.access_token,

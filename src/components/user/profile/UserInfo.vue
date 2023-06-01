@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto my-auto mt-3" tile height="375" width="850">
+  <v-card class="mx-auto my-auto mt-3" tile height="400" width="1550">
     <v-row align="start" class="fill-height">
       <v-col align-self="start" class="pa-10" cols="3">
         <v-avatar class="profile" color="grey" size="130">

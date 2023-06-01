@@ -26,7 +26,7 @@ export default defineComponent({
       console.log("fetch_raffles");
       axios({
         method: "GET",
-        url: "http://127.0.0.1:8000/raffle/",
+        url: this.$store.getters.get_env_url + "raffle/",
       })
         .then((res) => {
           console.log("fetch_raffles res: ", res.data);
