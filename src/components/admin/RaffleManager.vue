@@ -19,7 +19,7 @@ export default defineComponent({
         { tab: "예정", key: "raffle_list_upcoming" },
       ],
       current_tab: "raffle_list",
-      current_tabcurrent_status_tab: "raffle_list_all",
+      current_status_tab: "raffle_list_all",
       raffle_tot_cnt: 1,
       results: null,
       page: 1,

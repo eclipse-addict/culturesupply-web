@@ -513,11 +513,34 @@ export default {
           console.log(err);
         });
     },
+
+    setMetaInfo() {
+      const metaTitle = this.kick?.name;
+      const metaKeywords = [this.kick?.name, this.kick?.brand, this.kick?.id];
+
+      // Vue 컴포넌트의 metaInfo 속성을 사용하여 메타 데이터 동적으로 설정
+      this.$options.metaInfo = {
+        title: metaTitle,
+        meta: [
+          {
+            name: "name",
+            content: metaTitle,
+          },
+          {
+            name: "keywords",
+            content: metaKeywords.join(","),
+          },
+        ],
+      };
+    },
   }, // end of methods
   computed: {
     // img_url_parser () {
     //   return  this.kick?.local_imageUrl
     // },
+    get_meta_data() {
+      return this.kick;
+    },
     return_dates() {
       const default_msg = "날짜를 선택해 주세요.";
       switch (this.dates?.length) {
@@ -627,6 +650,9 @@ export default {
         this.new_raffle.product = res.data.id;
         console.log("axios Finally clause", this.kick);
         this.addTorecentView(this.kick);
+
+        // 비동기 처리가 완료된 후에 메타 데이터 설정
+        this.setMetaInfo();
       })
       .catch((err) => {
         console.log("detail err :", err);
