@@ -297,25 +297,18 @@ export default {
   },
   metaInfo() {
     return {
-      title: "페이지 제목",
+      title: "KICKIN",
       meta: [
-        {
-          name: "description",
-          content: "페이지에 대한 설명",
-        },
         {
           property: "og:name",
           content: this.kick ? this.kick.name : "", // 동적으로 설정되는 제목
         },
+
         {
           property: "og:image",
           content: this.kick?.local_imageUrl.startsWith("productUpdator")
             ? this.img_base_url + "media/" + this.kick?.local_imageUrl
             : this.img_base_url + this.kick?.local_imageUrl,
-        },
-        {
-          property: "og:description",
-          content: "Open Graph 설명",
         },
       ],
     };
