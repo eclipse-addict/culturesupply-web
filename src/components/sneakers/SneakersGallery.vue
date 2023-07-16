@@ -34,7 +34,7 @@
               </v-col>
               <v-col cols="12" lg="2" sm="12">
                 <v-combobox
-                  item-value="brand"
+                  v-model="brand"
                   :items="brandGroup"
                   @change="infoCheckBoxReset"
                   label="브랜드"
@@ -163,9 +163,23 @@
             <v-combobox
               v-model="brand"
               :items="brandGroup"
+              @change="infoCheckBoxReset"
               label="브랜드"
+              clear-icon="$clear"
+              clearable
+              chips
+              dense
+            ></v-combobox>
+          </p>
+          <p>
+            <v-combobox
+              v-model="category"
+              :items="categoryGroup"
+              @change="infoCheckBoxReset"
+              label="카테고리"
               multiple
               clear-icon="$clear"
+              dense
               clearable
               chips
             ></v-combobox>
@@ -334,7 +348,7 @@
               fab
               right
               small
-              @click="toDetail(k?.id)"
+              @click="toDetail(k?.id, k?.name)"
             >
               <v-icon>read_more</v-icon>
             </v-btn>
@@ -881,8 +895,8 @@ export default {
         this.isScrollDown = false;
       }
     },
-    toDetail(id) {
-      this.$router.push({ name: "detail", params: { id } });
+    toDetail(id, name) {
+      this.$router.push({ name: "detail", params: { id, name } });
     },
     option_reset() {
       this.keyword = "";
@@ -904,7 +918,7 @@ export default {
 
       // 검색 조건
       const search = this.keyword;
-      let brand = this.brand.join();
+      let brand = this.brand;
       let category = this.category.join();
       let release_date = this.dates.join();
       let info_registrequired = this.info_registrequired;
@@ -923,12 +937,15 @@ export default {
 
       // release_date가 null일 경우
       if (!release_date) {
+        console.log("release_date가 null일 경우");
         // 현재 날짜 객체 생성
         let currentDate = new Date();
 
         // 현재 날짜에서 2주를 뺀 날짜 계산
-        let twoWeeksAgo = new Date(1900, 0, 1);
-
+        // let twoWeeksAgo = new Date(1900, 0, 1);
+        let twoWeeksAgo = new Date(
+          currentDate.getTime() - 14 * 24 * 60 * 60 * 1000
+        );
         // 현재 날짜에서 2주를 더한 날짜 계산
         let twoWeeksLater = new Date(
           currentDate.getTime() + 14 * 24 * 60 * 60 * 1000
@@ -940,6 +957,7 @@ export default {
           .toISOString()
           .substring(0, 10);
 
+        console.log("twoWeeksAgoFormatted", twoWeeksAgoFormatted);
         // 결과
         release_date = twoWeeksAgoFormatted + "," + twoWeeksLaterFormatted;
       }
@@ -1201,11 +1219,14 @@ export default {
         }, 2000);
     },
     brand() {
-      if (this.brand.length > 1 && this.brand.indexOf("All") == 0) {
-        this.brand.shift();
-      } else if (this.brand.length == 0) {
+      if (this.brand == "") {
         this.brand = ["All"];
       }
+      // if (this.brand.length > 1 && this.brand.indexOf("All") == 0) {
+      //   this.brand.shift();
+      // } else if (this.brand.length == 0) {
+      //   this.brand = ["All"];
+      // }
     },
     category() {
       if (this.category.length > 1 && this.category.indexOf("All") == 0) {
