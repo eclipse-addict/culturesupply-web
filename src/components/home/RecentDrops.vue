@@ -1,11 +1,12 @@
 <template>
-  <v-row v-if="show_recent_views">
+  <v-row>
     <v-col cols="12" class="d-block">
-      <p class="mb-0 ml-8">최근 본 상품</p>
+      <p class="mb-0 ml-8">최근 발매 상품</p>
+
       <v-container>
         <v-row>
           <v-col
-            v-for="(recent_k, idx) in recent_views"
+            v-for="(product, idx) in products"
             :key="idx"
             style="width: 25rem"
             cols="6"
@@ -22,9 +23,9 @@
                 :aspect-ratio="1.4"
                 contain
                 :src="
-                  recent_k?.local_imageUrl.startsWith('productUpdator')
-                    ? env_url + 'media/' + recent_k?.local_imageUrl
-                    : env_url + recent_k?.local_imageUrl
+                  product.local_imageUrl.startsWith('productUpdator')
+                    ? env_url + 'media/' + product.local_imageUrl
+                    : env_url + product.local_imageUrl
                 "
                 :lazy-src="env_url + 'media/images/loading.gif'"
               ></v-img>
@@ -35,34 +36,25 @@
                 fab
                 right
                 small
-                @click="toDetail(recent_k?.id, recent_k?.name)"
+                @click="toDetail(product?.id, product?.name)"
               >
                 <v-icon>read_more</v-icon>
               </v-btn>
               <v-card-text class="pt-6">
-                <div class="grey--text text-caption" v-if="recent_k?.brand">
+                <div class="grey--text text-caption" v-if="product?.brand">
                   {{
-                    recent_k?.brand.includes("%20")
-                      ? recent_k?.brand.replaceAll("%20", " ").toUpperCase()
-                      : recent_k?.brand.toUpperCase()
+                    product?.brand.includes("%20")
+                      ? product?.brand.replaceAll("%20", " ").toUpperCase()
+                      : product?.brand.toUpperCase()
                   }}
                 </div>
                 <div class="grey--text mb-2" v-else>Brand</div>
                 <span class="font-weight-heavy black--text text-body-2">
-                  {{ recent_k?.name }}
+                  {{ product?.name }}
                 </span>
               </v-card-text>
             </v-card>
-            <v-card-text> </v-card-text>
           </v-col>
-          <v-btn
-            @click="recent_page_num += 1"
-            width="80"
-            class="mx-auto"
-            v-show="show_more_btn"
-            outlined
-            >더 보기</v-btn
-          >
         </v-row>
       </v-container>
     </v-col>
@@ -74,9 +66,8 @@
 <script>
 // @ is an alias to /src
 import loadingImg from "@/components/common/loadingPage.vue";
-import { mapGetters } from "vuex";
 
-const searchStore = "searchStore";
+import axios from "axios";
 
 export default {
   name: "CultureSupply",
@@ -89,9 +80,7 @@ export default {
       env_url: this.$store.state.prod_url,
       img_url: this.$store.state.imageUrl,
       isLoading: false,
-      no_recents: "아직 최근 본 상품이 없습니다.",
-      recent_page_num: 1,
-      show_more_btn: true,
+      products: null,
     };
   },
   methods: {
@@ -108,43 +97,12 @@ export default {
       }
     },
   },
-  computed: {
-    ...mapGetters(searchStore, ["GET_RECENT_VIEWS"]),
-    // img_url() {
-    //   return this.main_product?.local_imageUrl;
-    // },
-    recent_views() {
-      const recent_item_list = {
-        page: this.recent_page_num,
-        total_pages: this.GET_RECENT_VIEWS.length / 4,
-      };
-      // console.log("최근 조회 숫자 ", recent_item_list.total_pages);
-      if (this.GET_RECENT_VIEWS.length > 0) {
-        return this.GET_RECENT_VIEWS.slice(0, recent_item_list.page * 4);
-      } else {
-        return [];
-      }
-    },
-    show_recent_views() {
-      console.log("this.GET_RECENT_VIEWS", this.GET_RECENT_VIEWS);
-      if (this.GET_RECENT_VIEWS) {
-        return true;
-      } else {
-        return false;
-      }
-    },
+  computed: {},
+  created() {
+    axios.get(this.env_url + "kicks/sneaker/recent/").then((res) => {
+      this.products = res.data;
+    });
   },
-  created() {},
-  watch: {
-    recent_page_num() {
-      if (this.recent_page_num == 2) {
-        this.show_more_btn = false;
-      } else {
-        this.show_more_btn = true;
-      }
-    },
-  },
-
   filters: {
     desc_shortener(desc) {
       if (desc) {

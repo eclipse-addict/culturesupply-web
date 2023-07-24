@@ -108,7 +108,7 @@
       </v-sheet>
     </v-col>
     <v-col class="" dense sm="12" md="4" xl="4">
-      <v-card height="600">
+      <v-card height="760">
         <v-img
           class="ma-auto"
           :src="brand_logo"
@@ -151,6 +151,10 @@
           <span class="mr-5"> {{ kick?.sku }}</span>
           <span class="fw-bold ml-7">ColorWay : </span>
           <span> {{ kick?.colorway }}</span>
+          <v-divider></v-divider>
+        </v-card-text>
+        <v-card-text>
+          <InfoTabs :sku="kick?.sku" />
         </v-card-text>
       </v-card>
     </v-col>
@@ -290,14 +294,17 @@
 import axios from "axios";
 import swal from "sweetalert";
 import { mapActions } from "vuex";
+import InfoTabs from "@/components/sneakers/InfoTabs.vue";
 export default {
   name: "productDetail",
   components: {
-    // StarRating,
+    InfoTabs,
   },
   metaInfo() {
     return {
-      title: "KICKIN",
+      title: `킥인 | ${
+        this.kick?.name_kr ? this.kick?.name_kr : this.kick?.name
+      }`,
       meta: [
         {
           property: "og:name",
@@ -323,6 +330,7 @@ export default {
       img_base_url: this.$store.getters.get_env_url,
       overlay: false,
       dates: null,
+      tab: null,
       new_raffle: {
         title: null,
         winnerCount: 1,

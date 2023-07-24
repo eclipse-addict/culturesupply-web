@@ -222,13 +222,6 @@
         </div>
       </div>
     </v-row>
-    <!--    <InFeedAdsense-->
-    <!--      style="border: 1px solid black; margin-top: 10px"-->
-    <!--      data-ad-layout-key="-fg+5n+6t-e7+r"-->
-    <!--      data-ad-client="ca-pub-6048277531996552"-->
-    <!--      data-ad-slot="9648734008"-->
-    <!--    >-->
-    <!--    </InFeedAdsense>-->
     <GalleryLoadingCards v-if="!loadingComplete"> </GalleryLoadingCards>
     <v-row
       class="mt-sm-0 container d-flex justify-content-around"
@@ -238,7 +231,7 @@
       <v-col
         class="mt-13"
         cols="6"
-        sm="4"
+        sm="6"
         md="3"
         style="width: 25rem"
         v-for="(k, index) in search_result"
@@ -435,7 +428,7 @@ export default {
       sticky: false,
       loadingComplete: true,
       initialLoading: true,
-
+      searchConditionChanged: false,
       // search area related
       isLoading: false, // it chages every time user types into the input field
       outOfRange: false,
@@ -1168,6 +1161,23 @@ export default {
     },
   },
   created() {
+    let currentDate = new Date();
+
+    // 현재 날짜에서 2주를 뺀 날짜 계산
+    // let twoWeeksAgo = new Date(1900, 0, 1);
+    let twoWeeksAgo = new Date(
+      currentDate.getTime() - 14 * 24 * 60 * 60 * 1000
+    );
+    // 현재 날짜에서 2주를 더한 날짜 계산
+    let twoWeeksLater = new Date(
+      currentDate.getTime() + 14 * 24 * 60 * 60 * 1000
+    );
+
+    // 각 날짜를 원하는 포맷에 맞게 변환
+    let twoWeeksAgoFormatted = twoWeeksAgo.toISOString().substring(0, 10);
+    let twoWeeksLaterFormatted = twoWeeksLater.toISOString().substring(0, 10);
+    // 결과
+    this.dates = [twoWeeksAgoFormatted, twoWeeksLaterFormatted];
     //TODO: 페이지 헤더에 있는 검색 바에 검색어가 있으면 검색어를 통해 검색할 경우 실행
     // this.fetch_kicks();
   },
@@ -1218,9 +1228,13 @@ export default {
           this.overlay = false;
         }, 2000);
     },
-    brand() {
+    brand(oldVal, newVal) {
       if (this.brand == "") {
         this.brand = ["All"];
+      }
+
+      if (oldVal != newVal) {
+        this.searchConditionChanged = true;
       }
       // if (this.brand.length > 1 && this.brand.indexOf("All") == 0) {
       //   this.brand.shift();

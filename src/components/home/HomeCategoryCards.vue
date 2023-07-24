@@ -2,7 +2,7 @@
   <v-container class="pa-4 text-center">
     <v-row class="fill-height" align="center" justify="center">
       <template>
-        <v-col cols="12" md="12">
+        <v-col cols="3" md="3">
           <v-hover v-slot="{ hover }" close-delay="200">
             <v-card
               :elevation="hover ? 12 : 2"
@@ -11,7 +11,7 @@
             >
               <v-img
                 :src="hover ? All_card.gif_img : All_card.still_img"
-                height="225px"
+                height="125px"
                 contain
               >
                 <v-card-title class="text-h6 white--text">
@@ -40,117 +40,6 @@
           </v-hover>
         </v-col>
         <v-col cols="12" md="4">
-          <v-hover v-slot="{ hover }" close-delay="200">
-            <v-card
-              :elevation="hover ? 12 : 2"
-              :class="[{ 'on-hover': hover }, { card_hover: hover }]"
-            >
-              <v-img
-                :src="hover ? hyper_card.gif_img : hyper_card.still_img"
-                height="225px"
-                contain
-              >
-                <v-card-title class="text-h6 white--text">
-                  <v-row
-                    class="fill-height flex-column"
-                    justify="space-between"
-                  >
-                    <p class="mt-4 subheading text-left text-black main_font">
-                      {{ hyper_card.title }}
-                    </p>
-
-                    <div>
-                      <p
-                        class="ma-0 text-body-1 font-weight-bold font-italic text-left text-black main_font"
-                      >
-                        Jordan 1 Retro High OG SP
-                      </p>
-                      <p
-                        class="text-caption font-weight-medium font-italic text-left text-black main_font"
-                      >
-                        Fragment x Travis Scott
-                      </p>
-                    </div>
-                  </v-row>
-                </v-card-title>
-              </v-img>
-            </v-card>
-          </v-hover> </v-col
-        ><v-col cols="12" md="4">
-          <v-hover v-slot="{ hover }" close-delay="200">
-            <v-card
-              :elevation="hover ? 12 : 2"
-              :class="{ 'on-hover': hover }"
-              @click="searchByLabel(most_view_card.label)"
-            >
-              <v-img
-                contain
-                :src="hover ? most_view_card.gif_img : most_view_card.still_img"
-                height="225px"
-              >
-                <v-card-title class="text-h6 white--text">
-                  <v-row
-                    class="fill-height flex-column"
-                    justify="space-between"
-                  >
-                    <p class="mt-4 subheading text-left text-black main_font">
-                      {{ most_view_card.title }}
-                    </p>
-
-                    <div>
-                      <p
-                        class="ma-0 text-body-1 font-weight-bold font-italic text-left text-black main_font"
-                      >
-                        Jordan 1 Retro High OG SP
-                      </p>
-                      <p
-                        class="text-caption font-weight-medium font-italic text-left text-black main_font"
-                      >
-                        Fragment x Travis Scott
-                      </p>
-                    </div>
-                  </v-row>
-                </v-card-title>
-              </v-img>
-            </v-card>
-          </v-hover> </v-col
-        ><v-col cols="12" md="4">
-          <v-hover v-slot="{ hover }" close-delay="200">
-            <v-card
-              :elevation="hover ? 12 : 2"
-              :class="{ 'on-hover': hover }"
-              @click="searchByLabel(info_need.label)"
-            >
-              <v-img
-                contain
-                :src="hover ? info_need.gif_img : info_need.still_img"
-                height="225px"
-              >
-                <v-card-title class="text-h6 white--text">
-                  <v-row
-                    class="fill-height flex-column"
-                    justify="space-between"
-                  >
-                    <p class="mt-4 subheading text-left text-black main_font">
-                      {{ info_need.title }}
-                    </p>
-                    <div>
-                      <p
-                        class="ma-0 text-body-1 font-weight-bold font-italic text-left text-black main_font"
-                      >
-                        Jordan 1 Retro High OG SP
-                      </p>
-                      <p
-                        class="text-caption font-weight-medium font-italic text-left text-black main_font"
-                      >
-                        Fragment x Travis Scott
-                      </p>
-                    </div>
-                  </v-row>
-                </v-card-title>
-              </v-img>
-            </v-card>
-          </v-hover>
           <v-overlay :value="overlay">
             <div>
               <div class="typing-effect">

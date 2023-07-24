@@ -1,32 +1,26 @@
 <template>
   <v-app>
-    <!--    <template>-->
-    <!--      <div class="ad-container">-->
-    <!--        <Adsense-->
-    <!--          style="border: 1px solid black"-->
-    <!--          data-ad-client="ca-pub-6048277531996552"-->
-    <!--          data-ad-slot="9648734008"-->
-    <!--          data-ad-format="auto"-->
-    <!--          data-adtest="on"-->
-    <!--        >-->
-    <!--        </Adsense>-->
-    <!--      </div>-->
-    <!--    </template>-->
-    <HomeCategoryCards></HomeCategoryCards>
+    <HomeCarousel />
+    <v-divider></v-divider>
+    <RecentDrops />
+    <v-divider></v-divider>
     <CultureSupply />
-    <!--        <CultureSupplyBottom />      -->
+    <v-divider></v-divider>
+    <v-footer height="50"> </v-footer>
   </v-app>
 </template>
 
 <script>
 import CultureSupply from "../components/home/CultureSupply.vue";
-import HomeCategoryCards from "@/components/home/HomeCategoryCards.vue";
+import HomeCarousel from "@/components/home/HomeCarousel.vue";
+import RecentDrops from "@/components/home/RecentDrops.vue";
 
 export default {
   name: "HomeView",
   components: {
     CultureSupply,
-    HomeCategoryCards,
+    HomeCarousel,
+    RecentDrops,
   },
 };
 </script>

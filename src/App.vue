@@ -147,19 +147,6 @@
             </v-list-item-icon>
             <v-list-item-title>Raffle</v-list-item-title>
           </v-list-item>
-
-          <!--          <v-list-item @click="toCalendar">-->
-          <!--            <v-list-item-icon>-->
-          <!--              <span class="material-symbols-outlined">calendar_month</span>-->
-          <!--            </v-list-item-icon>-->
-          <!--            <v-list-item-title>Calendar</v-list-item-title>-->
-          <!--          </v-list-item>-->
-          <!--          <v-list-item @click="toAuction">-->
-          <!--            <v-list-item-icon>-->
-          <!--              <span class="material-symbols-outlined">gavel</span>-->
-          <!--            </v-list-item-icon>-->
-          <!--            <v-list-item-title>Auction</v-list-item-title>-->
-          <!--          </v-list-item>-->
           <v-list-item @click="signoutRequest">
             <v-list-item-icon>
               <span class="material-symbols-outlined"> logout </span>

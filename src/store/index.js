@@ -32,15 +32,15 @@ export default new Vuex.Store({
     get_env_url(state) {
       return state.prod_url;
     },
-    get_brand_list(state){
+    get_brand_list(state) {
       return state.brandGroup;
     },
-    get_category_list(state){
+    get_category_list(state) {
       return state.categoryGroup;
     },
-    get_img_url(state){
+    get_img_url(state) {
       return state.imageUrl;
-    }
+    },
   },
   mutations: {
     SET_USER_TOKEN(state, payload) {
@@ -171,7 +171,7 @@ export default new Vuex.Store({
   state: {
     prod_url: baseUrl,
     isLoading: true,
-    imageUrl: "https://www.kickin.co.kr/",
+    imageUrl: baseUrl,
     brandGroup: [
       "Nike",
       "adidas",
