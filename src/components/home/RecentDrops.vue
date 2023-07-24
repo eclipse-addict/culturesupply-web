@@ -1,7 +1,8 @@
 <template>
   <v-row>
     <v-col cols="12" class="d-block">
-      <p class="mb-0 ml-8">최근 발매 상품</p>
+      <p class="mb-0 ml-8 fw-bolder fs-5">최근 발매 상품</p>
+      <p class="ml-9">Recent Drops</p>
 
       <v-container>
         <v-row>

@@ -1,7 +1,8 @@
 <template>
   <v-row v-if="show_recent_views">
     <v-col cols="12" class="d-block">
-      <p class="mb-0 ml-8">최근 본 상품</p>
+      <p class="mb-0 ml-8 fs-5">최근 본 상품</p>
+      <p class="ml-9">recent Views</p>
       <v-container>
         <v-row>
           <v-col

@@ -39,7 +39,15 @@ export default defineComponent({
 
       axios.get(price_url).then((res) => {
         console.log("price check ", res.data);
-        this.price_result = res.data.result;
+        if (res.data.result == "no data") {
+          this.price_result = {
+            market_price: 0,
+            original_price: 0,
+            pricepremium_percentage: 0,
+          };
+        } else {
+          this.price_result = res.data.result;
+        }
       });
       const raffle_url =
         this.$store.state.prod_url + "release/sneaker/" + sku + "/";
@@ -86,7 +94,10 @@ export default defineComponent({
             <v-row v-ripple style="cursor: pointer">
               <v-col cols="4" class="fw-bolder mt-2">KREAM</v-col>
               <v-col cols="4" class="fw-bolder text-center mt-2">
-                {{ price_result?.market_price }} 원</v-col
+                {{
+                  price_result?.market_price ? price_result?.market_price : 0
+                }}
+                원</v-col
               >
               <v-col cols="4" class="fw-bolder text-center">
                 <v-chip>
