@@ -1,59 +1,48 @@
-  <template>
+<template>
   <div class="container">
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-    <v-btn absolute top left icon style="margin-top:7rem;" @click="toAgreement" v-bind="attrs" v-on="on">
-    <span class="material-symbols-outlined">arrow_back_ios_new</span>
-    </v-btn>
-    </template>
-    <span>개인정보동의 페이지로 가기</span>
+        <v-btn
+          absolute
+          top
+          left
+          icon
+          style="margin-top: 7rem"
+          @click="toAgreement"
+          v-bind="attrs"
+          v-on="on"
+        >
+          <span class="material-symbols-outlined">arrow_back_ios_new</span>
+        </v-btn>
+      </template>
+      <span>개인정보동의 페이지로 가기</span>
     </v-tooltip>
     <main>
-  <div class="px-5 text-center">
-    <h1 class="policyTitle pt-4 font-weight-bolder">JOIN</h1>
-    <h5 class="policyTitle">회원정보 입력</h5>
-    <hr>
-    <div class="justify-content-between">
-      <img src="" alt="" class="img-fluid center-block" >
-    </div>
-  </div>
+      <div class="px-5 text-center">
+        <h1 class="policyTitle pt-4 font-weight-bolder">JOIN</h1>
+        <h5 class="policyTitle">회원정보 입력</h5>
+        <hr />
+        <div class="justify-content-between">
+          <img src="" alt="" class="img-fluid center-block" />
+        </div>
+      </div>
 
       <div class="row d-flex">
         <!-- this section could be used to register add later -->
         <div
-          class="
-            col-md-5 col-lg-4 col-sm-4
-
-            d-none d-xl-block d-md-block
-            position-fixed
-            d-xl-block
-            border-1
-            shadow
-          "
+          class="col-md-5 col-lg-4 col-sm-4 d-none d-xl-block d-md-block position-fixed d-xl-block border-1 shadow"
           style="right: 0"
         >
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">required Check</span>
             <span
               v-if="!requiredChecks"
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-danger
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-danger me-10"
               >close</span
             >
             <span
               v-else
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-bg-primary
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-bg-primary me-10"
               >Done</span
             >
           </h4>
@@ -61,24 +50,12 @@
             <span class="align-middle">First Name</span>
             <span
               v-if="!firstName"
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-danger
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-danger me-10"
               >close</span
             >
             <span
               v-else
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-bg-primary
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-bg-primary me-10"
               >Done</span
             >
           </p>
@@ -86,24 +63,12 @@
             <span>Last Name</span>
             <span
               v-if="!lastName"
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-danger
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-danger me-10"
               >close</span
             >
             <span
               v-else
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-bg-primary
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-bg-primary me-10"
               >Done</span
             >
           </p>
@@ -111,24 +76,12 @@
             <span>nickName</span>
             <span
               v-if="!nickFinalCheck"
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-danger
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-danger me-10"
               >close</span
             >
             <span
               v-else
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-bg-primary
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-bg-primary me-10"
               >Done</span
             >
           </p>
@@ -136,24 +89,12 @@
             <span>E-mail Address</span>
             <span
               v-if="!email"
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-danger
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-danger me-10"
               >close</span
             >
             <span
               v-else
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-bg-primary
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-bg-primary me-10"
               >Done</span
             >
           </p>
@@ -161,24 +102,12 @@
             <span>Password</span>
             <span
               v-if="!password_is_valid"
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-danger
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-danger me-10"
               >close</span
             >
             <span
               v-else
-              class="
-                material-symbols-outlined
-                align-middle
-                float-right
-                text-bg-primary
-                me-10
-              "
+              class="material-symbols-outlined align-middle float-right text-bg-primary me-10"
               >Done</span
             >
           </p>
@@ -287,7 +216,9 @@
 
               <hr class="my-4" />
               <div class="col-12">
-                <label class="form-label">Avatar<span class="text-muted"></span></label>
+                <label class="form-label"
+                  >Avatar<span class="text-muted"></span
+                ></label>
                 <v-file-input
                   v-model="avatar"
                   show-size
@@ -296,24 +227,51 @@
                   placeholder="Pick an avatar"
                   prepend-icon="mdi-camera"
                   label="Avatar"
-                  
                 ></v-file-input>
               </div>
               <div class="col-12">
-              <label for="gender" class="form-label">Gender <span class="text-muted"></span></label>
-              <v-select :items="['Male', 'Female']" label="Gender" id="gender" v-model="gender"></v-select>
+                <label for="gender" class="form-label"
+                  >Gender <span class="text-muted"></span
+                ></label>
+                <v-select
+                  :items="['Male', 'Female']"
+                  label="Gender"
+                  id="gender"
+                  v-model="gender"
+                ></v-select>
               </div>
               <div class="col-12">
-              <label for="shoeSize" class="form-label">Pick your Shoe size <span class="text-muted"></span></label>
-              <v-select :items="shoeSize" label="shoe Size" id="shoeSize" v-model="pickedShoeSize"></v-select>
+                <label for="shoeSize" class="form-label"
+                  >Pick your Shoe size <span class="text-muted"></span
+                ></label>
+                <v-select
+                  :items="shoeSize"
+                  label="shoe Size"
+                  id="shoeSize"
+                  v-model="pickedShoeSize"
+                ></v-select>
               </div>
               <div class="col-12">
-              <label for="topSize" class="form-label">Pick your top size <span class="text-muted"></span></label>
-              <v-select :items="topSize" label="top Size" id="topSize" v-model="pickedTopSize"></v-select>
+                <label for="topSize" class="form-label"
+                  >Pick your top size <span class="text-muted"></span
+                ></label>
+                <v-select
+                  :items="topSize"
+                  label="top Size"
+                  id="topSize"
+                  v-model="pickedTopSize"
+                ></v-select>
               </div>
               <div class="col-12">
-              <label for="bottomSize" class="form-label">Pick your bottom size <span class="text-muted"></span></label>
-              <v-select :items="bottomSize" label="bottom Size" id="bottomSize" v-model="pickeBottomSize"></v-select>
+                <label for="bottomSize" class="form-label"
+                  >Pick your bottom size <span class="text-muted"></span
+                ></label>
+                <v-select
+                  :items="bottomSize"
+                  label="bottom Size"
+                  id="bottomSize"
+                  v-model="pickeBottomSize"
+                ></v-select>
               </div>
               <hr class="my-4" />
 
@@ -455,20 +413,23 @@
                 icon="mdi-home"
                 transition="scale-transition"
               >
-              필수 입력값이 누락되었습니다.
-                  <v-btn class="mx-1" small color="white"  @click="alert = !alert">
-                    <span class="material-symbols-outlined text-danger">close</span>
-                  </v-btn>
+                필수 입력값이 누락되었습니다.
+                <v-btn class="mx-1" small color="white" @click="alert = !alert">
+                  <span class="material-symbols-outlined text-danger"
+                    >close</span
+                  >
+                </v-btn>
               </v-alert>
             </div>
             <hr class="my-4" />
-            <button
+            <v-btn
               class="w-100 btn btn-primary btn-lg"
               type="submit"
               @click.prevent="signUp"
+              :loading="loading"
             >
               Sign up
-            </button>
+            </v-btn>
           </form>
         </div>
       </div>
@@ -485,19 +446,43 @@
   </div>
 </template>
 
-  <script>
+<script>
 import axios from "axios";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 // const prod_url = "http://localhost:8000/";
 export default {
   name: "userRegisterForm",
   data() {
     return {
-      shoeSize : ['200','205','210','215','220','225','230','235','240','245','250',
-      '255','260','265','270','275','280','285','290','295','300','310','315','320'],
-      topSize : ['XXS','XS','S','M','L','XL','XXL'],
-      bottomSize : ['XXS','XS','S','M','L','XL','XXL'],
+      shoeSize: [
+        "200",
+        "205",
+        "210",
+        "215",
+        "220",
+        "225",
+        "230",
+        "235",
+        "240",
+        "245",
+        "250",
+        "255",
+        "260",
+        "265",
+        "270",
+        "275",
+        "280",
+        "285",
+        "290",
+        "295",
+        "300",
+        "310",
+        "315",
+        "320",
+      ],
+      topSize: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
+      bottomSize: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
       alert: false,
       // 회원가입 필수 필드
       email: null,
@@ -505,19 +490,19 @@ export default {
       firstName: "",
       lastName: "",
       nickName: "",
+      loading: false,
 
-      
       // 회원가입 추가 필드
       avatar: null,
       postcode: "",
       address: "",
       extraAddress: "",
-      gender: '',
-      pickedShoeSize: '',
-      pickedTopSize: '',
-      pickeBottomSize: '',
+      gender: "",
+      pickedShoeSize: "",
+      pickedTopSize: "",
+      pickeBottomSize: "",
 
-      // 검사 필드 
+      // 검사 필드
       nickNameCheck: false,
       passwordCheck: false,
       emailCheck: false,
@@ -532,14 +517,21 @@ export default {
       email_msg: "",
       emailFinalCheck: false,
       rules: [
-        value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+        (value) =>
+          !value ||
+          value.size < 2000000 ||
+          "Avatar size should be less than 2 MB!",
       ],
     };
   },
   methods: {
     checkPassword() {
       const password = this.password;
-      if (!/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/.test(password)) {
+      if (
+        !/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/.test(
+          password
+        )
+      ) {
         this.passwordCheck = true;
         this.password_is_valid = false;
       } else {
@@ -562,7 +554,9 @@ export default {
         axios({
           method: "GET",
           url:
-            this.$store.state.prod_url+"user/nickcheck/?nick_name=" + this.nickName,
+            this.$store.state.prod_url +
+            "user/nickcheck/?nick_name=" +
+            this.nickName,
           params: { nickName: this.nickName },
         })
           .then((res) => {
@@ -596,7 +590,8 @@ export default {
 
         axios({
           method: "GET",
-          url: this.$store.state.prod_url+"user/emailcheck/?email=" + this.email,
+          url:
+            this.$store.state.prod_url + "user/emailcheck/?email=" + this.email,
           params: { email: this.email },
         })
           .then((res) => {
@@ -616,24 +611,23 @@ export default {
           });
       }
     },
-    userInfo_create(pk, token, data){
+    userInfo_create(pk, token, data) {
       console.log("userInfo", pk, token, data);
       axios({
         method: "POST",
-        ContentType: 'application/json',
-        url: this.$store.state.prod_url + "user/userinfo/"+pk+'/',
+        ContentType: "application/json",
+        url: this.$store.state.prod_url + "user/userinfo/" + pk + "/",
         headers: {
-          'Authorization':'Bearer '+token,
-          'Content-Type': 'multipart/form-data'
-          },
+          Authorization: "Bearer " + token,
+          "Content-Type": "multipart/form-data",
+        },
         data: data,
-      })
-      .then(res => {
+      }).then((res) => {
         console.log(res.status);
-        if (res.status == 201){
-          this.$emit('toFinalStep')
+        if (res.status == 201) {
+          this.$emit("toFinalStep");
         }
-      })
+      });
       // .then(() => this.$routet = {name:'home'});
     },
 
@@ -666,6 +660,7 @@ export default {
         };
         // this.$store.dispatch('signupRequest', payload)
         // http://localhost:8000/user/rest-auth/registration
+        this.loading = true;
         axios({
           method: "POST",
           url: this.$store.state.prod_url + "user/rest-auth/registration/",
@@ -678,7 +673,7 @@ export default {
           .then((res) => {
             //TODO: 회원가입 성공 여부에 따라 응답이 다를테니, 그에 맞게 처리해야 함.
             console.log(res);
-            this.$emit('toFinalStep')
+            this.$emit("toFinalStep");
             // if (res.status == 201) {
             //   const pk = res.data.user.pk
             //   const token = res.data.access_token
@@ -702,7 +697,7 @@ export default {
             //     profile_img,
             //     gender,
             //     shoeSize,
-            //     topSize,     
+            //     topSize,
             //     bottomSize,
             //     zipCode,
             //     address,
@@ -761,32 +756,29 @@ export default {
         },
       }).open();
     },
-    toAgreement(){
+    toAgreement() {
       swal("입력하신 정보가 모두 사라집니다.", {
-          title: "주의!",
-          buttons: {
-            catch: {
-              text: "확인",
-              value: "뒤로가기",
-            },
-            취소: true,
+        title: "주의!",
+        buttons: {
+          catch: {
+            text: "확인",
+            value: "뒤로가기",
           },
-        })
-        .then((value) => {
-          switch (value) {
-        
-            case "뒤로가기":
-              this.$emit('toAgreement')
-              break;
-        
-            case "취소":
-              break;
-        
-            default:
-              break;
-              
-          }
-        });
+          취소: true,
+        },
+      }).then((value) => {
+        switch (value) {
+          case "뒤로가기":
+            this.$emit("toAgreement");
+            break;
+
+          case "취소":
+            break;
+
+          default:
+            break;
+        }
+      });
     },
   }, //end of methods
   computed: {

@@ -1,3 +1,4 @@
+ㅣ
 <template>
   <v-container>
     <v-row
@@ -65,6 +66,7 @@
                 height="50"
                 width="230"
                 color="#DDDDDD"
+                :loading="loginRequestLoading"
               >
                 Sign in &nbsp;&nbsp;&nbsp;>>>
               </v-btn>
@@ -134,6 +136,7 @@ export default {
       isFailed: false,
       email: null,
       password: null,
+      loginRequestLoading: false,
     };
   },
   methods: {
@@ -152,6 +155,7 @@ export default {
         email,
         password,
       };
+      this.loginRequestLoading = true;
       // http://localhost:8000/user/dj-rest-auth/login/
       axios({
         method: "POST",

@@ -5,7 +5,7 @@
         rounded
         color="#D6E4E5"
         top
-        style="margin-top: 10px"
+        style="margin-top: 25px"
         max-width="500px"
         v-if="
           kick?.local_imageUrl == '' ||

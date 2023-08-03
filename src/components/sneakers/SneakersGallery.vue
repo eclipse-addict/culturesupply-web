@@ -360,20 +360,20 @@
               <div class="font-weight-light text-body-1">
                 {{ k.releaseDate }}
               </div>
-              <div class="mx-0">
-                <v-rating
-                  :value="k.rating_avg ? k.rating_avg : 0"
-                  dense
-                  readonly
-                  half-icon
-                  color="amber"
-                  background-color="orange"
-                  half-increments
-                  x-small
-                  style="display: inline-block"
-                ></v-rating>
-                <span class="grey--text ms-4">({{ k.review_count }})</span>
-              </div>
+              <!--              <div class="mx-0">-->
+              <!--                <v-rating-->
+              <!--                  :value="k.rating_avg ? k.rating_avg : 0"-->
+              <!--                  dense-->
+              <!--                  readonly-->
+              <!--                  half-icon-->
+              <!--                  color="amber"-->
+              <!--                  background-color="orange"-->
+              <!--                  half-increments-->
+              <!--                  x-small-->
+              <!--                  style="display: inline-block"-->
+              <!--                ></v-rating>-->
+              <!--                <span class="grey&#45;&#45;text ms-4">({{ k.review_count }})</span>-->
+              <!--              </div>-->
 
               <div class="grey--text text-caption">
                 {{ k.click }}
