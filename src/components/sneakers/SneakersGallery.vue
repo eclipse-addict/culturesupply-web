@@ -231,7 +231,7 @@
       <v-col
         class="mt-13"
         cols="6"
-        sm="6"
+        sm="4"
         md="3"
         style="width: 25rem"
         v-for="(k, index) in search_result"

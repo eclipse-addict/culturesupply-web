@@ -37,8 +37,4 @@ export default {
 .sneaker-main {
   background-color: rgb(239, 239, 239);
 }
-.backBtn {
-  margin-top: 10rem;
-  z-index: 1;
-}
 </style>

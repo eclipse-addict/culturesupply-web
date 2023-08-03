@@ -108,12 +108,6 @@
     </v-col>
     <v-col class="" dense sm="12" md="4" xl="4">
       <v-card height="760">
-        <v-img
-          class="ma-auto"
-          :src="brand_logo"
-          height="15"
-          width="100"
-        ></v-img>
         <v-card-title class="mt-0">
           <h5 class="mb-0">{{ kick?.name_kr ? kick?.name_kr : kick?.name }}</h5>
         </v-card-title>

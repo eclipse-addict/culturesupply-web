@@ -57,10 +57,13 @@
             <v-card-text> </v-card-text>
           </v-col>
           <v-btn
-            @click="recent_page_num += 1"
+            @click="
+              recent_page_num += 1;
+              isViewMoreClicked = true;
+            "
             width="80"
             class="mx-auto"
-            v-show="show_more_btn"
+            v-show="show_more_btn & !isViewMoreClicked"
             outlined
             >더 보기</v-btn
           >
@@ -92,7 +95,7 @@ export default {
       isLoading: false,
       no_recents: "아직 최근 본 상품이 없습니다.",
       recent_page_num: 1,
-      show_more_btn: true,
+      isViewMoreClicked: false,
     };
   },
   methods: {
@@ -134,18 +137,16 @@ export default {
         return false;
       }
     },
-  },
-  created() {},
-  watch: {
-    recent_page_num() {
-      if (this.recent_page_num == 2) {
-        this.show_more_btn = false;
+    show_more_btn() {
+      if (this.GET_RECENT_VIEWS.length >= 4) {
+        return true;
       } else {
-        this.show_more_btn = true;
+        return false;
       }
     },
   },
-
+  created() {},
+  watch: {},
   filters: {
     desc_shortener(desc) {
       if (desc) {
