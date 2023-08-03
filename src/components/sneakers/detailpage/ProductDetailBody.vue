@@ -101,7 +101,6 @@
             :lazy-src="env_url + 'media/images/loading.gif'"
             contain
             width="650"
-            height="700"
           >
           </v-img>
         </v-row>
@@ -112,14 +111,14 @@
         <v-img
           class="ma-auto"
           :src="brand_logo"
-          height="100"
+          height="15"
           width="100"
         ></v-img>
         <v-card-title class="mt-0">
-          <h5 class="mb-0">{{ kick?.name }}</h5>
+          <h5 class="mb-0">{{ kick?.name_kr ? kick?.name_kr : kick?.name }}</h5>
         </v-card-title>
         <v-card-subtitle v-if="kick?.name_kr">
-          {{ kick?.name_kr }}
+          {{ kick?.name_kr ? kick?.name : "" }}
         </v-card-subtitle>
         <v-card-text>
           <v-row>
@@ -138,20 +137,18 @@
         </v-card-text>
         <v-divider class="mx-4 text--black" light></v-divider>
         <v-card-text>
-          <span class="fw-bold">발매일 : </span>
-          <span class="mr-5"> {{ kick?.releaseDate }}</span>
-          <span class="fw-bold ml-5">발매금액 : </span>
-          <span>
-            USD: ${{ get_dollor }} / KRW: 약
-            {{ get_krw.toLocaleString() }}원</span
-          >
-        </v-card-text>
-        <v-card-text class="pt-0">
-          <span class="fw-bold">SKU : </span>
-          <span class="mr-5"> {{ kick?.sku }}</span>
-          <span class="fw-bold ml-7">ColorWay : </span>
-          <span> {{ kick?.colorway }}</span>
-          <v-divider></v-divider>
+          <v-row>
+            <v-col cols="12"
+              ><span class="fw-bolder">발매일</span> :
+              {{ kick?.releaseDate }}</v-col
+            >
+            <v-col cols="12"
+              >발매가 : USD: ${{ get_dollor }} / KRW: 약
+              {{ get_krw.toLocaleString() }}원</v-col
+            >
+            <v-col cols="12">SKU : {{ kick?.sku }}</v-col>
+            <v-col cols="12">ColorWay : {{ kick?.colorway }}</v-col>
+          </v-row>
         </v-card-text>
         <v-card-text>
           <InfoTabs :sku="kick?.sku" />

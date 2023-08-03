@@ -355,7 +355,7 @@
               </div>
               <div class="grey--text mb-2" v-else>Brand</div>
               <span class="font-weight-heavy black--text text-body-2">
-                {{ k.name }}
+                {{ k?.name_kr ? k?.name_kr : k?.name }}
               </span>
               <div class="font-weight-light text-body-1">
                 {{ k.releaseDate }}
@@ -935,14 +935,20 @@ export default {
         let currentDate = new Date();
 
         // 현재 날짜에서 2주를 뺀 날짜 계산
-        // let twoWeeksAgo = new Date(1900, 0, 1);
-        let twoWeeksAgo = new Date(
-          currentDate.getTime() - 14 * 24 * 60 * 60 * 1000
-        );
+        let twoWeeksAgo = new Date(1900, 0, 1);
+        // let twoWeeksAgo = new Date(
+        //   currentDate.getTime() - 14 * 24 * 60 * 60 * 1000
+        // );
         // 현재 날짜에서 2주를 더한 날짜 계산
         let twoWeeksLater = new Date(
           currentDate.getTime() + 14 * 24 * 60 * 60 * 1000
         );
+        // compare the two dates and if twoWeeksAgo is greater than twoWeeksLater then swap the dates
+        if (twoWeeksAgo > twoWeeksLater) {
+          let temp = twoWeeksAgo;
+          twoWeeksAgo = twoWeeksLater;
+          twoWeeksLater = temp;
+        }
 
         // 각 날짜를 원하는 포맷에 맞게 변환
         let twoWeeksAgoFormatted = twoWeeksAgo.toISOString().substring(0, 10);
@@ -1247,6 +1253,13 @@ export default {
         this.category.shift();
       } else if (this.category.length == 0) {
         this.category = ["All"];
+      }
+    },
+    dates() {
+      if (this.dates.length == 2) {
+        if (this.dates[0] > this.dates[1]) {
+          this.dates = [this.dates[1], this.dates[0]];
+        }
       }
     },
   },

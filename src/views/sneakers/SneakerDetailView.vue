@@ -1,56 +1,44 @@
 <template>
-    <v-row no-gutters>
-          <v-btn 
-            top
-            left
-            elevation="5"
-            max-width="68"
-            @click="$router.go(-1)"
-          >
-          뒤로가기
-          </v-btn>
-          <productDetailBody></productDetailBody>
-          <reviewList :product_id=product_id></reviewList>
-    </v-row>
-
-  
+  <v-row no-gutters>
+    <productDetailBody></productDetailBody>
+    <reviewList :product_id="product_id"></reviewList>
+  </v-row>
 </template>
 
 <script>
 // import axios from 'axios'
 
-import productDetailBody from '@/components/sneakers/detailpage/ProductDetailBody.vue'
-import reviewList from '@/components/sneakers/detailpage/ReviewList.vue'
+import productDetailBody from "@/components/sneakers/detailpage/ProductDetailBody.vue";
+import reviewList from "@/components/sneakers/detailpage/ReviewList.vue";
 export default {
-components: {
-  productDetailBody,
-  reviewList,
-},
-data() {
-  return {
-    kick : null,
-    reviews : null,
-    product_id: null,
-    total_pg_cnt : 0,
-    current_page: 1,
-    current_page_content : null
-  }
-},
-
-  methods: {
-    
-
+  components: {
+    productDetailBody,
+    reviewList,
   },
-computed: {
+  data() {
+    return {
+      kick: null,
+      reviews: null,
+      product_id: null,
+      total_pg_cnt: 0,
+      current_page: 1,
+      current_page_content: null,
+    };
+  },
 
-},
-  created(){
-    this.product_id = this.$route.params.id
-  } 
-}
+  methods: {},
+  computed: {},
+  created() {
+    this.product_id = this.$route.params.id;
+  },
+};
 </script>
 <style scoped>
-.sneaker-main{
+.sneaker-main {
   background-color: rgb(239, 239, 239);
+}
+.backBtn {
+  margin-top: 10rem;
+  z-index: 1;
 }
 </style>
