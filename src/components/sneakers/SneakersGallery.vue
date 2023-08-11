@@ -355,7 +355,7 @@
               </div>
               <div class="grey--text mb-2" v-else>Brand</div>
               <span class="font-weight-heavy black--text text-body-2">
-                {{ k?.name_kr ? k?.name_kr : k?.name }}
+                {{ k?.name }}
               </span>
               <div class="font-weight-light text-body-1">
                 {{ k.releaseDate }}

@@ -22,6 +22,7 @@
           <PointHistory
             v-else-if="current_tap == 'point_history'"
           ></PointHistory>
+          <LikeList v-else-if="current_tap == 'like_list'"></LikeList>
         </v-col>
       </v-row>
     </v-main>
@@ -36,6 +37,7 @@ import UserInfoUpdateForm from "@/components/user/profile/UserInfoUpdateForm.vue
 import PasswordChange from "@/components/user/profile/PasswordChange.vue";
 import ProductRegistBoard from "@/components/user/profile/ProductRegistBoard.vue";
 import PointHistory from "@/components/user/profile/PointHistory.vue";
+import LikeList from "@/components/user/profile/LikeList.vue";
 // import axios from "axios";
 export default {
   name: "UserPage",
@@ -47,6 +49,7 @@ export default {
     PasswordChange,
     ProductRegistBoard,
     PointHistory,
+    LikeList,
   },
   data() {
     return {

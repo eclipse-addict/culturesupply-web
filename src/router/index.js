@@ -118,6 +118,15 @@ const routes = [
     meta: { requiresAuth: false },
   },
   {
+    path: "/loading",
+    name: "loading",
+    component: () =>
+      import(
+        /* webpackChunkName: "loading" */ "../views/common/LoadingView.vue"
+      ),
+    meta: { requiresAuth: false },
+  },
+  {
     path: "/404",
     name: "NotFound404",
     component: NotFound404,

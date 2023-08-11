@@ -61,7 +61,7 @@ export default new Vuex.Store({
       state.user_data.nick_name = payload.nick_name;
       state.user_data.profile_img = payload.profile_img
         ? baseUrl + payload.profile_img
-        : null;
+        : "";
 
       state.user_data.shoeSize = payload.shoeSize;
       state.user_data.topSize = payload.topSize;
@@ -81,6 +81,7 @@ export default new Vuex.Store({
       state.user_data.pk = null;
 
       window.localStorage.removeItem("user");
+      window.localStorage.removeItem("vuex");
     },
     SET_REFRESH_TOKEN(state, payload) {
       state.user_data.access_token = payload.access;
@@ -95,9 +96,16 @@ export default new Vuex.Store({
       console.log("SET_LOADING_STATE CALLED, payload: ", payload);
       state.isLoading = payload;
     },
+    SET_KAKAO_PROFILE(state, payload) {
+      state.user_data.social_profile_img = payload.profile_img;
+      state.user_data.social_nick_name = payload.nickname;
+    },
   },
 
   actions: {
+    setSocialProfile(context, payload) {
+      context.commit("SET_KAKAO_PROFILE", payload);
+    },
     signinRequest(context, payload) {
       // form component 에서 로그인 요청 후,
       //결과에 따라서 세션 저장하러 vuex action 호출
@@ -141,6 +149,7 @@ export default new Vuex.Store({
           console.log("access_token expired", error.response.status);
           if (error.response.status == 401) {
             context.commit("DELETE_USER_TOKEN");
+            window.localStorage.clear();
           }
         });
     },
@@ -564,6 +573,9 @@ export default new Vuex.Store({
       topSize: null,
       bottomSize: null,
       shoeSize: null,
+
+      social_profile_img: null,
+      social_nick_name: null,
 
       zipCode: null,
       address: null,

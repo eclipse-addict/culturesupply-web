@@ -68,7 +68,7 @@
                 color="#DDDDDD"
                 :loading="loginRequestLoading"
               >
-                Sign in &nbsp;&nbsp;&nbsp;>>>
+                로그인 &nbsp;&nbsp;&nbsp;>>>
               </v-btn>
             </v-col>
             <v-col class="d-block d-lg-none d-flex justify-center">
@@ -78,27 +78,24 @@
                 width="230"
                 color="#DDDDDD"
               >
-                Sign up &nbsp;&nbsp;&nbsp;&nbsp;>>>
+                회원가입 &nbsp;&nbsp;&nbsp;&nbsp;>>>
               </v-btn>
             </v-col>
             <v-col class="d-flex justify-center">
-              <v-btn @click="googleSignIn" color="red" dark height="48">
-                <v-icon left>mdi-google</v-icon>
-                Sign in with Google
+              <v-btn
+                color="#FEE500"
+                href="#"
+                height="48"
+                width="230"
+                @click="kakao_login"
+              >
+                <img
+                  src="@/assets/images/logos/kakao_login_medium_narrow.png"
+                  width="230"
+                  class="kakao_hover"
+                />
               </v-btn>
             </v-col>
-            <v-col class="d-flex justify-center">
-              <v-btn color="#FEE500" href="#" height="48">
-                <i class="icon-kakaotalk"></i>
-                Sign in with Kakao
-              </v-btn>
-            </v-col>
-            <!-- <v-col class="d-flex justify-center">
-              <v-btn color="#06CF5D" href="#" height="48">
-                <i class="icon-kakaotalk"></i>
-                Sign in with Naver
-              </v-btn>
-            </v-col> -->
           </v-row>
         </form>
       </v-col>
@@ -117,7 +114,7 @@
           만들어가는 KickIn의 세상을 함께 만들어보세요!
         </p>
         <v-btn @click="toAgreement" height="50" width="230" color="#DDDDDD">
-          Sign up
+          회원가입
         </v-btn>
       </v-col>
     </v-row>
@@ -140,6 +137,14 @@ export default {
     };
   },
   methods: {
+    kakao_login() {
+      console.log("KAKAO TEST", window.Kakao.isInitialized());
+      window.Kakao.Auth.authorize({
+        redirectUri: "http://localhost:8080/loading/",
+      });
+      // window.Kakao.Auth.authorize({ redirectUri: "${http://localhost:8080/}" });
+    },
+
     toAgreement() {
       this.$router.push({ path: "/agreement" });
     },
@@ -241,5 +246,8 @@ export default {
 <style scoped>
 .mouse-over-pointer {
   cursor: pointer;
+}
+.kakao_hover:hover {
+  filter: brightness(0.9);
 }
 </style>

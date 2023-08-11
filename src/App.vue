@@ -103,7 +103,11 @@
             <v-list-item-avatar size="28">
               <v-img
                 v-if="this.$store.state.user_data.profile_img"
-                :src="this.$store.state.user_data.profile_img"
+                :src="
+                  this.$store.state.user_data.social_profile_img
+                    ? this.$store.state.user_data.social_profile_img
+                    : this.$store.state.user_data.profile_img
+                "
               ></v-img>
               <v-img v-else src="@/assets/images/user.png"></v-img>
             </v-list-item-avatar>
@@ -147,7 +151,10 @@
             </v-list-item-icon>
             <v-list-item-title>Raffle</v-list-item-title>
           </v-list-item>
-          <v-list-item @click="signoutRequest">
+          <v-list-item
+            @click="signoutRequest"
+            v-show="this.$store.state.user_data.access_token"
+          >
             <v-list-item-icon>
               <span class="material-symbols-outlined"> logout </span>
             </v-list-item-icon>
@@ -207,13 +214,7 @@ export default {
     selectedAction: null,
     isScrollDown: false,
     scrollTop: 0,
-    ranking: [
-      "SUPREME",
-      "JORDAN 1",
-      "JORDAN 1 TRAVIS SCOTT",
-      "SPIDER-MAN",
-      "OFF-WHITE",
-    ],
+    ranking: ["SUPREME", "JORDAN 1", "Yeezy", "Dunk", "Air Force 1"],
   }),
   mounted() {
     setTimeout(() => {

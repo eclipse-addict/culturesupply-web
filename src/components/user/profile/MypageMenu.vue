@@ -62,6 +62,7 @@ export default {
       ["회원 탈퇴", "mdi-exit-run", "delete_user"],
     ],
     cruds: [
+      ["좋아요 목록", "mdi-heart", "like_list"],
       ["응모 내역", "mdi-medal-outline"],
       ["포인트", "mdi-cash-check", "point_history"],
       ["등록한 제품 정보", "mdi-pen", "product_regist"],

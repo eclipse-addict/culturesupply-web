@@ -40,11 +40,24 @@
               type="text"
               class="form-control"
               id="nickname"
+              placeholder="nickname"
+              required
+              :value="this.$store.state.user_data.social_nick_name"
+              disabled
+              v-if="this.$store.state.user_data.social_nick_name"
+            />
+
+            <input
+              type="text"
+              class="form-control"
+              id="nickname"
               @input="nickName_duplicate_check"
               placeholder="nickname"
               required
               v-model="nickName"
+              v-else
             />
+
             <div class="validator" v-show="nickNameCheck">
               닉네임은 3글자 이상 입력되어야 합니다.
             </div>
@@ -55,6 +68,12 @@
               v-html="nickName_msg"
             ></div>
           </div>
+          <p
+            class="text-sm-subtitle-2 mt-8 fw-lighter"
+            v-if="this.$store.state.user_data.social_nick_name"
+          >
+            소셜 로그인 회원은 닉네임 수정이 제한됩니다.
+          </p>
         </div>
 
         <div class="col-12">
@@ -84,7 +103,26 @@
         <h5>Optional</h5>
 
         <hr class="my-4" />
-        <div class="col-12">
+
+        <div
+          class="col-12"
+          v-if="this.$store.state.user_data.social_profile_img"
+        >
+          <label class="form-label"
+            >Avatar<span class="text-muted"></span
+          ></label>
+          <div class="col-12">
+            <v-avatar class="profile" color="grey" size="130">
+              <v-img
+                :src="this.$store.state.user_data.social_profile_img"
+              ></v-img>
+            </v-avatar>
+            <p class="text-sm-subtitle-2 mt-8 fw-lighter">
+              소셜 로그인 회원은 프로필 사진 변경이 제한됩니다.
+            </p>
+          </div>
+        </div>
+        <div class="col-12" v-else>
           <label class="form-label"
             >Avatar<span class="text-muted"></span
           ></label>
@@ -333,9 +371,22 @@ export default {
           value.size < 2000000 ||
           "프로필 이미지 사이즈는 4 MB를 초과할 수 없습니다.!",
       ],
+      isLeaveSite: false,
     };
   },
+  mounted() {
+    window.addEventListener("beforeunload", this.unLoadEvent);
+  },
+  beforeUnmount() {
+    window.removeEventListener("beforeunload", this.unLoadEvent);
+  },
   methods: {
+    unLoadEvent: function (event) {
+      if (this.isLeaveSite) return;
+
+      event.preventDefault();
+      event.returnValue = "";
+    },
     nickName_duplicate_check() {
       this.nickName_msg = "";
       this.nickName_is_valid = false;

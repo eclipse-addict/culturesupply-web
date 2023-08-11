@@ -30,6 +30,16 @@ export default defineComponent({
       return Math.floor(this.price_result?.pricepremium_percentage);
     },
   },
+  methods: {
+    toKream() {
+      if (this.price_result.market_price > 0) {
+        window.open(
+          "https://kream.co.kr/search?keyword=" + this.$props.sku,
+          "_blank"
+        );
+      }
+    },
+  },
   mounted() {
     setTimeout(() => {
       const sku = this.$props.sku;
@@ -55,7 +65,7 @@ export default defineComponent({
         console.log("raffle check ", res.data);
         this.raffles = res.data;
       });
-    }, 1000);
+    }, 1500);
   },
 });
 </script>
@@ -76,44 +86,51 @@ export default defineComponent({
           border-bottom: 0.5px solid #3498db !important;
           cursor: pointer;
         "
-        v-ripple
+        v-ripple="raffles.length > 0"
       >
         <v-col cols="12">
           <v-col cols="12" class="fw-bolder">{{ raffle?.site_name }}</v-col>
-          <v-col cols="12" class="fa-1x">
+          <v-col cols="12" class="fa-1x text-center" style="cursor: default">
             {{ raffle?.date_info }}
-          </v-col></v-col
-        >
+            <p v-show="raffles">현재 진행중인 발매정보가 없습니다.</p>
+            <p><v-icon>mdi-emoticon-sad-outline</v-icon></p>
+          </v-col>
+        </v-col>
+
         <v-divider></v-divider>
       </v-row>
     </v-card>
-    <v-card v-else class="p-4 mt-3">
-      <v-row v-if="price_result">
-        <v-card flat>
+    <v-card v-else class="p-1 mt-2">
+      <v-row v-if="price_result && price_result.market_price > 0">
+        <v-card flat @click="toKream">
           <v-card-text>
             <v-row v-ripple style="cursor: pointer">
-              <v-col cols="4" class="fw-bolder mt-2">KREAM</v-col>
-              <v-col cols="4" class="fw-bolder text-center mt-2">
+              <v-col cols="4" class="fw-bolder mt-2 price_info">KREAM</v-col>
+              <v-col cols="4" class="fw-bolder text-center mt-2 price_info">
                 {{
                   price_result?.market_price ? price_result?.market_price : 0
                 }}
                 원</v-col
               >
-              <v-col cols="4" class="fw-bolder text-center">
-                <v-chip>
-                  <v-icon>mdi-chart-line-variant</v-icon
-                  >{{ remove_decimal }}%</v-chip
-                ></v-col
-              >
+              <v-col cols="4" class="fw-bolder text-center mt-2 price_info">
+                <span class="price_info">{{ remove_decimal }}%</span>
+              </v-col>
             </v-row>
           </v-card-text>
         </v-card>
       </v-row>
-      <v-row v-else>
-        <v-col cols="12" class="fa-1x"> 아직 시세 정보가 없습니다.</v-col>
+      <v-row v-else class="text-center">
+        <v-col cols="12" class="fa-1x mt-15"> 아직 시세 정보가 없습니다.</v-col>
+        <v-col cols="12" class="fa-1x mb-15"
+          ><v-icon>mdi-emoticon-sad-outline</v-icon>
+        </v-col>
       </v-row>
     </v-card>
   </v-card>
 </template>
 
-<style scoped></style>
+<style scoped>
+.price_info {
+  font-size: 0.8rem;
+}
+</style>

@@ -3,7 +3,13 @@
     <v-row align="start" class="fill-height">
       <v-col align-self="start" class="pa-10" cols="3">
         <v-avatar class="profile" color="grey" size="130">
-          <v-img :src="get_user_data.profile_img"></v-img>
+          <v-img
+            :src="
+              this.$store.state.user_data.social_profile_img
+                ? this.$store.state.user_data.social_profile_img
+                : this.$store.state.user_data.profile_img
+            "
+          ></v-img>
         </v-avatar>
       </v-col>
       <v-col class="" cols="12" sm="7">
@@ -12,7 +18,13 @@
             <v-list-item-title class="text-h6 border-bottom pb-2">
               {{ get_user_data.email }}
             </v-list-item-title>
-            <v-list-item-subtitle class="pt-2">
+            <v-list-item-subtitle
+              class="pt-2"
+              v-if="this.$store.state.user_data.social_nick_name"
+            >
+              {{ this.$store.state.user_data.social_nick_name }}
+            </v-list-item-subtitle>
+            <v-list-item-subtitle class="pt-2" v-else>
               {{
                 get_user_data.nick_name
                   ? get_user_data.nick_name
