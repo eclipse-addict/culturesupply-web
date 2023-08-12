@@ -140,7 +140,7 @@ export default {
     kakao_login() {
       console.log("KAKAO TEST", window.Kakao.isInitialized());
       window.Kakao.Auth.authorize({
-        redirectUri: "http://localhost:8080/loading/",
+        redirectUri: "https://kickin.kr/loading/",
       });
       // window.Kakao.Auth.authorize({ redirectUri: "${http://localhost:8080/}" });
     },

@@ -31,7 +31,7 @@ export default defineComponent({
     console.log("code: ", code);
     axios({
       method: "POST",
-      url: "http://localhost:8000/user/kakao/login/",
+      url: this.$store.getters.getProdUrl + "user/kakao/login/",
       data: {
         code: code,
       },
